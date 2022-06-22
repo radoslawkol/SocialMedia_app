@@ -1,0 +1,11 @@
+@import "../../sass/index.scss";
+
+.LoginInput {
+	padding: 1rem;
+	border: 1px solid $primary-color;
+	border-radius: 20px;
+	transition: outline 0.3s;
+	&:focus {
+		outline: $secondary-color solid 1px;
+	}
+}

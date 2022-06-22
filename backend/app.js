@@ -29,6 +29,7 @@ app.use(cors(corsOptions));
 app.get("/", (req, res) => {
 	res.send("hello");
 });
-app.use("/user/", userRouter);
+
+app.use("/api/v1/users", userRouter);
 
 module.exports = app;

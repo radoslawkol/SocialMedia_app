@@ -1,0 +1,92 @@
+@import "../../sass/index.scss";
+
+.login {
+	padding-top: 5rem;
+	width: 100vw;
+	height: 100vh;
+	background-color: $primary-background;
+	@include media-size(medium-large) {
+		display: flex;
+		align-items: baseline;
+		padding: 5rem;
+	}
+
+	&__left-side {
+	}
+
+	&__image {
+		display: none;
+		@include media-size(medium-large) {
+			display: block;
+			width: 40rem;
+			position: absolute;
+			bottom: 20rem;
+		}
+		@include media-size(extra-large) {
+			width: 45rem;
+			position: absolute;
+			bottom: 25rem;
+		}
+	}
+
+	&__heading {
+		margin-bottom: 2rem;
+		font-size: 3.4rem;
+		font-weight: 700;
+		color: $secondary-color;
+	}
+
+	&__content {
+		padding: 3rem;
+		text-align: center;
+		@include media-size(medium-large) {
+			text-align: left;
+		}
+	}
+	&__text {
+		color: $primary-color;
+		font-size: 1.8rem;
+	}
+	&__wave {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+	}
+}
+
+.formContainer {
+	background-color: $secondary-background;
+	margin: 0 auto;
+	padding: 4rem;
+	border-radius: 15px;
+	width: 30rem;
+	@include media-size(medium-large) {
+		width: 35rem;
+		align-self: center;
+	}
+	@include media-size(extra-large) {
+		width: 40rem;
+		transform: translateY(-8rem);
+	}
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	gap: 3rem;
+}
+
+.forgot {
+	display: inline-block;
+	padding: 2rem 0;
+	text-align: center;
+	font-size: 1.2rem;
+	color: $secondary-color;
+	text-decoration: none;
+}
+
+.createBtn {
+	display: block;
+	margin: 0 auto;
+	width: 100%;
+}

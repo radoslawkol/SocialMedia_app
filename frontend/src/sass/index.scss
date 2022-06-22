@@ -1,0 +1,82 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+$primary-background: #eeeeee;
+$secondary-background: #fff;
+$green-background: #18d837;
+
+$primary-color: #323232;
+$secondary-color: #8f00ff;
+$white-color: #fff;
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-family: "Roboto", "sans-serif";
+}
+
+.btn {
+	border: none;
+	border-radius: 20px;
+	padding: 1rem;
+	&--purple {
+		background-color: $secondary-color;
+		color: $white-color;
+		transition: background-color 0.3s transform 0.3s;
+		&:hover {
+			transform: scale(0.98);
+			background-color: rgba($secondary-color, 0.8);
+		}
+	}
+	&--green {
+		background-color: $green-background;
+		color: $white-color;
+		transition: background-color 0.3s transform 0.3s;
+		&:hover {
+			transform: scale(0.98);
+			background-color: rgba($green-background, 0.8);
+		}
+	}
+	&:hover {
+		cursor: pointer;
+	}
+}
+
+$x-large: 1200px;
+
+$breakpoints: (
+	"small": (
+		min-width: 576px,
+	),
+	"medium": (
+		min-width: 776px,
+	),
+	"large": (
+		min-width: 992px,
+	),
+	"medium-large": (
+		min-width: 1200px,
+	),
+	"extra-large": (
+		min-width: 1400px,
+	),
+	"big": (
+		min-width: 1600px,
+	),
+);
+
+@mixin media-size($breakpoint) {
+	@if map-has-key($breakpoints, $breakpoint) {
+		@media #{inspect(map-get($breakpoints, $breakpoint))} {
+			@content;
+		}
+	} @else {
+		@warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+        + "Available breakpoints are: #{map-keys($breakpoints)}.";
+	}
+}
