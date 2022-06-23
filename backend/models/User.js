@@ -1,5 +1,11 @@
 const mongoose = require("mongoose");
-const { validateEmail } = require("../helpers/validation");
+// const { validateEmail } = require("../helpers/validationFunc"); // cause error with mongoose findOne is not a function  Don't import file to model file, which import model
+const validateEmail = (email) => {
+	return String(email)
+		.toLowerCase()
+		.match(/^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,12})(\.[a-z]{2,12})?$/);
+};
+
 const bcrypt = require("bcrypt");
 
 const userSchema = new mongoose.Schema(
@@ -16,7 +22,6 @@ const userSchema = new mongoose.Schema(
 			type: String,
 			unique: true,
 			trim: true,
-			required: [true, "Username is required"],
 		},
 		email: {
 			type: String,
