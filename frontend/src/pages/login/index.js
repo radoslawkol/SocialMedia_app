@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Formik, Form } from "formik";
-import * as yup from "yup";
+import * as Yup from "yup";
 import classes from "./login.module.scss";
 import LoginInput from "../../components/login/LoginInput";
 import wave from "../../images/wave.svg";
@@ -8,12 +8,33 @@ import { Link } from "react-router-dom";
 import image from "../../images/online_connection.svg";
 import RegisterModal from "../../components/login/RegisterModal";
 
+const loginInfos = {
+	email: "",
+	password: "",
+};
+
 export default function Login() {
 	const [modalVisible, setModalVisible] = useState(false);
+	const [login, setLogin] = useState(loginInfos);
+	const { email, password } = login;
 
 	const showModalHandler = () => {
 		setModalVisible(true);
 	};
+
+	const loginChangeHandler = (e) => {
+		const { name, value } = e.target;
+		setLogin({ ...login, [name]: value });
+	};
+
+	const loginSchema = Yup.object({
+		email: Yup.string()
+			.email("Invalid email.")
+			.required("Email is required.")
+			.max(100, "Email can't be longer than 100 characters."),
+		password: Yup.string().min(6).max(20).required("Password is required."),
+	});
+
 	return (
 		<div className={classes.login}>
 			<div className={classes["login__left-side"]}>
@@ -30,24 +51,32 @@ export default function Login() {
 			</div>
 			<div className={classes.formContainer}>
 				<Formik
+					enableReinitialize
 					initialValues={{
-						email: "",
-						password: "",
+						email,
+						password,
 					}}
+					validationSchema={loginSchema}
 				>
 					<Form className={classes.form}>
 						<LoginInput
 							name='email'
 							type='email'
+							value={email}
 							placeholder='Email address'
+							onChange={loginChangeHandler}
 						></LoginInput>
 						<LoginInput
 							name='password'
 							type='password'
+							value={password}
 							placeholder='Password'
+							onChange={loginChangeHandler}
 						></LoginInput>
 
-						<button className={`btn btn--purple`}>Log in</button>
+						<button type='submit' className={`btn btn--purple`}>
+							Log in
+						</button>
 					</Form>
 				</Formik>
 				<div style={{ textAlign: "center" }}>

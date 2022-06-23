@@ -10,6 +10,13 @@
 	transform: translate(-50%, -50%);
 	background-color: $secondary-background;
 	border-radius: 15px;
+	z-index: 3;
+	@include media-size(extra-large) {
+		width: 40rem;
+	}
+	@include media-size(large) {
+		width: 38rem;
+	}
 
 	&__close {
 		position: absolute;
@@ -75,6 +82,29 @@
 		width: 20rem;
 		margin: 2rem auto 0.5rem;
 	}
+
+	&__error {
+		position: relative;
+		width: 100%;
+		margin-top: 0.5rem;
+		padding: 1rem;
+		font-size: 1.2rem;
+		border-radius: 15px;
+		background-color: red;
+		color: white;
+	}
+
+	&__arrow {
+		position: absolute;
+		top: -5px;
+		left: 10px;
+		width: 0;
+		height: 0;
+		display: inline;
+		border-left: 10px solid transparent;
+		border-right: 10px solid transparent;
+		border-bottom: 10px solid red;
+	}
 }
 
 .backdrop {
@@ -85,4 +115,5 @@
 	height: 100%;
 	background-color: $backdrop-color;
 	backdrop-filter: blur(3px);
+	z-index: 2;
 }

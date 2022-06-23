@@ -1,6 +1,7 @@
 @import "../../sass/index.scss";
 
 .LoginInput {
+	width: 100%;
 	padding: 1rem;
 	border: 1px solid $primary-color;
 	border-radius: 20px;
@@ -8,4 +9,34 @@
 	&:focus {
 		outline: $secondary-color solid 1px;
 	}
+	&--error {
+		border: 1px solid red;
+	}
+}
+
+.inputWrap {
+	width: 100%;
+}
+
+.error_message {
+	position: relative;
+	width: 100%;
+	margin-top: 0.5rem;
+	padding: 1rem;
+	font-size: 1.2rem;
+	border-radius: 15px;
+	background-color: red;
+	color: white;
+}
+
+.error_arrow {
+	position: absolute;
+	top: -5px;
+	left: 10px;
+	width: 0;
+	height: 0;
+	display: inline;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	border-bottom: 10px solid red;
 }

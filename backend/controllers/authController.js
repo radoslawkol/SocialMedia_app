@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const { generateToken } = require("../helpers/tokens");
 const {
 	validateEmail,
 	validateLength,
@@ -27,14 +28,14 @@ exports.register = async (req, res) => {
 			});
 		}
 
-		const findEmail = await User.findOne({ email });
+		// const check = await User.findOne({ email });
 
-		if (findEmail) {
-			return res.status(400).json({
-				status: "fail",
-				message: "Email already exists.",
-			});
-		}
+		// if (check) {
+		// 	return res.status(400).json({
+		// 		status: "fail",
+		// 		message: "Email already exists.",
+		// 	});
+		// }
 
 		if (!validateLength(firstName, 2, 20)) {
 			return res.status(400).json({
@@ -61,7 +62,7 @@ exports.register = async (req, res) => {
 			firstName,
 			lastName,
 			email,
-			username: newUsername,
+			username,
 			password,
 			confirmPassword,
 			gender,
@@ -70,10 +71,39 @@ exports.register = async (req, res) => {
 			bDay,
 		});
 
+		const token = generateToken({ id: user._id.toString() }, "30m");
 		res.status(201).json({
 			status: "success",
 			user,
 		});
+	} catch (err) {
+		console.log(err);
+		res.status(500).json({
+			status: "fail",
+			message: err.message,
+		});
+	}
+};
+
+exports.login = async (req, res) => {
+	try {
+		const { email, password } = req.body;
+
+		const user = await User.findOne({ email });
+
+		if (!email) {
+			return res.status(400).json({
+				status: "fail",
+				message: "Invalid credentials",
+			});
+		}
+
+		if (user.password !== password) {
+			return res.status(400).json({
+				status: "fail",
+				message: "Invalid credentials",
+			});
+		}
 	} catch (err) {
 		console.log(err);
 		res.status(500).json({
