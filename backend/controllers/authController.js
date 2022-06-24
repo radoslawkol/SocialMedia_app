@@ -1,5 +1,8 @@
 const User = require("../models/User");
 const { generateToken } = require("../helpers/tokens");
+const { sendVerificationEmail } = require("../helpers/mailer");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const {
 	validateUsername,
@@ -71,13 +74,51 @@ exports.register = async (req, res) => {
 			bDay,
 		});
 
-		const token = generateToken({ id: user._id.toString() }, "30m");
+		const token = generateToken({ id: user._id.toString() }, "7d");
+
+		const url = `${process.env.BASE_URL}/activate/${token}`;
+		sendVerificationEmail(email, firstName, url);
+
 		res.status(201).json({
 			status: "success",
-			user,
+			message: "Register success! Please activate your email to start.",
+			user: {
+				id: user._id,
+				username: user.username,
+				picture: user.picture,
+				firstName: user.firstName,
+				lastName: user.lastName,
+				token,
+				verified: user.verified,
+			},
 		});
 	} catch (err) {
-		console.log(err);
+		res.status(500).json({
+			status: "fail",
+			message: err.message,
+		});
+	}
+};
+
+exports.activateAccount = async (req, res) => {
+	try {
+		const { token } = req.body;
+		const user = jwt.verify(token, process.env.JWT_SECRET_KEY);
+
+		const isUserAlreadyActivated = await User.findById(user.id);
+
+		if (isUserAlreadyActivated.verified) {
+			return res
+				.status(400)
+				.json({ message: "This account is already activated." });
+		} else {
+			await User.findByIdAndUpdate(user.id, { verified: true });
+			return res.status(200).json({
+				status: "success",
+				message: "Account has been activated successfully.",
+			});
+		}
+	} catch (err) {
 		res.status(500).json({
 			status: "fail",
 			message: err.message,
@@ -91,21 +132,35 @@ exports.login = async (req, res) => {
 
 		const user = await User.findOne({ email });
 
-		if (!email) {
+		if (!user) {
 			return res.status(400).json({
 				status: "fail",
 				message: "Invalid credentials",
 			});
 		}
+		const isPasswordCorrect = await bcrypt.compare(password, user.password);
+		if (!isPasswordCorrect) {
+			return res.status(400).json({
+				status: "fail",
+				message: "Invalid credentials. Please try again!",
+			});
+		}
+		const token = generateToken({ id: user._id.toString() }, "7d");
 
-		if (user.password !== password) {
-			return res.status(400).json({
-				status: "fail",
-				message: "Invalid credentials",
-			});
-		}
+		res.status(200).json({
+			status: "success",
+			message: "You are logged in successfully.",
+			user: {
+				id: user._id,
+				username: user.username,
+				picture: user.picture,
+				firstName: user.firstName,
+				lastName: user.lastName,
+				token,
+				verified: user.verified,
+			},
+		});
 	} catch (err) {
-		console.log(err);
 		res.status(500).json({
 			status: "fail",
 			message: err.message,
