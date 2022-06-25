@@ -1,10 +1,12 @@
 const express = require("express");
 const cors = require("cors");
 const userRouter = require("./routes/userRoutes");
+const cookieParser = require("cookie-parser");
 
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 const allowedOrgins = ["http://localhost:3000", "productionUrl"];
 

@@ -48,6 +48,27 @@ body {
 	}
 }
 
+.errorText {
+	margin-top: 2rem;
+	text-align: center;
+	font-size: 1.6rem;
+	font-weight: bold;
+	color: red;
+}
+
+.loader {
+	margin-top: 2rem;
+	text-align: center;
+}
+
+.success {
+	margin-top: 2rem;
+	text-align: center;
+	font-size: 1.6rem;
+	color: $green-background;
+}
+
+
 $x-large: 1200px;
 
 $breakpoints: (

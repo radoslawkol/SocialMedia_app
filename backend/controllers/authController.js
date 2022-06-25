@@ -36,7 +36,7 @@ exports.register = async (req, res) => {
 		if (isEmailExist) {
 			return res.status(400).json({
 				status: "fail",
-				message: "Email already exists.",
+				message: "Email already exists. Try with a different one.",
 			});
 		}
 

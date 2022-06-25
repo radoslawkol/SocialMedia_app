@@ -7,8 +7,12 @@ import LoginInput from "./LoginInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import * as Yup from "yup";
-import { useLinkClickHandler } from "react-router-dom";
 import useclickOutsideClose from "../../functions/useClickOutsideClose";
+import { BeatLoader } from "react-spinners";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import Cookie from "js-cookie";
 
 const initialValues = {
 	firstName: "",
@@ -24,10 +28,17 @@ const initialValues = {
 
 // eslint-disable-next-line no-unused-vars
 export default function RegisterModal({ modalVisible, setModalVisible }) {
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
 	const [register, setRegister] = useState(initialValues);
 	const [dataError, setDataError] = useState("");
 	const [genderError, setGenderError] = useState("");
 	const formRef = useRef();
+
+	const [error, setError] = useState("");
+	const [success, setSuccess] = useState("");
+	const [loading, setLoading] = useState(false);
 
 	useclickOutsideClose(formRef, () => setModalVisible(false));
 
@@ -81,6 +92,44 @@ export default function RegisterModal({ modalVisible, setModalVisible }) {
 				return this.parent.password === value;
 			}),
 	});
+
+	const registerSubmit = async () => {
+		try {
+			setLoading(true);
+
+			const { data } = await axios.post(
+				// eslint-disable-next-line no-undef
+				`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/register`,
+				{
+					firstName,
+					lastName,
+					email,
+					password,
+					confirmPassword,
+					bDay,
+					bMonth,
+					bYear,
+					gender,
+				}
+			);
+			setError("");
+			setSuccess(data.message);
+			setLoading(false);
+
+			if (data.status === "success") {
+				dispatch({ type: "LOGIN", payload: data.user });
+				Cookie.set("user", JSON.stringify(data.user));
+				setTimeout(() => {
+					navigate("/");
+				}, 2000);
+			}
+		} catch (err) {
+			console.log(err);
+			setSuccess("");
+			setLoading(false);
+			setError(err.response.data.message);
+		}
+	};
 	return (
 		<div className={classes.backdrop}>
 			<div className={classes.register} ref={formRef}>
@@ -115,13 +164,17 @@ export default function RegisterModal({ modalVisible, setModalVisible }) {
 						let AtMax70 = new Date(1970 + 70, 0, 1);
 
 						if (currentDate - pickedDate < atLeast14) {
-							console.log();
-							setDataError("Please make sure you use your real date of birth.");
+							return setDataError(
+								"Please make sure you use your real date of birth."
+							);
 						} else if (currentDate - pickedDate > AtMax70) {
-							setDataError("Please make sure you use your real date of birth.");
+							return setDataError(
+								"Please make sure you use your real date of birth."
+							);
 						} else if (gender === "") {
-							setGenderError("Please choose your gender.");
+							return setGenderError("Please choose your gender.");
 						}
+						registerSubmit();
 					}}
 				>
 					{(formik) => (
@@ -265,6 +318,15 @@ export default function RegisterModal({ modalVisible, setModalVisible }) {
 							>
 								Sign Up
 							</button>
+							{error && <div className='errorText'>{error}</div>}
+							{success && <div className='success'>{success}</div>}
+							<div className='loader'>
+								<BeatLoader
+									loading={loading}
+									color='#8f00ff'
+									size={10}
+								></BeatLoader>
+							</div>
 						</Form>
 					)}
 				</Formik>
