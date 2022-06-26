@@ -1,0 +1,64 @@
+@import "../../sass/index.scss";
+
+.modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	padding: 0.5rem;
+	width: 24rem;
+	height: 40rem;
+	border: $border-grey;
+	text-align: center;
+	background-color: $white-color;
+	border-radius: 0 0 15px 15px;
+	z-index: 100;
+}
+.logo {
+	width: 3rem;
+}
+
+.search {
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+
+.searchbar {
+	display: flex;
+	align-items: center;
+	position: relative;
+	margin-left: 1rem;
+	width: 12rem;
+	height: 2.5rem;
+	border-radius: 100px;
+	border: none;
+	background-color: $backdrop-color;
+	cursor: pointer;
+	@include media-size(large) {
+		width: 16rem;
+	}
+	&:hover {
+		border: 1px solid rgba(0, 0, 0, 0.13);
+	}
+}
+.searchInput {
+	width: 9rem;
+	background: transparent;
+	border: none;
+	outline: none;
+	padding: 0 0.5rem;
+	@include media-size(large) {
+		width: 13rem;
+	}
+}
+
+.search_icon {
+	margin-left: 0.5rem;
+	font-size: 1.2rem;
+}
+
+.heading {
+	margin: 1rem;
+	font-size: 1.4rem;
+	text-align: left;
+}

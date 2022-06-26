@@ -1,0 +1,166 @@
+@import "../../sass/index.scss";
+
+.nav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	height: 5rem;
+	padding: 0.5rem;
+	background-color: $white-color;
+}
+
+.logo {
+	width: 3rem;
+}
+
+.search {
+	display: flex;
+	align-items: center;
+	position: relative;
+}
+
+.searchbar {
+	display: flex;
+	align-items: center;
+	position: relative;
+	margin-left: 1rem;
+	width: 12rem;
+	height: 2.5rem;
+	border-radius: 100px;
+	border: none;
+	background-color: $backdrop-color;
+	cursor: pointer;
+	@include media-size(large) {
+		width: 16rem;
+	}
+	&:hover {
+		border: 1px solid rgba(0, 0, 0, 0.13);
+	}
+}
+.searchPlaceholder {
+	order: 1;
+	margin-left: 0.5rem;
+	font-size: 1rem;
+	color: $primary-color;
+	@include media-size(large) {
+		font-size: 1.2rem;
+	}
+}
+
+.search_icon {
+	margin-left: 0.5rem;
+	font-size: 1.2rem;
+}
+
+.menu {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	list-style: none;
+	@include media-size(medium) {
+		gap: 3rem;
+	}
+	&__tab {
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+		padding: 1rem;
+		font-size: 1.8rem;
+		@include media-size(large) {
+			font-size: 2.2rem;
+		}
+		&:nth-of-type(2) {
+			display: none;
+			@include media-size(medium) {
+				display: block;
+			}
+		}
+		&:nth-of-type(3) {
+			display: none;
+			@include media-size(medium) {
+				display: block;
+			}
+		}
+	}
+
+	&__border {
+		position: absolute;
+		bottom: -0.5rem;
+		left: 0;
+		height: 3px;
+		width: 100%;
+		background-color: $secondary-color;
+	}
+}
+
+.profile {
+	display: none;
+	padding: 1rem;
+	border: none;
+	background: transparent;
+	transition: background-color 0.3s;
+	cursor: pointer;
+	&:hover,
+	&:focus {
+		background-color: $backdrop-color;
+	}
+	@include media-size(medium) {
+		display: block;
+	}
+	&__content {
+		display: flex;
+		gap: 0.3rem;
+		align-items: center;
+		text-decoration: none;
+		color: $primary-color;
+	}
+	&__name {
+		font-weight: 700;
+	}
+	&__img {
+		width: 3rem;
+		border-radius: 50%;
+	}
+}
+
+.options {
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+}
+
+.notifications {
+	border: none;
+	position: relative;
+	background: transparent;
+	font-size: 2.2rem;
+	cursor: pointer;
+
+	&__circle {
+		position: absolute;
+		top: -6px;
+		right: -4px;
+		border-radius: 50%;
+		padding: 2px;
+		font-size: 1.2rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: red;
+	}
+	&__count {
+		color: $white-color;
+	}
+}
+
+.settings {
+	font-size: 2.2rem;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+}

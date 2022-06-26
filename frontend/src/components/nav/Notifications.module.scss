@@ -1,0 +1,18 @@
+@import "../../sass/index.scss";
+
+.modal {
+	position: fixed;
+	top: 4.1rem;
+	right: 0;
+	width: 24rem;
+	height: 40rem;
+	background-color: $white-color;
+	border-radius: 15px;
+	border: $border-grey;
+
+	&__heading {
+		margin: 1rem;
+		text-align: center;
+		font-size: 1.4rem;
+	}
+}

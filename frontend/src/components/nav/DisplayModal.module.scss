@@ -1,0 +1,53 @@
+@import "../../sass/index.scss";
+
+.modal {
+	position: fixed;
+	top: 4.1rem;
+	right: 0;
+	width: 30rem;
+	background-color: $secondary-background;
+	border-radius: 15px;
+	border: $border-grey;
+
+	&__heading {
+		margin-top: 1rem;
+		font-size: 1.8rem;
+		text-align: center;
+	}
+
+	&__mode {
+		padding: 2rem;
+	}
+
+	&__modeText {
+		margin-bottom: 0.5rem;
+		font-size: 1.4rem;
+	}
+
+	&__text {
+		margin-bottom: 1rem;
+		font-size: 1.2rem;
+	}
+
+	&__options {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+	&__label {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-weight: 600;
+		font-size: 1.4rem;
+		cursor: pointer;
+	}
+	&__icon {
+		position: absolute;
+		top: 0;
+		left: 0;
+		padding: 1rem;
+		font-size: 1.6rem;
+		cursor: pointer;
+	}
+}

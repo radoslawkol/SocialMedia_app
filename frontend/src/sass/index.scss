@@ -8,6 +8,7 @@ $primary-background: #eeeeee;
 $secondary-background: #fff;
 $green-background: #18d837;
 $backdrop-color: rgba(218, 214, 214, 0.841);
+$border-grey: 1px solid rgb(148, 147, 147);
 
 $primary-color: #323232;
 $secondary-color: #8f00ff;
@@ -67,7 +68,6 @@ body {
 	font-size: 1.6rem;
 	color: $green-background;
 }
-
 
 $x-large: 1200px;
 
