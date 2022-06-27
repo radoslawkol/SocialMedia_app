@@ -1,6 +1,29 @@
 @import "../../sass/index.scss";
 
 .home {
-	height: 100vh;
 	background-color: $primary-background;
+
+	&__main {
+		margin: 5rem auto;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: 24rem;
+		@media (min-width: "412px") {
+			width: 32rem;
+		}
+		@include media-size(small) {
+			width: 40rem;
+		}
+		@include media-size(medium) {
+			width: 50rem;
+		}
+		@include media-size(large) {
+			width: 54rem;
+		}
+		@include media-size(extra-large) {
+			width: 60rem;
+		}
+	}
 }

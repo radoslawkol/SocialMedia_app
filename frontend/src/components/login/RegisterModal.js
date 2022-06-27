@@ -117,8 +117,8 @@ export default function RegisterModal({ modalVisible, setModalVisible }) {
 			setLoading(false);
 
 			if (data.status === "success") {
-				dispatch({ type: "LOGIN", payload: data.user });
-				Cookie.set("user", JSON.stringify(data.user));
+				dispatch({ type: "LOGIN", payload: { user: data.user } });
+				Cookie.set("user", JSON.stringify({ user: data.user }));
 				setTimeout(() => {
 					navigate("/");
 				}, 2000);

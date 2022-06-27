@@ -1,0 +1,154 @@
+@import "../../sass/index.scss";
+
+.image__container {
+	position: relative;
+	width: 100%;
+	height: 20rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	// padding: 1rem;
+	border-radius: 15px;
+	background: $primary-background;
+}
+
+.closeIcon {
+	position: absolute;
+	right: 0;
+	top: 0;
+	margin: 1rem;
+	width: 1.5rem;
+	height: 1.5rem;
+	padding: 0.5rem;
+	border-radius: 50%;
+	font-size: 1.4em;
+	background-color: $secondary-background;
+	cursor: pointer;
+}
+
+.content {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	text-align: center;
+	cursor: pointer;
+}
+
+.uploadIcon {
+	font-size: 1.6rem;
+}
+
+.text {
+	font-size: 1.4rem;
+}
+
+.photos__container {
+	border-radius: 15px;
+	width: 100%;
+	min-height: 20rem;
+}
+
+.photos {
+	min-height: 20rem;
+	border-radius: 15px;
+	overflow: hidden;
+}
+
+.photo {
+	object-fit: cover;
+}
+.morePhotos {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 6rem;
+	height: 6rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 1.4rem;
+	background-color: rgba($secondary-background, 0.1);
+}
+.preview1 {
+	width: 100%;
+	height: 100%;
+}
+
+.preview1 img {
+	width: 100%;
+	height: 100%;
+}
+.preview2 {
+	width: 100%;
+	height: 100%;
+	display: flex;
+}
+.preview2 img {
+	width: 50%;
+}
+.preview3 {
+	width: 100%;
+	height: 20rem;
+	display: grid;
+	gap: 0.5rem;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+.preview3 img {
+	width: 100%;
+	height: 100%;
+}
+.preview4 {
+	height: 20rem;
+	display: grid;
+	gap: 0.5rem;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+}
+.preview4 img {
+	width: 100%;
+	height: 10rem;
+}
+.preview4 img:nth-child(1) {
+	grid-column: 1/4;
+}
+.preview5 {
+	height: 20rem;
+	display: grid;
+	gap: 0.5rem;
+	grid-template-columns: repeat(6, 1fr);
+	grid-template-rows: 1fr 1fr;
+}
+.preview5 img {
+	width: 100%;
+	height: 10rem;
+	grid-column: auto / span 2;
+}
+.preview5 img:nth-child(1),
+.preview5 img:nth-child(2) {
+	grid-column: auto / span 3;
+}
+
+.preview6 {
+	height: 20rem;
+	display: grid;
+	gap: 0.5rem;
+	grid-template-columns: repeat(3, 1fr);
+}
+.preview6 img {
+	width: 100%;
+	height: calc(10rem);
+}
+.singleGrid {
+	height: 20rem;
+	display: grid;
+	gap: 0.5rem;
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.singleGrid img {
+	width: 100%;
+	height: calc(20rem / 3);
+}
+.singleGrid img:nth-child(1) {
+	grid-column: 1/4;
+}

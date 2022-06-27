@@ -15,17 +15,16 @@ import SearchModal from "./SearchModal";
 import ProfileModal from "./ProfileModal";
 import Notifications from "./Notifications";
 import Settings from "./Settings";
+import { useSelector } from "react-redux";
 
 export default function Nav({ page }) {
+	const { user } = useSelector((state) => ({ ...state }));
 	const [showSearchModal, setShowSearchModal] = useState(false);
 	const [showProfileModal, setShowProfileModal] = useState(false);
 	const [showNotificationsModal, setShowNotificationsModal] = useState(false);
 	const [showSettingsModal, setShowSettingsModal] = useState(false);
 
 	const color = "#575A89";
-	const activeHandler = (e) => {
-		console.log(e.target);
-	};
 	return (
 		<>
 			<nav className={classes.nav}>
@@ -48,7 +47,7 @@ export default function Nav({ page }) {
 					</button>
 				</div>
 				<ul className={classes.menu}>
-					<li className={classes.menu__tab} onClick={activeHandler}>
+					<li className={classes.menu__tab}>
 						<Link to='/'>
 							<FontAwesomeIcon
 								color={`${page === "home" ? "#8F00FF" : color}`}
@@ -61,20 +60,28 @@ export default function Nav({ page }) {
 							""
 						)}
 					</li>
-					<li className={classes.menu__tab} onClick={activeHandler}>
+					<li className={classes.menu__tab}>
 						<Link to='/friends'>
 							<FontAwesomeIcon
 								color={color}
 								icon={faUserGroup}
 							></FontAwesomeIcon>
 						</Link>
-						{/* <div className={classes.menu__border}></div> */}
+						{page === "friends" ? (
+							<div className={classes.menu__border}></div>
+						) : (
+							""
+						)}
 					</li>
-					<li className={classes.menu__tab} onClick={activeHandler}>
+					<li className={classes.menu__tab}>
 						<Link to='/chat'>
 							<FontAwesomeIcon color={color} icon={faMessage}></FontAwesomeIcon>
 						</Link>
-						{/* <div className={classes.menu__border}></div> */}
+						{page === "chat" ? (
+							<div className={classes.menu__border}></div>
+						) : (
+							""
+						)}
 					</li>
 				</ul>
 				<div className={classes.options}>
@@ -88,7 +95,7 @@ export default function Nav({ page }) {
 								alt='profile image'
 								className={classes.profile__img}
 							/>
-							<span className={classes.profile__name}>Marek</span>
+							<span className={classes.profile__name}>{user.firstName}</span>
 						</div>
 						{/* <div className={classes.menu__border}></div> */}
 					</button>

@@ -4,8 +4,10 @@
 	position: fixed;
 	top: 10rem;
 	left: 0;
-	width: 15rem;
 	padding: 1rem;
+	@include media-size(large) {
+		width: 15rem;
+	}
 }
 
 .menu {
@@ -31,7 +33,11 @@
 }
 
 .name {
+	display: none;
 	font-size: 1.2rem;
+	@include media-size(large) {
+		display: block;
+	}
 }
 
 .img {
