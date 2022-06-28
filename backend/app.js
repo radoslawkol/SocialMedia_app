@@ -1,12 +1,20 @@
 const express = require("express");
 const cors = require("cors");
 const userRouter = require("./routes/userRoutes");
+const postRouter = require("./routes/postRoutes");
+const uploadRouter = require("./routes/uploadRoutes");
 const cookieParser = require("cookie-parser");
+const fileupload = require("express-fileupload");
 
 const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(
+	fileupload({
+		useTempFiles: true,
+	})
+);
 
 const allowedOrgins = ["http://localhost:3000", "productionUrl"];
 
@@ -28,10 +36,8 @@ function corsOptions(req, res) {
 
 app.use(cors(corsOptions));
 
-app.get("/", (req, res) => {
-	res.send("hello");
-});
-
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/posts", postRouter);
+app.use("/api/v1/images", uploadRouter);
 
 module.exports = app;

@@ -11,6 +11,17 @@ import { useSelector } from "react-redux";
 import useclickOutsideClose from "../../functions/useClickOutsideClose";
 import Picker from "emoji-picker-react";
 import ImagePreview from "./ImagePreview";
+import bg1 from "../../images/bush.webp";
+import bg2 from "../../images/embossed-diamond.webp";
+import bg3 from "../../images/more-leaves-on-green.png";
+import bg4 from "../../images/moroccan-flower-dark.webp";
+import bg5 from "../../images/moroccan-flower.png";
+import bg6 from "../../images/oriental-tiles.png";
+import bg7 from "../../images/swirl_pattern.webp";
+import PropagateLoader from "react-spinners/PropagateLoader";
+import { createPost } from "../../functions/post";
+import { dataURItoBlob } from "../../functions/dataUrltoBlob";
+import { uploadImages } from "../../functions/uploadImages";
 
 export default function CreatePostModal({ setShowCreateModal }) {
 	const { user } = useSelector((state) => ({ ...state }));
@@ -20,6 +31,12 @@ export default function CreatePostModal({ setShowCreateModal }) {
 	const textRef = useRef();
 	const emojiRef = useRef();
 	const [images, setImages] = useState([]);
+	const [background, setBackground] = useState();
+	const [showBgs, setShowBgs] = useState(false);
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState("");
+
+	const postBackgrounds = [bg1, bg2, bg3, bg4, bg5, bg6, bg7];
 
 	const [openEmoji, setOpenEmoji] = useState(false);
 	const [cursorPosition, setCursorPosition] = useState();
@@ -43,9 +60,90 @@ export default function CreatePostModal({ setShowCreateModal }) {
 			textRef.current.selectionEnd = cursorPosition;
 		}
 	}, [cursorPosition]);
+
+	const removeBgHandler = () => {
+		setShowBgs(false);
+		setBackground("");
+	};
+
+	const submitHandler = async () => {
+		if (background) {
+			setLoading(true);
+			const res = await createPost(
+				null,
+				background,
+				text,
+				null,
+				user.id,
+				user.token
+			);
+
+			if (res !== "ok") {
+				setLoading(false);
+				return setError(res);
+			}
+			setLoading(false);
+			setBackground("");
+			setShowBgs(false);
+			setShowCreateModal(false);
+			setText("");
+		} else if (images && images.length) {
+			setLoading(true);
+			const postImages = images.map((img) => {
+				return dataURItoBlob(img);
+			});
+			const path = `${user.username}/post_images`;
+			const formData = new FormData();
+			formData.append("path", path);
+
+			postImages.forEach((image) => {
+				formData.append("file", image);
+			});
+
+			const resImg = await uploadImages(formData, path, user.token);
+			const res = await createPost(
+				null,
+				null,
+				text,
+				resImg.images,
+				user.id,
+				user.token
+			);
+
+			if (res !== "ok") {
+				setLoading(false);
+				return setError(res);
+			}
+			setLoading(false);
+			setShowCreateModal(false);
+			setText("");
+		} else if (text) {
+			setLoading(true);
+			const res = await createPost(null, null, text, null, user.id, user.token);
+
+			if (res !== "ok") {
+				setLoading(false);
+				return setError(res);
+			}
+			setLoading(false);
+			setShowCreateModal(false);
+			setText("");
+		}
+	};
 	return (
 		<div className={classes.backdrop}>
 			<div className={classes.modal} ref={modalRef}>
+				{error && (
+					<div className={classes.postError}>
+						<span className={classes.postError__message}>{error}</span>
+						<button
+							className={classes.postError__btn}
+							onClick={() => setError("")}
+						>
+							Try again
+						</button>
+					</div>
+				)}
 				<div className={classes.modal__header}>
 					<h2 className={classes.modal__heading}>Create post</h2>
 					<FontAwesomeIcon
@@ -67,30 +165,78 @@ export default function CreatePostModal({ setShowCreateModal }) {
 						>{`${user.firstName} ${user.lastName}`}</span>
 					</div>
 					<div className={classes.modal__content}>
-						<textarea
-							ref={textRef}
-							name='message'
-							id='message'
-							cols='30'
-							rows='3'
-							value={text}
-							onChange={(e) => setText(e.target.value)}
-							className={classes.modal__textarea}
-							placeholder={`What's on your mind, ${user.firstName}?`}
-						/>
+						{!background && (
+							<textarea
+								ref={textRef}
+								name='message'
+								id='message'
+								cols='30'
+								rows='3'
+								value={text}
+								onChange={(e) => setText(e.target.value)}
+								className={classes.modal__textarea}
+								placeholder={`What's on your mind, ${user.firstName}?`}
+							/>
+						)}
 					</div>
+					{background && (
+						<div className={classes.setBgContainer}>
+							<img
+								src={background}
+								alt='background'
+								className={classes.bgImg}
+							/>
+							<textarea
+								ref={textRef}
+								name='message'
+								id='message'
+								maxLength={250}
+								value={text}
+								onChange={(e) => setText(e.target.value)}
+								className={classes.backgroundTextarea}
+								style={{
+									paddingTop: `${Math.abs(
+										textRef.current.value.length * 0.1 - 24
+									)}%`,
+								}}
+								placeholder={`What's on your mind, ${user.firstName}?`}
+							/>
+						</div>
+					)}
 					{showImagePreview && (
 						<ImagePreview
 							setShowImagePreview={setShowImagePreview}
 							setImages={setImages}
 							images={images}
+							setError={setError}
 						/>
 					)}
 					<div className={classes.modal__optionBar}>
-						<button className={classes.modal__optionBtn}>
+						<button
+							className={classes.modal__optionBtn}
+							onClick={() => setShowBgs((prev) => !prev)}
+						>
 							<FontAwesomeIcon icon={faImage} />
 						</button>
-						<div>
+						{showBgs && (
+							<div className={classes.backgrounds}>
+								<div className={classes.noBg} onClick={removeBgHandler}>
+									X
+								</div>
+								{postBackgrounds.map((background, i) => {
+									return (
+										<img
+											onClick={(e) => setBackground(e.target.src)}
+											src={background}
+											alt='background'
+											key={i}
+											className={classes.background}
+										/>
+									);
+								})}
+							</div>
+						)}
+						<div className={classes.modal__rightBtns}>
 							<button
 								className={classes.modal__optionBtn}
 								onClick={() => setOpenEmoji((prev) => !prev)}
@@ -106,7 +252,18 @@ export default function CreatePostModal({ setShowCreateModal }) {
 						</div>
 					</div>
 				</div>
-				<button className={classes.modal__postBtn}>Post</button>
+				<button
+					className={classes.modal__postBtn}
+					onClick={submitHandler}
+					disabled={loading}
+				>
+					Post
+				</button>
+				{loading && (
+					<div style={{ margin: "2rem auto", textAlign: "center" }}>
+						<PropagateLoader color='#8F00FF' size={10} />
+					</div>
+				)}
 				{openEmoji && (
 					<div className={classes.emoji_wrapper} ref={emojiRef}>
 						<Picker
