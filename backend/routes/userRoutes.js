@@ -1,5 +1,11 @@
 const express = require("express");
-const { getUser } = require("../controllers/userController");
+const {
+	getUser,
+	findUser,
+	sendResetPasswordCode,
+	validateResetCode,
+	changePassword,
+} = require("../controllers/userController");
 const {
 	register,
 	login,
@@ -14,6 +20,10 @@ router.post("/register", register);
 router.post("/login", login);
 router.post("/activate", auth, activateAccount);
 router.post("/sendVerification", auth, sendVerification);
+router.post("/findUser", findUser);
+router.post("/sendResetPasswordCode", sendResetPasswordCode);
+router.post("/validateResetCode", validateResetCode);
+router.post("/changePassword", changePassword);
 // router.get("/:id", auth, getUser);
 
 module.exports = router;

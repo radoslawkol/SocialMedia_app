@@ -43,3 +43,33 @@ exports.sendVerificationEmail = (email, name, url) => {
 		return res;
 	});
 };
+
+exports.sendResetCode = (email, name, code) => {
+	oauth2Client.setCredentials({
+		refresh_token: REFRESH_TOKEN,
+	});
+	const accessToken = oauth2Client.getAccessToken();
+
+	const stmp = nodemailer.createTransport({
+		service: "gmail",
+		auth: {
+			type: "OAuth2",
+			user: OAUTH_EMAIL,
+			clientId: OAUTH_CLIENT_SECRET_ID,
+			clientSecret: OAUTH_SECRET_KEY,
+			refreshToken: REFRESH_TOKEN,
+			accessToken,
+		},
+	});
+
+	const mailOptions = {
+		from: OAUTH_EMAIL,
+		to: email,
+		subject: "Reset BeConnected password.",
+		html: `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Document</title></head><body><header style="font-family: 'Times New Roman', Times, sans-serif"><h2>Activate your<span style="font-weight: 800; color: purple"> BeConnected</span> App access.</h2><hr/><h3>Hello, ${name}</h3><p style="width: 300px; line-height: 22px; margin-bottom: 40px">You recently created an account on BeConnected. To complete yourregistration, please confirm your account.</p><a  style="width: 200px;padding: 10px;background: purple;color: white;text-decoration: none;">${code}</a><hr style="margin-top: 50px"/></header></body></html>`,
+	};
+	stmp.sendMail(mailOptions, (err, res) => {
+		if (err) return err;
+		return res;
+	});
+};

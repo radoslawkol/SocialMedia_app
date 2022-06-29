@@ -1,0 +1,49 @@
+@import "../../sass/index.scss";
+
+.code {
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 30rem;
+	padding: 2rem;
+	border-radius: 15px;
+	background: $secondary-background;
+	@include media-size(medium) {
+		width: 40rem;
+	}
+	&__heading {
+		font-size: 1.6rem;
+		margin-bottom: 1rem;
+	}
+	&__text {
+		margin: 1rem 0;
+		font-size: 1.2rem;
+	}
+
+	&__btns {
+		margin-top: 2rem;
+		display: flex;
+		align-items: center;
+		justify-content: flex-end;
+		gap: 1rem;
+	}
+
+	&__continue {
+		padding: 1rem;
+		color: $white-color;
+		border: none;
+		border-radius: 15px;
+		background-color: $secondary-color;
+		cursor: pointer;
+	}
+
+	&__cancel {
+		padding: 1rem;
+		font-size: 1.2rem;
+		color: $primary-color;
+		border-radius: 15px;
+		background: $primary-background;
+		text-decoration: none;
+	}
+}

@@ -117,7 +117,7 @@ export default function Login() {
 					</Form>
 				</Formik>
 				<div style={{ textAlign: "center" }}>
-					<Link to='/forgot' className={classes.forgot}>
+					<Link to='/reset' className={classes.forgot}>
 						Forgotten password?
 					</Link>
 				</div>

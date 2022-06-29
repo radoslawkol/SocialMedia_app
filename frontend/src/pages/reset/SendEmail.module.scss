@@ -1,0 +1,72 @@
+@import "../../sass/index.scss";
+
+.sendEmail {
+	position: absolute;
+	width: 30rem;
+	padding: 2rem;
+	top: 30%;
+	left: 50%;
+	transform: translateX(-50%);
+	border-radius: 15px;
+	background-color: $secondary-background;
+	@include media-size(medium) {
+		width: 40rem;
+	}
+
+	&__heading {
+		margin-bottom: 1rem;
+		font-size: 1.6rem;
+	}
+	&__text {
+		font-size: 1.2rem;
+	}
+
+	&__content {
+		margin-top: 2rem;
+		display: flex;
+		gap: 2rem;
+	}
+	&__img {
+		width: 4rem;
+		height: 4rem;
+		border-radius: 50%;
+	}
+
+	&__label {
+		display: flex;
+		align-items: center;
+		margin-top: 1rem;
+	}
+	&__input {
+		height: 2rem;
+		width: 2rem;
+		margin-right: 0.5rem;
+	}
+
+	&__user {
+		display: flex;
+		gap: 0.5rem;
+		flex-direction: column;
+		align-items: center;
+		font-size: 1.2rem;
+	}
+	&__btns {
+		margin-top: 4rem;
+		display: flex;
+		gap: 1rem;
+		justify-content: flex-end;
+	}
+	&__btn {
+		padding: 0.5rem 1rem;
+		border: none;
+		border-radius: 15px;
+		cursor: pointer;
+		&--grey {
+			background-color: $primary-background;
+		}
+		&--confirm {
+			color: $white-color;
+			background-color: $secondary-color;
+		}
+	}
+}

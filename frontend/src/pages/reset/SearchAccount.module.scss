@@ -1,0 +1,60 @@
+@import "../../sass/index.scss";
+
+.findModal {
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 30rem;
+	padding: 2rem;
+	border-radius: 15px;
+	background: $secondary-background;
+	@include media-size(medium) {
+		width: 40rem;
+	}
+
+	&__heading {
+		margin-bottom: 1rem;
+		font-size: 1.6rem;
+	}
+	&__text {
+		margin: 1rem 0;
+		font-size: 1.4rem;
+	}
+	&__form {
+		padding: 1rem;
+	}
+
+	&__btns {
+		display: flex;
+		gap: 1rem;
+		justify-content: flex-end;
+		margin-top: 2rem;
+	}
+
+	&__cancel {
+		padding: 1rem;
+		border-radius: 15px;
+		font-size: 1.2rem;
+		color: $primary-color;
+		background-color: $primary-background;
+		text-decoration: none;
+		transition: background-color 0.3s;
+		&:hover {
+			background-color: rgba($primary-color, 0.2);
+		}
+	}
+
+	&__search {
+		padding: 1rem;
+		color: $white-color;
+		border: none;
+		border-radius: 15px;
+		background-color: $secondary-color;
+		cursor: pointer;
+		transition: background-color 0.3s;
+		&:hover {
+			background-color: rgba($secondary-color, 0.6);
+		}
+	}
+}

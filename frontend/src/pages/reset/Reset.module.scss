@@ -1,0 +1,40 @@
+@import "../../sass/index.scss";
+
+.reset {
+	position: relative;
+	height: 100vh;
+	width: 100%;
+	background: $primary-background;
+	&__nav {
+		width: 100%;
+		height: 5rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 2rem;
+		background-color: $secondary-background;
+	}
+
+	&__logo {
+		display: flex;
+		align-items: center;
+	}
+	&__logoImg {
+		width: 3rem;
+		height: 3rem;
+	}
+
+	&__logoName {
+		margin-left: 0.5rem;
+		font-size: 1.6rem;
+	}
+
+	&__login {
+		padding: 0.8rem;
+		border-radius: 100px;
+		font-size: 1.4rem;
+		color: $white-color;
+		background-color: $secondary-color;
+		text-decoration: none;
+	}
+}
