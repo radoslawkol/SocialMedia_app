@@ -1,13 +1,23 @@
 import React, { useRef } from "react";
 import classes from "./Profile.module.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import useclickOutsideClose from "../../functions/useClickOutsideClose";
+import { useDispatch } from "react-redux";
+import Cookie from "js-cookie";
 
 export default function ProfileModal({ setShowProfileModal }) {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const modal = useRef();
 	useclickOutsideClose(modal, () => setShowProfileModal(false));
+
+	const logout = () => {
+		Cookie.set("user", "");
+		dispatch({ type: "LOGOUT" });
+		navigate("/login");
+	};
 	return (
 		<div className={classes.modal} ref={modal}>
 			<Link to={`/profile`} className={classes.modal__content}>
@@ -21,7 +31,7 @@ export default function ProfileModal({ setShowProfileModal }) {
 					<p className={classes.modal__text}>See your profile</p>
 				</div>
 			</Link>
-			<div className={classes.logout}>
+			<div className={classes.logout} onClick={logout}>
 				<div className={classes.logout__circle}>
 					<FontAwesomeIcon
 						icon={faRightFromBracket}

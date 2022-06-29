@@ -102,22 +102,27 @@ exports.register = async (req, res) => {
 
 exports.activateAccount = async (req, res) => {
 	try {
+		const validUser = req.user.id;
 		const { token } = req.body;
 		const user = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
 		const isUserAlreadyActivated = await User.findById(user.id);
 
+		if (validUser !== user.id) {
+			return res
+				.status(400)
+				.json({ message: "You are not authorized to complete this operation" });
+		}
 		if (isUserAlreadyActivated.verified) {
 			return res
 				.status(400)
 				.json({ message: "This account is already activated." });
-		} else {
-			await User.findByIdAndUpdate(user.id, { verified: true });
-			return res.status(200).json({
-				status: "success",
-				message: "Account has been activated successfully.",
-			});
 		}
+		await User.findByIdAndUpdate(user.id, { verified: true });
+		res.status(200).json({
+			status: "success",
+			message: "Account has been activated successfully.",
+		});
 	} catch (err) {
 		res.status(500).json({
 			status: "fail",
@@ -159,6 +164,35 @@ exports.login = async (req, res) => {
 				token,
 				verified: user.verified,
 			},
+		});
+	} catch (err) {
+		res.status(500).json({
+			status: "fail",
+			message: err.message,
+		});
+	}
+};
+
+exports.sendVerification = async (req, res) => {
+	try {
+		const id = req.user.id;
+		const user = await User.findById(id);
+
+		if (user.verified) {
+			return res.status(400).json({
+				status: "fail",
+				message: "Account is already verified!",
+			});
+		}
+
+		const token = generateToken({ id: user._id.toString() }, "30m");
+
+		const url = `${process.env.BASE_URL}/activate/${token}`;
+
+		sendVerificationEmail(user.email, user.firstName, url);
+
+		res.status(200).json({
+			message: "Email verification link has been sent to your email.",
 		});
 	} catch (err) {
 		res.status(500).json({

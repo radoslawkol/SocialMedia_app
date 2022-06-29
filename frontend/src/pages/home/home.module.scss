@@ -1,6 +1,7 @@
 @import "../../sass/index.scss";
 
 .home {
+	min-height: 100vh;
 	background-color: $primary-background;
 
 	&__main {
@@ -9,7 +10,7 @@
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
-		width: 24rem;
+		width: 20rem;
 		@media (min-width: "412px") {
 			width: 32rem;
 		}

@@ -15,6 +15,10 @@ function App() {
 					<Route path='/' element={<Home page='home' />}></Route>
 					<Route path='/profile' element={<Profile />}></Route>
 					<Route path='/friends' element={<Friends page='friends' />}></Route>
+					<Route
+						path='/activate/:token'
+						element={<Home activate={true} />}
+					></Route>
 				</Route>
 				<Route>
 					<Route element={<NotLoggedInRoutes />}>

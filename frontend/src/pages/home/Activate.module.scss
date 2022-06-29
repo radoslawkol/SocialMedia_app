@@ -1,0 +1,28 @@
+@import "../../sass/index.scss";
+
+.backdrop {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: $backdrop-color;
+	backdrop-filter: blur(3px);
+	z-index: 2000;
+}
+
+.popup {
+	width: 30rem;
+	height: 10rem;
+	border-radius: 15px;
+	display: flex;
+	gap: 2rem;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	background-color: $secondary-background;
+}

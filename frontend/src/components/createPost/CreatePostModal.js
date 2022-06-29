@@ -64,6 +64,7 @@ export default function CreatePostModal({ setShowCreateModal }) {
 	const removeBgHandler = () => {
 		setShowBgs(false);
 		setBackground("");
+		setShowImagePreview(false);
 	};
 
 	const submitHandler = async () => {
@@ -203,7 +204,7 @@ export default function CreatePostModal({ setShowCreateModal }) {
 							/>
 						</div>
 					)}
-					{showImagePreview && (
+					{showImagePreview && !background && (
 						<ImagePreview
 							setShowImagePreview={setShowImagePreview}
 							setImages={setImages}
