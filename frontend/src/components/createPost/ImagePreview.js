@@ -88,9 +88,14 @@ export default function ImagePreview({
 										key={i}
 										className={`${classes.photo}`}
 									/>
-									{images.length > 7 && (
+									{images.length > 7 && images.length % 2 !== 0 && (
 										<div className={classes.morePhotos}>
 											+{images.length - 7}
+										</div>
+									)}
+									{images.length > 7 && images.length % 2 === 0 && (
+										<div className={classes.morePhotos}>
+											+{images.length - 6}
 										</div>
 									)}
 								</>

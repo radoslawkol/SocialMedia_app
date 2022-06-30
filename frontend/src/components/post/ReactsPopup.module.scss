@@ -1,0 +1,31 @@
+@import "../../sass/index.scss";
+
+.popup {
+	position: absolute;
+	top: -4.5rem;
+	left: -2rem;
+	width: 15rem;
+	height: 3.5rem;
+	display: flex;
+	justify-content: center;
+	border-radius: 100px;
+	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+	background: $secondary-background;
+	@include media-size(medium) {
+		width: 18rem;
+	}
+	&__react {
+		padding: 0.3rem;
+		font-size: 1.6rem;
+		border: none;
+		background: transparent;
+		cursor: pointer;
+		transition: transform 0.3s;
+		@include media-size(medium) {
+			font-size: 2rem;
+		}
+		&:hover {
+			transform: scale(1.5);
+		}
+	}
+}

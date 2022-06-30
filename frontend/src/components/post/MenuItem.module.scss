@@ -1,0 +1,22 @@
+@import "../../sass/index.scss";
+
+.item {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 1rem;
+	padding: 1rem;
+	transition: background-color 0.3s;
+	cursor: pointer;
+	&:hover {
+		background-color: $primary-background;
+	}
+
+	&__icon {
+		font-size: 1.6rem;
+		color: $primary-color;
+	}
+	&__title {
+		font-size: 1.4rem;
+	}
+}

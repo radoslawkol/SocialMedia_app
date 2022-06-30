@@ -23,3 +23,21 @@ exports.createPost = async (req, res) => {
 		});
 	}
 };
+
+exports.getAllPosts = async (req, res) => {
+	try {
+		const posts = await Post.find()
+			.populate("user", "firstName lastName picture username gender")
+			.sort({ createdAt: -1 });
+
+		res.status(200).json({
+			status: "success",
+			posts,
+		});
+	} catch (err) {
+		res.status(500).json({
+			status: "fail",
+			message: err.message,
+		});
+	}
+};

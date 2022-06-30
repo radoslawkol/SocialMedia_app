@@ -7,8 +7,9 @@ import CreatePost from "../../components/createPost/CreatePost";
 import Activate from "./Activate";
 import SendVerification from "./SendVerification";
 import { useSelector } from "react-redux";
+import Post from "../../components/post/Post";
 
-export default function Home({ page, activate }) {
+export default function Home({ page, activate, posts }) {
 	const { user } = useSelector((state) => ({ ...state }));
 	return (
 		<div className={classes.home}>
@@ -18,6 +19,9 @@ export default function Home({ page, activate }) {
 				<FriendsProposal />
 				{!user.verified && <SendVerification user={user} />}
 				<CreatePost />
+				{posts.map((post) => {
+					return <Post key={post._id} post={post} />;
+				})}
 			</main>
 			<SideMenu></SideMenu>
 		</div>
