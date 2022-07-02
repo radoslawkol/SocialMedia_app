@@ -131,7 +131,7 @@ export default function RegisterModal({ modalVisible, setModalVisible }) {
 		}
 	};
 	return (
-		<div className={classes.backdrop}>
+		<div className='backdrop'>
 			<div className={classes.register} ref={formRef}>
 				<FontAwesomeIcon
 					icon={faXmark}

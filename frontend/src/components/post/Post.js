@@ -56,7 +56,7 @@ export default function Post({ post }) {
 			</div>
 			<div className={classes.post__content}>
 				{!post.background && <p className={classes.post__text}>{post.text}</p>}
-				{post.photos && (
+				{post.photos && post.type === null ? (
 					<div
 						className={`${classes.post__images} ${
 							post.photos.length === 1
@@ -78,12 +78,11 @@ export default function Post({ post }) {
 					>
 						{post.photos.slice(0, 7).map((photo, i) => {
 							return (
-								<>
+								<React.Fragment key={i}>
 									<img
 										src={photo.url}
 										alt='image'
 										className={classes.post__img}
-										key={i}
 									/>
 									{post.photos.length > 7 && post.photos.length % 2 !== 0 && (
 										<div className={classes.morePhotos}>
@@ -95,11 +94,29 @@ export default function Post({ post }) {
 											+{post.photos.length - 6}
 										</div>
 									)}
-								</>
+								</React.Fragment>
 							);
 						})}
 					</div>
+				) : (
+					post.type === "profilePicture" && (
+						<div className={classes.post__profilePicture}>
+							<div className={classes.post__profilePictureBg}>
+								<img
+									src={post.user.cover}
+									alt='post image'
+									className={classes.post__profilePictureImg}
+								/>
+							</div>
+							<img
+								src={post.photos[0].url}
+								alt='user profile image'
+								className={classes.post__userPicture}
+							></img>
+						</div>
+					)
 				)}
+
 				{post.background && (
 					<div
 						className={classes.post__background}

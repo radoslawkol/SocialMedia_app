@@ -101,9 +101,10 @@
 
 .profile {
 	display: none;
-	padding: 1rem;
+	padding: 0.5rem 1rem;
 	border: none;
 	background: transparent;
+	border-radius: 100px;
 	transition: background-color 0.3s;
 	cursor: pointer;
 	&:hover,

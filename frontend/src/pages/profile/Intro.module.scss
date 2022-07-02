@@ -1,0 +1,29 @@
+@import "../../sass/index.scss";
+
+.intro {
+	width: 100%;
+	padding: 2rem;
+	border-radius: 15px;
+	background-color: $secondary-background;
+	&__heading {
+		font-size: 2rem;
+	}
+
+	&__btns {
+		display: flex;
+		margin: 1rem;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	&__btn {
+		padding: 1rem 0;
+		border: none;
+		background-color: $primary-background;
+		cursor: pointer;
+		transition: background-color 0.3s;
+		&:hover {
+			background-color: rgba($primary-background, 0.6);
+		}
+	}
+}

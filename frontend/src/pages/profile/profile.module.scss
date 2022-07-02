@@ -1,0 +1,73 @@
+@import "../../sass/index.scss";
+
+.profile {
+	margin-top: 5rem;
+	background-color: $primary-background;
+	@include media-size(small) {
+		margin-top: 0;
+	}
+
+	&__container {
+		margin-top: 4rem;
+		display: flex;
+
+		flex-direction: column;
+		padding: 0 2rem;
+		border-top: 1px solid $primary-color;
+
+		@media (min-width: "470px") {
+			padding: 0 6rem;
+		}
+		@include media-size(small) {
+			flex-direction: row;
+			gap: 2rem;
+			align-items: flex-start;
+			padding: 0 2rem;
+		}
+		@include media-size(large) {
+			padding: 2rem 6rem;
+		}
+		@include media-size(medium-large) {
+			padding: 0 10rem;
+		}
+		@include media-size(extra-large) {
+			width: 80%;
+			margin: 5rem auto;
+		}
+		@include media-size(extra-large) {
+			gap: 6rem;
+			padding: 0 16rem;
+		}
+	}
+	&__left {
+		width: 100%;
+		margin: 2rem auto;
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		@include media-size(small) {
+			width: 40%;
+			margin: 0;
+		}
+		@include media-size(large) {
+			width: 30%;
+		}
+		@include media-size(medium-large) {
+			width: 40%;
+		}
+	}
+	&__right {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		@include media-size(small) {
+			width: 60%;
+		}
+		@include media-size(large) {
+			width: 70%;
+		}
+		@include media-size(medium-large) {
+			width: 60%;
+		}
+	}
+}

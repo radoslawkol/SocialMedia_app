@@ -1,0 +1,131 @@
+@import "../../sass/index.scss";
+
+.modal {
+	position: relative;
+	width: 28rem;
+	min-height: 30rem;
+	padding: 2rem;
+	border-radius: 15px;
+	background-color: $secondary-background;
+	z-index: 100;
+	@include media-size(small) {
+		width: 40rem;
+	}
+
+	&__heading {
+		margin-bottom: 0.5rem;
+		font-size: 1.8rem;
+	}
+
+	&__close {
+		position: absolute;
+		right: 0;
+		top: 0;
+		font-size: 1.4rem;
+		padding: 1rem;
+		cursor: pointer;
+	}
+
+	&__textarea {
+		width: 100%;
+		padding: 1rem;
+		margin-top: 1rem;
+		border-radius: 15px;
+		border: 1px solid $primary-background;
+		resize: none;
+		background-color: $primary-background;
+		&:focus,
+		&:hover {
+			outline-color: $secondary-color;
+		}
+	}
+	&__container {
+		position: relative;
+		height: 40rem;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	&__slider {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&__icon {
+		padding: 1rem;
+		cursor: pointer;
+	}
+
+	&__sliderInput {
+		-webkit-appearance: none;
+		height: 0.5rem;
+		border-radius: 100px;
+		background-color: $primary-background;
+		&::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			width: 2rem;
+			height: 2rem;
+			outline: none;
+			border-radius: 50%;
+			background-color: $secondary-color;
+			cursor: pointer;
+		}
+	}
+
+	&__cropper {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		height: 30rem;
+		width: 100%;
+
+		& > img {
+			width: 100%;
+			object-fit: contain;
+		}
+	}
+
+	&__cropBtn {
+		display: block;
+		margin: 1rem auto;
+		padding: 0.5rem 1rem;
+		border: none;
+		border-radius: 15px;
+		color: $primary-color;
+		background-color: $primary-background;
+		cursor: pointer;
+		transition: background-color 0.3s, color 0.3s;
+		&:hover {
+			color: $white-color;
+			background-color: $secondary-color;
+		}
+	}
+
+	&__btns {
+		margin-top: 4rem;
+		display: flex;
+		justify-content: flex-end;
+		gap: 1rem;
+	}
+
+	&__btn {
+		padding: 0.5rem 1rem;
+		border: none;
+		border-radius: 15px;
+		cursor: pointer;
+		&:hover {
+			background-color: rgba($primary-background, 0.4);
+		}
+		&:nth-child(2) {
+			color: $white-color;
+			background-color: $secondary-color;
+			&:hover {
+				background-color: rgba($secondary-color, 0.7);
+			}
+		}
+	}
+}

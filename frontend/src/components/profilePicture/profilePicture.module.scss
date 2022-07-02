@@ -1,0 +1,55 @@
+@import "../../sass/index.scss";
+
+.modal {
+	position: relative;
+	width: 28rem;
+	min-height: 30rem;
+	padding: 2rem;
+	border-radius: 15px;
+	background-color: $secondary-background;
+	@include media-size(small) {
+		width: 40rem;
+	}
+
+	&__header {
+		margin: 1rem 0;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	&__heading {
+		font-size: 1.8rem;
+	}
+
+	&__close {
+		position: absolute;
+		right: 0;
+		top: 0;
+		font-size: 1.4rem;
+		padding: 1rem;
+		cursor: pointer;
+	}
+
+	&__btn {
+		display: flex;
+		align-items: center;
+		gap: 1px;
+	}
+
+	&__container {
+		margin-top: 2rem;
+		width: 100%;
+		display: grid;
+		gap: 1rem;
+		grid-template-rows: repeat(4, 1fr);
+		grid-template-columns: repeat(4, 1fr);
+	}
+
+	&__oldPhoto {
+		width: 100%;
+		border-radius: 15px;
+		object-fit: cover;
+		cursor: pointer;
+	}
+}

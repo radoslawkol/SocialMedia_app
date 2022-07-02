@@ -87,17 +87,24 @@ export default function Nav({ page }) {
 				<div className={classes.options}>
 					<button
 						className={classes.profile}
+						style={{
+							backgroundColor: `${page === "profile" && "#a25ced"}`,
+						}}
 						onClick={() => setShowProfileModal(true)}
 					>
 						<div className={classes.profile__content}>
 							<img
-								src='https://res.cloudinary.com/detfhw9ll/image/upload/v1655054300/AdamMarkowicz/profile_pictures/mfs9c11fmmn7q8intmbv.jpg'
+								src={user.picture}
 								alt='profile image'
 								className={classes.profile__img}
 							/>
-							<span className={classes.profile__name}>{user.firstName}</span>
+							<span
+								className={classes.profile__name}
+								style={{ color: page === "profile" && "white" }}
+							>
+								{user.firstName}
+							</span>
 						</div>
-						{/* <div className={classes.menu__border}></div> */}
 					</button>
 					<button
 						className={classes.notifications}
@@ -120,7 +127,7 @@ export default function Nav({ page }) {
 				<SearchModal setShowSearchModal={setShowSearchModal} />
 			)}
 			{showProfileModal && (
-				<ProfileModal setShowProfileModal={setShowProfileModal} />
+				<ProfileModal setShowProfileModal={setShowProfileModal} user={user} />
 			)}
 			{showNotificationsModal && (
 				<Notifications

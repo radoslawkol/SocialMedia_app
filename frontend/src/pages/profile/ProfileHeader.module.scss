@@ -1,0 +1,149 @@
+@import "../../sass/index.scss";
+
+.header {
+	width: 100%;
+	background: $secondary-background;
+
+	&__cover {
+		position: relative;
+		width: 100%;
+		height: 20rem;
+		padding: 0 2rem;
+		margin-bottom: 4rem;
+		background-color: $primary-background;
+		@include media-size(small) {
+			height: 30rem;
+			margin-bottom: 1rem;
+		}
+		@include media-size(large) {
+			height: 45rem;
+			margin-bottom: 2rem;
+		}
+	}
+
+	&__coverBtn {
+		position: absolute;
+		bottom: 0.5rem;
+		right: 0.5rem;
+		display: flex;
+		gap: 0.5rem;
+		padding: 0.5rem 1rem;
+		background-color: $secondary-background;
+		border: none;
+		border-radius: 15px;
+		cursor: pointer;
+		transition: background-color 0.3s, color 0.3s;
+		@include media-size(large) {
+			bottom: 1rem;
+			right: 1rem;
+		}
+		&:hover {
+			color: $white-color;
+			background-color: $secondary-color;
+		}
+	}
+
+	&__photoIcon {
+		font-size: 1.4rem;
+	}
+
+	&__info {
+		display: flex;
+		flex-direction: column;
+		@include media-size(small) {
+			flex-direction: row;
+			margin: 0 4rem;
+			align-items: flex-start;
+			justify-content: space-between;
+		}
+		@include media-size(large) {
+			margin: 0 20rem;
+		}
+	}
+
+	&__user {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 2rem;
+		align-items: center;
+		@include media-size(small) {
+			flex-direction: row;
+			transform: translateY(-2.5rem);
+		}
+		@include media-size(medium) {
+			transform: translateY(-4rem);
+		}
+	}
+
+	&__username {
+		font-size: 2rem;
+		@include media-size(small) {
+			font-size: 2.4rem;
+		}
+	}
+
+	&__userPicture {
+		position: relative;
+		width: 10rem;
+		height: 10rem;
+		@include media-size(medium) {
+			width: 14rem;
+			height: 14rem;
+		}
+	}
+
+	&__userImg {
+		width: 100%;
+		height: 100%;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+
+	&__pictureBtn {
+		position: absolute;
+		bottom: 0.3rem;
+		right: -0.3rem;
+		padding: 3px;
+		border: none;
+		border-radius: 50%;
+		background: $primary-background;
+		font-size: 1.4rem;
+		cursor: pointer;
+		transition: transform 0.3s;
+		@include media-size(medium) {
+			padding: 1rem;
+		}
+
+		&:hover {
+			transform: scale(1.2);
+		}
+	}
+	&__friends {
+		margin-top: 1rem;
+		display: flex;
+		justify-content: center;
+	}
+
+	&__friendLink {
+		@for $i from 1 to 6 {
+			&:nth-of-type(6n + #{$i}) {
+				transform: translateX(calc($i * -3px));
+			}
+			&:first-of-type {
+				transform: translateX(0);
+			}
+		}
+	}
+	&__friend {
+		width: 2.2rem;
+		height: 2.2rem;
+		border: 1px solid $primary-color;
+		border-radius: 50%;
+		object-fit: cover;
+		@include media-size(medium) {
+			width: 3rem;
+			height: 3rem;
+		}
+	}
+}

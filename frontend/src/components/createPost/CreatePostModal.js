@@ -93,7 +93,7 @@ export default function CreatePostModal({ setShowCreateModal }) {
 			const postImages = images.map((img) => {
 				return dataURItoBlob(img);
 			});
-			const path = `${user.username}/post_images`;
+			const path = `SocialMediaApp/${user.username}/post_images`;
 			const formData = new FormData();
 			formData.append("path", path);
 
@@ -132,7 +132,7 @@ export default function CreatePostModal({ setShowCreateModal }) {
 		}
 	};
 	return (
-		<div className={classes.backdrop}>
+		<div className='backdrop'>
 			<div className={classes.modal} ref={modalRef}>
 				{error && (
 					<div className={classes.postError}>
@@ -157,7 +157,7 @@ export default function CreatePostModal({ setShowCreateModal }) {
 				<div className={classes.modal__container}>
 					<div className={classes.modal__user}>
 						<img
-							src='https://res.cloudinary.com/detfhw9ll/image/upload/v1655054300/AdamMarkowicz/profile_pictures/mfs9c11fmmn7q8intmbv.jpg'
+							src={user.picture}
 							alt='user image'
 							className={classes.modal__userImg}
 						/>

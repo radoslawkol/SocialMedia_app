@@ -7,7 +7,7 @@ import useclickOutsideClose from "../../functions/useClickOutsideClose";
 import { useDispatch } from "react-redux";
 import Cookie from "js-cookie";
 
-export default function ProfileModal({ setShowProfileModal }) {
+export default function ProfileModal({ setShowProfileModal, user }) {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const modal = useRef();
@@ -22,12 +22,14 @@ export default function ProfileModal({ setShowProfileModal }) {
 		<div className={classes.modal} ref={modal}>
 			<Link to={`/profile`} className={classes.modal__content}>
 				<img
-					src='https://res.cloudinary.com/detfhw9ll/image/upload/v1655054300/AdamMarkowicz/profile_pictures/mfs9c11fmmn7q8intmbv.jpg'
+					src={user.picture}
 					alt='profile image'
 					className={classes.modal__img}
 				/>
 				<div>
-					<span className={classes.modal__name}>Marek Nowak</span>
+					<span className={classes.modal__name}>
+						{user.firstName} {user.lastName}
+					</span>
 					<p className={classes.modal__text}>See your profile</p>
 				</div>
 			</Link>

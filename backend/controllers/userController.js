@@ -1,25 +1,9 @@
 const User = require("../models/User");
+const Post = require("../models/Post");
 const Code = require("../models/Code");
 const generateCode = require("../helpers/generateCode");
 const { sendResetCode } = require("../helpers/mailer.js");
 const bcrypt = require("bcrypt");
-
-exports.getUser = async (req, res) => {
-	try {
-		const id = req.params.id;
-		const user = await User.findById(id).select("-password");
-
-		res.status(200).json({
-			status: "success",
-			user,
-		});
-	} catch (err) {
-		res.status(500).json({
-			status: "fail",
-			message: err.message,
-		});
-	}
-};
 
 exports.findUser = async (req, res) => {
 	try {
@@ -112,6 +96,54 @@ exports.changePassword = async (req, res) => {
 
 		res.status(200).json({
 			status: "success",
+		});
+	} catch (err) {
+		res.status(500).json({
+			status: "fail",
+			message: err.message,
+		});
+	}
+};
+
+exports.getProfile = async (req, res) => {
+	try {
+		const { username } = req.params;
+		const user = await User.findOne({ username }).select("-password");
+
+		if (!user) {
+			return res.status(404).json({
+				status: "fail",
+				message: "User does not exist.",
+			});
+		}
+		const posts = await Post.find({ user: user._id })
+			.populate("user")
+			.sort({ createdAt: -1 });
+
+		res.status(200).json({
+			status: "success",
+			user,
+			posts,
+		});
+	} catch (err) {
+		res.status(500).json({
+			status: "fail",
+			message: err.message,
+		});
+	}
+};
+
+exports.updateProfilePicture = async (req, res) => {
+	try {
+		const { url } = req.body;
+
+		await User.findByIdAndUpdate(req.user.id, {
+			picture: url,
+		});
+
+		res.status(200).json({
+			status: "success",
+			url,
 		});
 	} catch (err) {
 		res.status(500).json({

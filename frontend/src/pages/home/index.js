@@ -16,7 +16,7 @@ export default function Home({ page, activate, posts }) {
 			<Nav page={page}></Nav>
 			<main className={classes.home__main}>
 				{activate && <Activate />}
-				<FriendsProposal />
+				<FriendsProposal home={true} />
 				{!user.verified && <SendVerification user={user} />}
 				<CreatePost />
 				{posts.map((post) => {

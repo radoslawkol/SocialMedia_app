@@ -16,11 +16,7 @@ export default function SideMenu() {
 		<div className={classes.sideMenu}>
 			<ul className={classes.menu}>
 				<Link to='/profile' className={classes.item}>
-					<img
-						src='https://res.cloudinary.com/detfhw9ll/image/upload/v1655054300/AdamMarkowicz/profile_pictures/mfs9c11fmmn7q8intmbv.jpg'
-						alt='profile image'
-						className={classes.img}
-					/>
+					<img src={user.picture} alt='profile image' className={classes.img} />
 					<span
 						className={classes.name}
 					>{`${user.firstName} ${user.lastName}`}</span>

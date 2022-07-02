@@ -1,0 +1,43 @@
+@import "../../sass/index.scss";
+
+.slider {
+	width: 60%;
+	height: 23rem;
+	padding: 2rem;
+	margin: 0 auto;
+	@include media-size(small) {
+		width: 90%;
+		min-height: 24rem;
+	}
+	@include media-size(large) {
+		width: 70%;
+		padding: 4rem;
+	}
+}
+
+.card {
+	height: 20rem;
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+	text-align: center;
+	padding: 2rem;
+	background-color: $secondary-background;
+
+	&__link {
+		text-decoration: none;
+	}
+
+	&__img {
+		width: 100%;
+		height: 10rem;
+		object-fit: cover;
+	}
+
+	&__username {
+		margin: 1rem;
+		font-size: 1.4em;
+		font-weight: 600;
+		color: $primary-color;
+	}
+}

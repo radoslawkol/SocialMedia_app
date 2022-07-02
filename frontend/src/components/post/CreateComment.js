@@ -6,7 +6,6 @@ import useclickOutsideClose from "../../functions/useClickOutsideClose";
 import Picker from "emoji-picker-react";
 
 export default function CreateComment({ user }) {
-	console.log(user);
 	const [openEmoji, setOpenEmoji] = useState(false);
 	const [cursorPosition, setCursorPosition] = useState(false);
 	const [text, setText] = useState("");

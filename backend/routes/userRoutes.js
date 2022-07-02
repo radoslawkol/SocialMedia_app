@@ -5,6 +5,8 @@ const {
 	sendResetPasswordCode,
 	validateResetCode,
 	changePassword,
+	getProfile,
+	updateProfilePicture,
 } = require("../controllers/userController");
 const {
 	register,
@@ -24,6 +26,7 @@ router.post("/findUser", findUser);
 router.post("/sendResetPasswordCode", sendResetPasswordCode);
 router.post("/validateResetCode", validateResetCode);
 router.post("/changePassword", changePassword);
-// router.get("/:id", auth, getUser);
+router.get("/getProfile/:username", auth, getProfile);
+router.patch("/updateProfilePicture", auth, updateProfilePicture);
 
 module.exports = router;

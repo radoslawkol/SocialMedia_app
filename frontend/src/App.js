@@ -53,7 +53,6 @@ function App() {
 					},
 				}
 			);
-			console.log(data);
 			dispatch({ type: "POSTS_SUCCESS", payload: data.posts });
 		} catch (err) {
 			dispatch({ type: "POSTS_ERROR", payload: err.response.data.message });
@@ -70,6 +69,7 @@ function App() {
 				<Route element={<LoggedInRoutes></LoggedInRoutes>}>
 					<Route path='/' element={<Home page='home' posts={posts} />}></Route>
 					<Route path='/profile' element={<Profile />}></Route>
+					<Route path='/profile/:username' element={<Profile />}></Route>
 					<Route path='/friends' element={<Friends page='friends' />}></Route>
 					<Route
 						path='/activate/:token'

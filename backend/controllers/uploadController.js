@@ -59,3 +59,25 @@ exports.uploadImages = async (req, res) => {
 		});
 	}
 };
+
+exports.listImages = async (req, res) => {
+	try {
+		const { path, sort, max } = req.body;
+		cloudinary.search
+			.expression(`${path}`)
+			.sort_by("created_at", `${sort}`)
+			.max_results(max)
+			.execute()
+			.then((result) => {
+				res.json(result);
+			})
+			.catch((err) => {
+				console.log(err.error.message);
+			});
+	} catch (err) {
+		res.status(500).json({
+			status: "fail",
+			message: err.message,
+		});
+	}
+};

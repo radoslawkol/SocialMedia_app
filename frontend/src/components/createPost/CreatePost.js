@@ -12,7 +12,7 @@ export default function CreatePost() {
 		<>
 			<div className={classes.createPost}>
 				<img
-					src='https://res.cloudinary.com/detfhw9ll/image/upload/v1655054300/AdamMarkowicz/profile_pictures/mfs9c11fmmn7q8intmbv.jpg'
+					src={user.picture}
 					alt='profile image'
 					className={classes.createPost__img}
 				/>

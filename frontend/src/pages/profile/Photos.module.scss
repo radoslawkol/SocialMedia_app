@@ -1,0 +1,26 @@
+@import "../../sass/index.scss";
+
+.photos {
+	padding: 2rem;
+	border-radius: 15px;
+	background-color: $secondary-background;
+
+	&__heading {
+		margin-bottom: 1rem;
+		font-size: 1.8rem;
+	}
+	&__list {
+		width: 100%;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: repeat(3, 1fr);
+		gap: 1rem;
+	}
+
+	&__photo {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: 15px;
+	}
+}

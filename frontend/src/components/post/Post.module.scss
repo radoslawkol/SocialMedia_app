@@ -99,6 +99,39 @@ $imageHeight: 20rem;
 	&__reacts {
 		padding-left: 2rem;
 	}
+
+	&__profilePicture {
+		position: relative;
+		height: 100%;
+		display: grid;
+		place-items: center;
+	}
+
+	&__profilePictureBg {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background: rgb(143, 0, 255);
+		background: linear-gradient(
+			117deg,
+			rgba(143, 0, 255, 1) 0%,
+			rgba(187, 75, 233, 1) 37%,
+			rgba(162, 32, 246, 1) 50%,
+			rgba(218, 129, 217, 0.8155637254901961) 100%
+		);
+	}
+
+	&__userPicture {
+		margin: 2rem;
+		width: 20rem;
+		height: 20rem;
+		border-radius: 50%;
+		border: 3px solid $secondary-background;
+		object-fit: cover;
+		z-index: 1;
+	}
 }
 
 .actions {
