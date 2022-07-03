@@ -1,0 +1,58 @@
+@import "../../sass/index.scss";
+
+.bio {
+	margin: 1rem 0;
+	width: 100%;
+	padding: 0 1rem 1rem;
+
+	&__select {
+		height: 3rem;
+		padding: 0.5rem;
+		outline: none;
+		border: none;
+		background-color: $primary-background;
+		cursor: pointer;
+
+		& > option {
+			&:checked {
+				color: $secondary-color;
+			}
+		}
+	}
+	&__textarea {
+		width: 100%;
+		height: 8rem;
+		padding: 0.8rem;
+		border-radius: 15px;
+		resize: none;
+		&:focus,
+		&:hover {
+			outline-color: $secondary-color;
+		}
+	}
+
+	&__max {
+		display: flex;
+		justify-content: flex-end;
+		margin: 0.5rem;
+		font-size: 1.2rem;
+	}
+
+	&__btns {
+		display: flex;
+		justify-content: flex-end;
+		gap: 1rem;
+	}
+
+	&__btn {
+		padding: 0.5rem;
+		border: none;
+		border-radius: 5px;
+		background-color: $primary-background;
+		cursor: pointer;
+		&:nth-child(2) {
+			color: $white-color;
+			background-color: $secondary-color;
+		}
+	}
+}

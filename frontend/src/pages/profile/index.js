@@ -84,7 +84,11 @@ export default function Profile() {
 				<FriendsProposal />
 				<div className={classes.profile__container}>
 					<div className={classes.profile__left}>
-						<Intro />
+						<Intro
+							fetchedDetails={profile?.user?.details}
+							isVisitor={isVisitor}
+							user={user}
+						/>
 						<Photos user={user} />
 						<Friends />
 					</div>

@@ -1,0 +1,44 @@
+@import "../../sass/index.scss";
+
+.detail {
+	position: relative;
+	width: 100%;
+
+	&__header {
+		margin-bottom: 0.5rem;
+		font-size: 1.8rem;
+	}
+
+	&__value {
+		font-size: 1.4rem;
+	}
+
+	&__group {
+		position: relative;
+		margin-bottom: 2rem;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 1.4rem;
+		cursor: pointer;
+		transition: font-size 0.3s ease-in;
+		&:hover {
+			font-size: 1.5rem;
+			color: $secondary-color;
+		}
+	}
+
+	&__addIcon {
+		color: $secondary-color;
+	}
+
+	&__icon {
+		color: $secondary-color;
+	}
+
+	&__editIcon {
+		position: absolute;
+		right: 1rem;
+		top: 0;
+	}
+}

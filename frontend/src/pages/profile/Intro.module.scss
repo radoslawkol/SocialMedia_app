@@ -17,13 +17,45 @@
 	}
 
 	&__btn {
+		margin: 1rem 0;
+		width: 100%;
 		padding: 1rem 0;
 		border: none;
+		border-radius: 15px;
 		background-color: $primary-background;
 		cursor: pointer;
 		transition: background-color 0.3s;
 		&:hover {
 			background-color: rgba($primary-background, 0.6);
 		}
+	}
+
+	&__info {
+		margin: 1rem 1rem 0.5rem;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-size: 1.4rem;
+		> a {
+			text-decoration: none;
+		}
+	}
+	&__icon {
+		fill: $secondary-color;
+		&--insta {
+			width: 2rem;
+			height: 2rem;
+			fill: $secondary-color;
+			color: $secondary-color;
+		}
+	}
+
+	&__bio {
+		margin: 1rem 0;
+		padding: 1rem;
+	}
+	&__bioText {
+		font-size: 1.4rem;
+		word-break: break-word;
 	}
 }

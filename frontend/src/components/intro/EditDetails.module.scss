@@ -1,0 +1,44 @@
+@import "../../sass/index.scss";
+
+.modal {
+	position: relative;
+	width: 30rem;
+	height: 45rem;
+	padding: 2rem;
+	border-radius: 15px;
+	background-color: $secondary-background;
+	overflow-y: scroll;
+
+	scrollbar-color: $primary-background;
+	scrollbar-width: thin;
+	&::-webkit-scrollbar {
+		width: 8px;
+		height: 2px;
+	}
+	&::-webkit-scrollbar-thumb {
+		height: 1rem;
+		background: $secondary-color;
+		border-radius: 5px;
+	}
+	&::-webkit-scrollbar-track {
+		background: $primary-background;
+	}
+	@include media-size(medium) {
+		width: 40rem;
+	}
+
+	&__heading {
+		margin-bottom: 2rem;
+		text-align: center;
+		font-size: 2rem;
+	}
+
+	&__close {
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: 1rem;
+		font-size: 1.6rem;
+		cursor: pointer;
+	}
+}

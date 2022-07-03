@@ -152,3 +152,24 @@ exports.updateProfilePicture = async (req, res) => {
 		});
 	}
 };
+exports.updateDetails = async (req, res) => {
+	try {
+		const { infos } = req.body;
+
+		const updated = await User.findByIdAndUpdate(
+			req.user.id,
+			{ details: infos },
+			{ new: true }
+		);
+
+		res.status(200).json({
+			status: "success",
+			details: updated.details,
+		});
+	} catch (err) {
+		res.status(500).json({
+			status: "fail",
+			message: err.message,
+		});
+	}
+};
