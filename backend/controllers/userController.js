@@ -173,3 +173,23 @@ exports.updateDetails = async (req, res) => {
 		});
 	}
 };
+
+exports.updateCover = async (req, res) => {
+	try {
+		const { url } = req.body;
+
+		await User.findByIdAndUpdate(req.user.id, {
+			cover: url,
+		});
+
+		res.status(200).json({
+			status: "success",
+			url,
+		});
+	} catch (err) {
+		res.status(500).json({
+			status: "fail",
+			message: err.message,
+		});
+	}
+};

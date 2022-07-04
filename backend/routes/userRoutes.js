@@ -8,6 +8,7 @@ const {
 	getProfile,
 	updateProfilePicture,
 	updateDetails,
+	updateCover,
 } = require("../controllers/userController");
 const {
 	register,
@@ -30,5 +31,6 @@ router.post("/changePassword", changePassword);
 router.get("/getProfile/:username", auth, getProfile);
 router.patch("/updateProfilePicture", auth, updateProfilePicture);
 router.patch("/updateDetails", auth, updateDetails);
+router.patch("/updateCover", auth, updateCover);
 
 module.exports = router;

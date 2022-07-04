@@ -98,21 +98,25 @@ export default function Post({ post }) {
 							);
 						})}
 					</div>
-				) : (
-					post.type === "profilePicture" && (
-						<div className={classes.post__profilePicture}>
-							<div className={classes.post__profilePictureBg}>
-								<img
-									src={post.user.cover}
-									alt='post image'
-									className={classes.post__profilePictureImg}
-								/>
-							</div>
+				) : post.type === "profilePicture" ? (
+					<div className={classes.post__profilePicture}>
+						<div className={classes.post__profilePictureBg}>
 							<img
-								src={post.photos[0].url}
-								alt='user profile image'
-								className={classes.post__userPicture}
-							></img>
+								src={post.user.cover}
+								alt='post image'
+								className={classes.post__profilePictureImg}
+							/>
+						</div>
+						<img
+							src={post.photos[0].url}
+							alt='user profile image'
+							className={classes.post__userPicture}
+						></img>
+					</div>
+				) : (
+					post.type === "coverPicture" && (
+						<div className={classes.post__coverPicture}>
+							<img src={post.photos[0].url} />
 						</div>
 					)
 				)}

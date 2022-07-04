@@ -16,7 +16,6 @@ import EditDetails from "../../components/intro/EditDetails";
 const modalRoot = document.getElementById("modal-root");
 
 export default function Intro({ fetchedDetails, isVisitor, user }) {
-	console.log(fetchedDetails);
 	const [details, setDetails] = useState();
 	const [modalVisible, setModalVisible] = useState(false);
 
@@ -37,12 +36,6 @@ export default function Intro({ fetchedDetails, isVisitor, user }) {
 	const [infos, setInfos] = useState(initial);
 	const [showBio, setShowBio] = useState(false);
 	const [max, setMax] = useState(infos?.bio ? 100 - infos?.bio.length : 100);
-
-	// const bioHandler = (e) => {
-	// 	setInfos({ ...infos, bio: e.target.value });
-
-	// 	setMax(100 - e.target.value.length);
-	// };
 
 	const updateDetails = async () => {
 		try {

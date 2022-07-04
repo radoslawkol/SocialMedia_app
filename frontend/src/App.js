@@ -61,7 +61,7 @@ function App() {
 
 	useEffect(() => {
 		getAllPosts();
-	}, []);
+	}, [posts]);
 
 	return (
 		<Router>

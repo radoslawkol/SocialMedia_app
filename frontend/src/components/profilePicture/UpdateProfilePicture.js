@@ -13,7 +13,7 @@ import getCroppedImg from "../../functions/getCroppedImg";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { uploadImages } from "../../functions/uploadImages";
-import { updatePicture } from "../../functions/userPicture";
+import { updatePicture } from "../../functions/userPictureCover";
 import { createPost } from "../../functions/post";
 import { PulseLoader } from "react-spinners";
 import { useDispatch } from "react-redux";
@@ -28,6 +28,7 @@ export default function UpdateProfilePicture({
 }) {
 	const dispatch = useDispatch();
 	const { user } = useSelector((state) => ({ ...state }));
+	console.log(user);
 	const modalRef = useRef();
 	const [description, setDescription] = useState("");
 	const [loading, setLoading] = useState(false);
@@ -80,6 +81,7 @@ export default function UpdateProfilePicture({
 			formdata.append("path", path);
 
 			const { images } = await uploadImages(formdata, path, user.token);
+			console.log(images);
 			const updatedPicture = await updatePicture(images[0].url, user.token);
 
 			if (updatedPicture === "ok") {
@@ -100,8 +102,15 @@ export default function UpdateProfilePicture({
 				setImage("");
 				pictureRef.current.src = `${images[0].url}`;
 
-				// Cookie.set("user", JSON.stringify({ ...user, picture: images[0].url }));
+				Cookie.set(
+					"user",
+					JSON.stringify({ user: { ...user, picture: images[0].url } })
+				);
 				// dispatch({ type: "UPDATE_PICTURE", payload: images[0].url });
+				dispatch({
+					type: "UPDATE_PICTURE",
+					payload: { user: { ...user, picture: images[0].url } },
+				});
 				setShowPictureModal(false);
 			} else {
 				setLoading(false);

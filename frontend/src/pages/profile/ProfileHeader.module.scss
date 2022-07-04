@@ -7,16 +7,18 @@
 	&__cover {
 		position: relative;
 		width: 100%;
-		height: 20rem;
+		height: 30rem;
 		padding: 0 2rem;
 		margin-bottom: 4rem;
 		background-color: $primary-background;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center 60%;
 		@include media-size(small) {
-			height: 30rem;
+			height: 50rem;
 			margin-bottom: 1rem;
 		}
 		@include media-size(large) {
-			height: 45rem;
 			margin-bottom: 2rem;
 		}
 	}
@@ -144,6 +146,66 @@
 		@include media-size(medium) {
 			width: 3rem;
 			height: 3rem;
+		}
+	}
+
+	&__error {
+		position: absolute;
+		top: 5rem;
+		left: 0;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		padding: 1rem 2rem;
+		background-color: $primary-color;
+		z-index: 1;
+	}
+
+	&__tryAgain {
+		padding: 0.5rem;
+		border: none;
+		border-radius: 15px;
+		background-color: $secondary-color;
+		color: $white-color;
+		cursor: pointer;
+	}
+
+	&__cropper {
+		height: 100% !important;
+		width: 100% !important;
+		& > img {
+			width: 100% !important;
+			object-fit: cover !important;
+		}
+	}
+
+	&__save {
+		position: absolute;
+		top: 5rem;
+		width: 100%;
+		padding: 1rem;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		background-color: rgba($primary-color, 0.8);
+		color: $white-color;
+		font-size: 1.2rem;
+	}
+
+	&__saveBtns {
+		display: flex;
+		gap: 1rem;
+	}
+
+	&__saveBtn {
+		border: none;
+		padding: 0.5rem;
+		border-radius: 5px;
+		cursor: pointer;
+
+		&:nth-child(2) {
+			color: $white-color;
+			background-color: $secondary-color;
 		}
 	}
 }

@@ -97,10 +97,15 @@ body {
 	z-index: 2000;
 }
 
+// .reactEasyCrop_CropAreaGrid {
+// 	width: 30rem !important;
+// 	height: 30rem !important;
+// 	color: $backdrop-color;
+// }
+
 .reactEasyCrop_CropAreaGrid {
-	width: 30rem !important;
-	height: 30rem !important;
-	color: $backdrop-color;
+	width: 100% !important;
+	height: 100% !important;
 }
 
 $breakpoints: (
