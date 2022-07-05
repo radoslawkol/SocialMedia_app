@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./Post.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -13,11 +13,27 @@ import ReactsPopup from "./ReactsPopup";
 import CreateComment from "./CreateComment";
 import { useSelector } from "react-redux";
 import PostMenu from "./PostMenu";
+import { getReact } from "../../functions/post";
 
 export default function Post({ post }) {
 	const [popupVisible, setPopupVisible] = useState(false);
 	const [showMenu, setShowMenu] = useState(false);
+	const [reacts, setReacts] = useState("");
+	const [check, setCheck] = useState("");
+
 	const { user } = useSelector((state) => ({ ...state }));
+
+	const getPostReacts = async () => {
+		const res = await getReact(post._id, user.token);
+		setReacts(res);
+		setCheck(res.check);
+		console.log(res.check);
+	};
+
+	useEffect(() => {
+		getPostReacts();
+	}, [post]);
+
 	return (
 		<div className={classes.post}>
 			<div className={classes.post__header}>
@@ -147,6 +163,9 @@ export default function Post({ post }) {
 						<ReactsPopup
 							popupVisible={popupVisible}
 							setPopupVisible={setPopupVisible}
+							postId={post?._id}
+							check={check}
+							setCheck={setCheck}
 						></ReactsPopup>
 					</div>
 					<div
@@ -162,6 +181,8 @@ export default function Post({ post }) {
 							}, 500)
 						}
 					>
+						{/* Issue to solve */}
+						{check ? <FontAwesomeIcon icon={check} /> : ""}
 						<FontAwesomeIcon icon={faThumbsUp} />
 						<span>Like</span>
 					</div>

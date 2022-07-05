@@ -11,7 +11,7 @@ import Intro from "./Intro";
 import GridPost from "./GridPost";
 import Photos from "./Photos";
 import Friends from "./Friends";
-import { useInView } from "react-intersection-observer";
+import { InView, useInView } from "react-intersection-observer";
 
 const profileReducer = (state, action) => {
 	switch (action.type) {
@@ -92,12 +92,13 @@ export default function Profile() {
 			);
 
 			if (data.status === "success") {
+				console.log(data);
 				dispatch({ type: "PROFILE_SUCCESS", payload: data });
-				console.log(profile);
 			} else {
 				navigate("/profile");
 			}
 		} catch (err) {
+			console.log(err);
 			dispatch({ type: "PROFILE_ERROR", payload: err.response.data.message });
 			navigate("/profile");
 		}
@@ -133,8 +134,6 @@ export default function Profile() {
 				}
 			);
 
-			console.log(data);
-
 			dispatchPhotos({ type: "PHOTOS_SUCCESS", payload: data.resources });
 		} catch (err) {
 			dispatchPhotos({
@@ -144,19 +143,28 @@ export default function Profile() {
 		}
 	};
 
+	console.log(profile);
+
 	useEffect(() => {
 		getPhotos();
 	}, [username]);
 
-	// const [sectionMain, inView, entry] = useInView({
-	// 	trackVisibility: true,
-	// 	delay: 100,
-	// 	threshold: 1.0,
-	// });
+	const [inView, setInView] = useState(false);
 
-	// useEffect(() => {
-	// 	console.log(entry);
-	// }, [inView]);
+	const leftSideRef = useRef();
+	const rightRef = useRef();
+
+	const handleIntersectionChange = (inView, entry) => {
+		console.log(entry);
+		console.log(inView);
+		if (inView) {
+			leftSideRef.current.classList.add(`${classes.fixed}`);
+			rightRef.current.classList.add(`${classes.scroll}`);
+		} else {
+			leftSideRef.current.classList.remove(`${classes.fixed}`);
+			rightRef.current.classList.remove(`${classes.scroll}`);
+		}
+	};
 
 	return (
 		<>
@@ -164,24 +172,26 @@ export default function Profile() {
 			<ProfileHeader profile={profile} isVisitor={isVisitor} photos={photos} />
 			<main className={classes.profile}>
 				<FriendsProposal />
-				<div className={classes.profile__container}>
-					<div
-						className={classes.profile__left}
-						style={{ position: `${inView ? "fixed" : ""}` }}
-					>
+				<InView
+					threshold={0.0225}
+					as='div'
+					onChange={(inView, entry) => handleIntersectionChange(inView, entry)}
+					className={classes.profile__container}
+				>
+					<div className={classes.profile__left} ref={leftSideRef}>
 						<Intro
 							fetchedDetails={profile?.user?.details}
 							isVisitor={isVisitor}
 							user={user}
 						/>
 						<Photos user={user} username={userName} photos={photos} />
-						<Friends />
+						<Friends friends={profile?.user?.friends} />
 					</div>
-					<div className={classes.profile__right}>
+					<div className={classes.profile__right} ref={rightRef}>
 						<CreatePost />
 						<GridPost posts={profile?.posts} />
 					</div>
-				</div>
+				</InView>
 			</main>
 		</>
 	);

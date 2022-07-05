@@ -9,6 +9,13 @@ const {
 	updateProfilePicture,
 	updateDetails,
 	updateCover,
+	addFriend,
+	cancelRequest,
+	follow,
+	unfollow,
+	acceptRequest,
+	unfriend,
+	deleteRequest,
 } = require("../controllers/userController");
 const {
 	register,
@@ -32,5 +39,12 @@ router.get("/getProfile/:username", auth, getProfile);
 router.patch("/updateProfilePicture", auth, updateProfilePicture);
 router.patch("/updateDetails", auth, updateDetails);
 router.patch("/updateCover", auth, updateCover);
+router.patch("/addFriend/:id", auth, addFriend);
+router.patch("/cancelRequest/:id", auth, cancelRequest);
+router.patch("/follow/:id", auth, follow);
+router.patch("/unfollow/:id", auth, unfollow);
+router.patch("/acceptRequest/:id", auth, acceptRequest);
+router.patch("/unfriend/:id", auth, unfriend);
+router.patch("/deleteRequest/:id", auth, deleteRequest);
 
 module.exports = router;

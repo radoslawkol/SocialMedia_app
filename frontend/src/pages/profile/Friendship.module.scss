@@ -1,0 +1,57 @@
+@import "../../sass/index.scss";
+
+.friends {
+	&__wrap {
+		position: relative;
+	}
+
+	&__btn {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		padding: 0.5rem;
+		border: none;
+		color: $white-color;
+		border-radius: 5px;
+		font-size: 1.4em;
+		background-color: $secondary-color;
+		cursor: pointer;
+		transition: transform 0.3s;
+		&:hover {
+			transform: scale(1.1);
+		}
+
+		&--grey {
+			background-color: $primary-color;
+		}
+	}
+}
+
+.menu {
+	position: absolute;
+	top: 2rem;
+	right: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	width: 14rem;
+	padding: 1rem;
+	border-radius: 15px;
+
+	background-color: $secondary-background;
+	box-shadow: 1px 1px 2px gray;
+	z-index: 1;
+	&__btn {
+		text-align: left;
+		width: 100%;
+		font-size: 1.4rem;
+		color: $primary-color;
+		border: none;
+		background-color: transparent;
+		transition: color 0.3s;
+		cursor: pointer;
+		&:hover {
+			color: $secondary-color;
+		}
+	}
+}

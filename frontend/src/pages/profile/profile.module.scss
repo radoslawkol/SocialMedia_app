@@ -8,9 +8,7 @@
 	}
 
 	&__container {
-		margin-top: 4rem;
 		display: flex;
-
 		flex-direction: column;
 		padding: 0 2rem;
 		border-top: 1px solid $primary-color;
@@ -40,7 +38,6 @@
 		}
 	}
 	&__left {
-		// position: fixed;
 		top: 6rem;
 		width: 100%;
 		margin: 2rem auto;
@@ -55,13 +52,14 @@
 			width: 30%;
 		}
 		@include media-size(medium-large) {
-			width: 40%;
+			width: 31rem;
 		}
 	}
 	&__right {
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
+
 		@include media-size(small) {
 			width: 60%;
 		}
@@ -71,5 +69,35 @@
 		@include media-size(medium-large) {
 			width: 60%;
 		}
+	}
+}
+
+.fixed {
+	@include media-size(small) {
+		position: fixed;
+	}
+	@include media-size(large) {
+		width: 26rem;
+	}
+	@include media-size(medium-large) {
+		width: 31rem;
+	}
+}
+
+.scroll {
+	@include media-size(small) {
+		margin-left: 45%;
+	}
+	@include media-size(large) {
+		margin-left: 28rem;
+	}
+	@include media-size(medium-large) {
+		margin-left: 33rem;
+	}
+	@include media-size(extra-large) {
+		margin-left: 35rem;
+	}
+	@include media-size(big) {
+		margin-left: 37rem;
 	}
 }

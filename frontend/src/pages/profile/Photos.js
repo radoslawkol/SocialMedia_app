@@ -6,8 +6,6 @@ import axios from "axios";
 export default function Photos({ user, username, photos }) {
 	const navigate = useNavigate();
 
-	console.log(photos);
-
 	return (
 		<div className={classes.photos}>
 			<h2 className={classes.photos__heading}>Photos</h2>

@@ -9,6 +9,8 @@ import {
 	faFaceGrinStars,
 } from "@fortawesome/free-solid-svg-icons";
 import classes from "./ReactsPopup.module.scss";
+import { reactPost } from "../../functions/post";
+import { useSelector } from "react-redux";
 
 const reacts = [
 	{
@@ -42,7 +44,19 @@ const reacts = [
 		color: "black",
 	},
 ];
-export default function ReactsPopup({ popupVisible, setPopupVisible }) {
+export default function ReactsPopup({
+	popupVisible,
+	setPopupVisible,
+	postId,
+	setReact,
+}) {
+	const { user } = useSelector((state) => ({ ...state }));
+
+	const reactHandler = async (react) => {
+		await reactPost(postId, react, user.token);
+		setReact(react);
+	};
+
 	return (
 		<>
 			{popupVisible && (
@@ -61,7 +75,11 @@ export default function ReactsPopup({ popupVisible, setPopupVisible }) {
 				>
 					{reacts.map((react, i) => {
 						return (
-							<button className={classes.popup__react} key={i}>
+							<button
+								className={classes.popup__react}
+								key={i}
+								onClick={() => reactHandler(react.name)}
+							>
 								<FontAwesomeIcon icon={react.icon} color={react.color} />
 							</button>
 						);

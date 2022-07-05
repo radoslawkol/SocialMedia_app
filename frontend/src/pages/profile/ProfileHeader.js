@@ -17,9 +17,10 @@ import { useDispatch } from "react-redux";
 import Cookie from "js-cookie";
 import { useMediaQuery } from "react-responsive";
 import OldCover from "./OldCover";
+import Friendship from "./Friendship";
 const modalRoot = document.getElementById("modal-root");
 
-export default function ProfileHeader({ isVisitor, photos }) {
+export default function ProfileHeader({ isVisitor, photos, profile }) {
 	const isSmall = useMediaQuery({
 		query: "(min-width: 576px)",
 	});
@@ -39,7 +40,6 @@ export default function ProfileHeader({ isVisitor, photos }) {
 		setWidth(coverRef.current.clientWidth);
 	}, [window.innerWidth]);
 
-	console.log(user);
 	const [crop, setCrop] = useState({ x: 0, y: 0 });
 	const [zoom, setZoom] = useState(1);
 	const [cropedAreaPixels, setCropedAreaPixels] = useState(null);
@@ -107,7 +107,6 @@ export default function ProfileHeader({ isVisitor, photos }) {
 				setError(updatedPicture);
 			}
 		} catch (err) {
-			console.log(err);
 			setLoading(false);
 			setError(err.response.data.message);
 		}
@@ -118,7 +117,9 @@ export default function ProfileHeader({ isVisitor, photos }) {
 			<div
 				className={classes.header__cover}
 				style={{
-					backgroundImage: `url(${user?.cover && !cover ? user.cover : ""})`,
+					backgroundImage: `url(${
+						profile?.user?.cover && !cover ? profile?.user?.cover : ""
+					})`,
 				}}
 				ref={coverRef}
 			>
@@ -162,7 +163,7 @@ export default function ProfileHeader({ isVisitor, photos }) {
 				<div className={classes.header__user}>
 					<div className={classes.header__userPicture}>
 						<img
-							src={user?.picture}
+							src={profile?.user?.picture}
 							alt='user picture'
 							className={classes.header__userImg}
 							ref={pictureRef}
@@ -180,46 +181,31 @@ export default function ProfileHeader({ isVisitor, photos }) {
 						)}
 					</div>
 					<strong className={classes.header__username}>
-						{user?.firstName} {user?.lastName}
+						{profile?.user?.firstName} {profile?.user?.lastName}
 					</strong>
+					{isVisitor && (
+						<Friendship
+							friendshipFetched={profile?.user?.friendship}
+							profileId={profile?.user?._id}
+						/>
+					)}
 				</div>
 				<div className={classes.header__friends}>
-					{/* max 5 friends display */}
-					<Link to='/profile/friend' className={classes.header__friendLink}>
-						<img
-							src='https://res.cloudinary.com/detfhw9ll/image/upload/v1652289877/cld-sample.jpg'
-							alt="friend's picture"
-							className={classes.header__friend}
-						/>
-					</Link>
-					<Link to='/profile/friend' className={classes.header__friendLink}>
-						<img
-							src='https://res.cloudinary.com/detfhw9ll/image/upload/v1652289877/cld-sample.jpg'
-							alt="friend's picture"
-							className={classes.header__friend}
-						/>
-					</Link>
-					<Link to='/profile/friend' className={classes.header__friendLink}>
-						<img
-							src='https://res.cloudinary.com/detfhw9ll/image/upload/v1652289877/cld-sample.jpg'
-							alt="friend's picture"
-							className={classes.header__friend}
-						/>
-					</Link>
-					<Link to='/profile/friend' className={classes.header__friendLink}>
-						<img
-							src='https://res.cloudinary.com/detfhw9ll/image/upload/v1652289877/cld-sample.jpg'
-							alt="friend's picture"
-							className={classes.header__friend}
-						/>
-					</Link>
-					<Link to='/profile/friend' className={classes.header__friendLink}>
-						<img
-							src='https://res.cloudinary.com/detfhw9ll/image/upload/v1652289877/cld-sample.jpg'
-							alt="friend's picture"
-							className={classes.header__friend}
-						/>
-					</Link>
+					{profile?.user?.friends.slice(0, 5).map((friend, i) => {
+						return (
+							<Link
+								key={i}
+								to={`/profile/${friend.username}'`}
+								className={classes.header__friendLink}
+							>
+								<img
+									src={friend.picture}
+									alt="friend's picture"
+									className={classes.header__friend}
+								/>
+							</Link>
+						);
+					})}
 				</div>
 			</div>
 			{showPictureModal &&
