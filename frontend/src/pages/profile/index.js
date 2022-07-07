@@ -189,7 +189,7 @@ export default function Profile() {
 					</div>
 					<div className={classes.profile__right} ref={rightRef}>
 						<CreatePost />
-						<GridPost posts={profile?.posts} />
+						<GridPost posts={profile?.posts} profile={profile} />
 					</div>
 				</InView>
 			</main>

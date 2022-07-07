@@ -70,3 +70,23 @@ export const getReact = async (postId, token) => {
 		return err.response.data.message;
 	}
 };
+
+export const comment = async (postId, comment, image, token) => {
+	try {
+		const commentAt = new Date();
+		const { data } = await axios.patch(
+			// eslint-disable-next-line no-undef
+			`${process.env.REACT_APP_BACKEND_URL}/api/v1/posts/comment`,
+			{ postId, comment, image, commentAt },
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+		return data;
+	} catch (err) {
+		console.log(err);
+		return err.response.data.message;
+	}
+};

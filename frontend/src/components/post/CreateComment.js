@@ -4,13 +4,18 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSmile, faCamera, faXmark } from "@fortawesome/free-solid-svg-icons";
 import useclickOutsideClose from "../../functions/useClickOutsideClose";
 import Picker from "emoji-picker-react";
+import { comment } from "../../functions/post";
+import { dataURItoBlob } from "../../functions/dataUrltoBlob";
+import { uploadImages } from "../../functions/uploadImages";
+import { ClipLoader } from "react-spinners";
 
-export default function CreateComment({ user }) {
+export default function CreateComment({ user, postId, setComments }) {
 	const [openEmoji, setOpenEmoji] = useState(false);
 	const [cursorPosition, setCursorPosition] = useState(false);
 	const [text, setText] = useState("");
 	const [image, setImage] = useState("");
 	const [error, setError] = useState("");
+	const [loading, setLoading] = useState(false);
 	const emojiRef = useRef();
 	const textRef = useRef();
 	const imageInputRef = useRef();
@@ -37,27 +42,54 @@ export default function CreateComment({ user }) {
 	};
 
 	const handleImages = (e) => {
-		let files = Array.from(e.target.files);
-		files.forEach((file) => {
-			if (
-				file.type !== "image/png" &&
-				file.type !== "image/jpeg" &&
-				file.type !== "image/gif" &&
-				file.type !== "image/webp"
-			) {
-				return setError(
-					`${file.name} Format is unsupported. Only jepg, png, webp, gif is allowed.`
-				);
-			} else if (file.size > 1024 * 1024 * 10) {
-				files = files.filter((image) => image.name !== file.name);
-				return setError("Image size is too big. Max image size: 10Mb");
+		let file = e.target.files[0];
+
+		if (
+			file.type !== "image/png" &&
+			file.type !== "image/jpeg" &&
+			file.type !== "image/gif" &&
+			file.type !== "image/webp"
+		) {
+			return setError(
+				`${file.name} Format is unsupported. Only jepg, png, webp, gif is allowed.`
+			);
+		} else if (file.size > 1024 * 1024 * 10) {
+			return setError("Image size is too big. Max image size: 10Mb");
+		}
+		const reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload = (readerEvent) => {
+			setImage(readerEvent.target.result);
+		};
+	};
+
+	const commentHandler = async (e) => {
+		if (e.key === "Enter") {
+			if (image !== "") {
+				setLoading(true);
+				const commentImage = dataURItoBlob(image);
+
+				const path = `SocialMediaApp/${user.username}/post_images/${postId}`;
+				const formData = new FormData();
+				formData.append("path", path);
+				formData.append("file", commentImage);
+
+				const imageComment = await uploadImages(formData, path, user.token);
+
+				const comments = await comment(postId, text, imageComment, user.token);
+				setComments(comments.comments);
+
+				setLoading(false);
+				setText("");
+				setImage("");
+			} else {
+				const comments = await comment(postId, text, "", user.token);
+				setComments(comments.comments);
+
+				setLoading(false);
+				setText("");
 			}
-			const reader = new FileReader();
-			reader.readAsDataURL(file);
-			reader.onload = (readerEvent) => {
-				setImage((images) => [...images, readerEvent.target.result]);
-			};
-		});
+		}
 	};
 	return (
 		<>
@@ -82,9 +114,11 @@ export default function CreateComment({ user }) {
 						placeholder='Write a comment...'
 						ref={textRef}
 						value={text}
+						onKeyUp={commentHandler}
 						onChange={(e) => setText(e.target.value)}
 					/>
 					<div className={classes.comment__options}>
+						<ClipLoader size={20} loading={loading} />
 						<button
 							className={classes.comment__btn}
 							onClick={() => setOpenEmoji((prev) => !prev)}

@@ -1,11 +1,11 @@
 import React from "react";
 import Post from "../../components/post/Post";
 import classes from "./GridPost.module.scss";
-export default function GridPost({ posts }) {
+export default function GridPost({ posts, profile }) {
 	return (
 		<div className={classes.grid}>
 			{posts?.map((post, i) => {
-				return <Post post={post} key={post.id}></Post>;
+				return <Post post={post} key={post.id} profile={profile}></Post>;
 			})}
 		</div>
 	);

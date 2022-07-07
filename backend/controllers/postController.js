@@ -41,3 +41,32 @@ exports.getAllPosts = async (req, res) => {
 		});
 	}
 };
+exports.comment = async (req, res) => {
+	try {
+		const { postId, comment, image, commentAt } = req.body;
+		const newComment = await Post.findByIdAndUpdate(
+			postId,
+			{
+				$push: {
+					comments: {
+						comment,
+						images: image,
+						commentedBy: req.user.id,
+						commentAt,
+					},
+				},
+			},
+			{ new: true }
+		).populate("comments.commentedBy", "picture firstName lastName username");
+
+		res.status(201).json({
+			status: "success",
+			comments: newComment.comments,
+		});
+	} catch (err) {
+		res.status(500).json({
+			status: "fail",
+			message: err.message,
+		});
+	}
+};

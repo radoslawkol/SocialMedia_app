@@ -1,0 +1,53 @@
+@import "../../sass/index.scss";
+
+.comment {
+	width: 100%;
+	margin: 1rem 2rem;
+
+	&__header {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	&__content {
+		display: flex;
+		flex-direction: column;
+		gap: 3px;
+		padding: 0.5rem;
+		border-radius: 15px;
+		background-color: $primary-background;
+	}
+
+	&__username {
+		font-weight: 600;
+		font-size: 1.2rem;
+	}
+
+	&__text {
+		font-size: 1.2rem;
+	}
+
+	&__user {
+		width: 3rem;
+		height: 3rem;
+		border-radius: 50%;
+	}
+
+	&__img {
+		margin: 1rem 1rem 0.5rem;
+		width: 16rem;
+		object-fit: cover;
+		border-radius: 15px;
+	}
+
+	&__additional {
+		width: 16rem;
+		display: flex;
+		flex-direction: column;
+	}
+
+	&__time {
+		text-align: right;
+	}
+}

@@ -14,12 +14,15 @@ import CreateComment from "./CreateComment";
 import { useSelector } from "react-redux";
 import PostMenu from "./PostMenu";
 import { getReact } from "../../functions/post";
+import Comment from "./Comment";
 
-export default function Post({ post }) {
+export default function Post({ post, profile }) {
 	const [popupVisible, setPopupVisible] = useState(false);
 	const [showMenu, setShowMenu] = useState(false);
 	const [reacts, setReacts] = useState("");
 	const [check, setCheck] = useState("");
+	const [comments, setComments] = useState([]);
+	const [showMoreComments, setShowMoreComments] = useState(false);
 
 	const { user } = useSelector((state) => ({ ...state }));
 
@@ -32,6 +35,10 @@ export default function Post({ post }) {
 
 	useEffect(() => {
 		getPostReacts();
+	}, [post]);
+
+	useEffect(() => {
+		setComments(post.comments);
 	}, [post]);
 
 	return (
@@ -136,7 +143,6 @@ export default function Post({ post }) {
 						</div>
 					)
 				)}
-
 				{post.background && (
 					<div
 						className={classes.post__background}
@@ -145,19 +151,19 @@ export default function Post({ post }) {
 						<p className={classes.post__bgText}>{post.text}</p>
 					</div>
 				)}
-
 				<div className={classes.post__infos}>
 					<div className={classes.post__reacts}>
 						<div className={classes.post__reactsImgs}>2</div>
 						<div className={classes.post__reactsNum}>1</div>
 					</div>
 					<div className={classes.post__stats}>
-						<span className={classes.post__commentsCount}>2 comments</span>
+						<span
+							className={classes.post__commentsCount}
+						>{`${comments.length} comments`}</span>
 						<span className={classes.post__sharesCount}>9 share</span>
 					</div>
 				</div>
 				<hr />
-
 				<div className={classes.actions}>
 					<div style={{ position: "relative" }}>
 						<ReactsPopup
@@ -182,7 +188,8 @@ export default function Post({ post }) {
 						}
 					>
 						{/* Issue to solve */}
-						{check ? <FontAwesomeIcon icon={check} /> : ""}
+
+						{/* {check ? <FontAwesomeIcon icon={check} /> : ""}  */}
 						<FontAwesomeIcon icon={faThumbsUp} />
 						<span>Like</span>
 					</div>
@@ -195,7 +202,28 @@ export default function Post({ post }) {
 						<span>Share</span>
 					</div>
 				</div>
-				<CreateComment user={user} />
+				<CreateComment
+					user={user}
+					postId={post?._id}
+					fetchedComments={post?.comments}
+					setComments={setComments}
+				/>
+				{comments &&
+					comments.length !== 0 &&
+					comments
+						.sort((a, b) => new Date(b.commentAt) - new Date(a.commentAt))
+						.slice(0, showMoreComments ? comments.length : 3)
+						.map((comment, i) => {
+							return <Comment comment={comment} key={i} />;
+						})}
+				{comments && (
+					<button
+						className={`${classes.post__moreBtn} btn btn--purple`}
+						onClick={() => setShowMoreComments((prev) => !prev)}
+					>
+						{showMoreComments ? "View less comments" : "View more comments"}
+					</button>
+				)}
 			</div>
 			{showMenu && (
 				<PostMenu
