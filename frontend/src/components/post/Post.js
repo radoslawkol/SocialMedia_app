@@ -23,6 +23,7 @@ export default function Post({ post, profile }) {
 	const [check, setCheck] = useState("");
 	const [comments, setComments] = useState([]);
 	const [showMoreComments, setShowMoreComments] = useState(false);
+	console.log(comments);
 
 	const { user } = useSelector((state) => ({ ...state }));
 
@@ -216,7 +217,7 @@ export default function Post({ post, profile }) {
 						.map((comment, i) => {
 							return <Comment comment={comment} key={i} />;
 						})}
-				{comments && (
+				{comments && comments.length > 3 && (
 					<button
 						className={`${classes.post__moreBtn} btn btn--purple`}
 						onClick={() => setShowMoreComments((prev) => !prev)}
@@ -231,6 +232,7 @@ export default function Post({ post, profile }) {
 					postUserId={post.user._id}
 					imagesLength={post?.photos?.length}
 					setShowMenu={setShowMenu}
+					images={post?.photos}
 				/>
 			)}
 		</div>

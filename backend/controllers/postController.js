@@ -1,4 +1,5 @@
 const Post = require("../models/Post");
+const User = require("../models/User");
 
 exports.createPost = async (req, res) => {
 	try {
@@ -26,15 +27,38 @@ exports.createPost = async (req, res) => {
 
 exports.getAllPosts = async (req, res) => {
 	try {
-		const posts = await Post.find()
+		const userFollowing = await User.findById(req.user.id).select("following");
+		const { following } = userFollowing;
+
+		const promises = following.map((followPerson) => {
+			return Post.find({ user: followPerson })
+				.populate("user", "firstName lastName picture username gender")
+				.populate(
+					"comments.commentedBy",
+					"picture  firstName lastName username"
+				)
+				.sort({ createdAt: -1 })
+				.limit(10);
+		});
+
+		const followingPosts = await Promise.all(promises);
+
+		const userPosts = await Post.find({ user: req.user.id })
 			.populate("user", "firstName lastName picture username gender")
-			.sort({ createdAt: -1 });
+			.populate("comments.commentedBy", "picture  firstName lastName username")
+			.sort({ createdAt: -1 })
+			.limit(10);
+
+		const posts = [...followingPosts.flat(), ...userPosts].sort(
+			(a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+		);
 
 		res.status(200).json({
 			status: "success",
 			posts,
 		});
 	} catch (err) {
+		console.log(err);
 		res.status(500).json({
 			status: "fail",
 			message: err.message,

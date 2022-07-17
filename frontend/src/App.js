@@ -55,13 +55,14 @@ function App() {
 			);
 			dispatch({ type: "POSTS_SUCCESS", payload: data.posts });
 		} catch (err) {
+			console.log(err);
 			dispatch({ type: "POSTS_ERROR", payload: err.response.data.message });
 		}
 	};
 
 	useEffect(() => {
 		getAllPosts();
-	}, [posts]);
+	}, [initialState.posts]);
 
 	return (
 		<Router>

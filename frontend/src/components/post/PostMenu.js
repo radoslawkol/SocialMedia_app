@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import classes from "./PostMenu.module.scss";
 import MenuItem from "./MenuItem";
+import { saveAs } from "file-saver";
 
 import {
 	faBookmark,
@@ -14,6 +15,7 @@ export default function PostMenu({
 	postUserId,
 	imagesLength,
 	setShowMenu,
+	images,
 }) {
 	const [isAuthor, setIsAuthor] = useState(
 		postUserId === userId ? true : false
@@ -21,6 +23,14 @@ export default function PostMenu({
 
 	const menuRef = useRef();
 	useclickOutsideClose(menuRef, () => setShowMenu(false));
+
+	const downloadPost = async () => {
+		images.map((img) => {
+			console.log(img);
+			const imageName = img.url.slice(img.url.lastIndexOf("/") + 1);
+			saveAs(img.url, imageName);
+		});
+	};
 	return (
 		<ul className={classes.menu} ref={menuRef}>
 			{!isAuthor && (
@@ -31,11 +41,13 @@ export default function PostMenu({
 				/>
 			)}
 			{imagesLength !== 0 && (
-				<MenuItem
-					icon={faDownload}
-					title='Download'
-					subtitle='Download post to your desktop.'
-				/>
+				<div onClick={downloadPost}>
+					<MenuItem
+						icon={faDownload}
+						title='Download'
+						subtitle='Download post to your desktop.'
+					/>
+				</div>
 			)}
 			{isAuthor && (
 				<MenuItem
