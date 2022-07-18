@@ -68,7 +68,10 @@ function App() {
 		<Router>
 			<Routes>
 				<Route element={<LoggedInRoutes></LoggedInRoutes>}>
-					<Route path='/' element={<Home page='home' posts={posts} />}></Route>
+					<Route
+						path='/'
+						element={<Home page='home' fetchedPosts={posts} />}
+					></Route>
 					<Route path='/profile' element={<Profile />}></Route>
 					<Route path='/profile/:username' element={<Profile />}></Route>
 					<Route path='/friends' element={<Friends page='friends' />}></Route>

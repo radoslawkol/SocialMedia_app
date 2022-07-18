@@ -78,6 +78,18 @@ const userSchema = new mongoose.Schema(
 			type: Boolean,
 			default: false,
 		},
+		search: [
+			{
+				user: {
+					type: mongoose.ObjectId,
+					ref: "User",
+				},
+				createdAt: {
+					type: Date,
+					required: true,
+				},
+			},
+		],
 		friends: [
 			{
 				type: mongoose.ObjectId,

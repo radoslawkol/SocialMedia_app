@@ -26,7 +26,7 @@ export const createPost = async (
 				},
 			}
 		);
-		return "ok";
+		return data;
 	} catch (err) {
 		console.log(err);
 		return err.response.data.message;
@@ -78,6 +78,42 @@ export const comment = async (postId, comment, image, token) => {
 			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/posts/comment`,
 			{ postId, comment, image, commentAt },
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+		return data;
+	} catch (err) {
+		console.log(err);
+		return err.response.data.message;
+	}
+};
+export const savePost = async (postId, token) => {
+	try {
+		const { data } = await axios.patch(
+			// eslint-disable-next-line no-undef
+			`${process.env.REACT_APP_BACKEND_URL}/api/v1/posts/save`,
+			{ postId },
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+
+		return data;
+	} catch (err) {
+		console.log(err);
+		return err.response.data.message;
+	}
+};
+export const deletePost = async (postId, token) => {
+	try {
+		const { data } = await axios.delete(
+			// eslint-disable-next-line no-undef
+			`${process.env.REACT_APP_BACKEND_URL}/api/v1/posts/${postId}`,
 			{
 				headers: {
 					Authorization: `Bearer ${token}`,

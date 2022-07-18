@@ -16,6 +16,10 @@ const {
 	acceptRequest,
 	unfriend,
 	deleteRequest,
+	search,
+	addToSearchHistory,
+	getSearchHistory,
+	deleteFromHistory,
 } = require("../controllers/userController");
 const {
 	register,
@@ -46,5 +50,9 @@ router.patch("/unfollow/:id", auth, unfollow);
 router.patch("/acceptRequest/:id", auth, acceptRequest);
 router.patch("/unfriend/:id", auth, unfriend);
 router.patch("/deleteRequest/:id", auth, deleteRequest);
+router.post("/search/:searchTerm", auth, search);
+router.patch("/addToSearchHistory", auth, addToSearchHistory);
+router.get("/getSearchHistory", auth, getSearchHistory);
+router.patch("/deleteFromHistory", auth, deleteFromHistory);
 
 module.exports = router;

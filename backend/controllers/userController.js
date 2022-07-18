@@ -593,3 +593,108 @@ exports.deleteRequest = async (req, res) => {
 		});
 	}
 };
+exports.search = async (req, res) => {
+	try {
+		const searchTerm = req.params.searchTerm.replace(/\s/g, "");
+		console.log(searchTerm);
+
+		const results = await User.find({
+			username: { $regex: searchTerm, $options: "i" },
+		}).select("firstName lastName picture username");
+
+		res.status(200).json({
+			status: "success",
+			results,
+		});
+	} catch (err) {
+		console.log(err);
+		res.status(500).json({
+			status: "fail",
+			message: err.message,
+		});
+	}
+};
+exports.addToSearchHistory = async (req, res) => {
+	try {
+		const { searchUser } = req.body;
+		const user = await User.findById(req.user.id);
+
+		const check = user.search.find((s) => s.user.toString() === searchUser);
+		if (check) {
+			await User.updateOne(
+				{
+					_id: req.user.id,
+					"search._id": check._id,
+				},
+				{
+					$set: { "search.$.createdAt": new Date() },
+				}
+			);
+			res.status(200).json({
+				status: "success",
+			});
+		} else {
+			await User.findByIdAndUpdate(req.user.id, {
+				$push: {
+					search: {
+						user: searchUser,
+						createdAt: new Date(),
+					},
+				},
+			});
+
+			res.status(200).json({
+				status: "success",
+			});
+		}
+	} catch (err) {
+		console.log(err);
+		res.status(500).json({
+			status: "fail",
+			message: err.message,
+		});
+	}
+};
+exports.getSearchHistory = async (req, res) => {
+	try {
+		const history = await User.findById(req.user.id)
+			.select("search")
+			.populate("search.user", "picture username lastName firstName");
+
+		res.status(200).json({
+			status: "success",
+			results: history.search,
+		});
+	} catch (err) {
+		console.log(err);
+		res.status(500).json({
+			status: "fail",
+			message: err.message,
+		});
+	}
+};
+exports.deleteFromHistory = async (req, res) => {
+	try {
+		const { searchUser } = req.body;
+		await User.updateOne(
+			{ _id: req.user.id },
+			{
+				$pull: {
+					search: {
+						user: searchUser,
+					},
+				},
+			}
+		);
+
+		res.status(200).json({
+			status: "success",
+		});
+	} catch (err) {
+		console.log(err);
+		res.status(500).json({
+			status: "fail",
+			message: err.message,
+		});
+	}
+};

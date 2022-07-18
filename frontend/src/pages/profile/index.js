@@ -166,6 +166,12 @@ export default function Profile() {
 		}
 	};
 
+	const [posts, setPosts] = useState([]);
+
+	useEffect(() => {
+		setPosts(profile.posts);
+	}, [profile.posts]);
+
 	return (
 		<>
 			<Nav page='profile'></Nav>
@@ -188,8 +194,8 @@ export default function Profile() {
 						<Friends friends={profile?.user?.friends} />
 					</div>
 					<div className={classes.profile__right} ref={rightRef}>
-						<CreatePost />
-						<GridPost posts={profile?.posts} profile={profile} />
+						{!isVisitor && <CreatePost setPosts={setPosts} />}
+						<GridPost posts={posts} profile={profile} />
 					</div>
 				</InView>
 			</main>

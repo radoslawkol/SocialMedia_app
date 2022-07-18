@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import CreatePostModal from "./CreatePostModal";
 const modalRoot = document.getElementById("modal-root");
 
-export default function CreatePost() {
+export default function CreatePost({ setPosts }) {
 	const { user } = useSelector((state) => ({ ...state }));
 	const [showCreateModal, setShowCreateModal] = useState(false);
 	return (
@@ -27,7 +27,10 @@ export default function CreatePost() {
 			</div>
 			{showCreateModal &&
 				ReactDOM.createPortal(
-					<CreatePostModal setShowCreateModal={setShowCreateModal} />,
+					<CreatePostModal
+						setShowCreateModal={setShowCreateModal}
+						setPosts={setPosts}
+					/>,
 					modalRoot
 				)}
 		</>

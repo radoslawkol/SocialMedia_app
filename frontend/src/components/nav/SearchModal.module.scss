@@ -6,12 +6,12 @@
 	left: 0;
 	padding: 0.5rem;
 	width: 24rem;
-	height: 40rem;
-	border: $border-grey;
+	min-height: 40rem;
 	text-align: center;
 	background-color: $white-color;
 	border-radius: 0 0 15px 15px;
-	z-index: 100;
+	box-shadow: 1px 1px 3px $backdrop-color;
+	z-index: 1000;
 }
 .logo {
 	width: 3rem;
@@ -21,6 +21,62 @@
 	display: flex;
 	align-items: center;
 	position: relative;
+
+	&__results {
+		width: 100%;
+		min-height: 32rem;
+		max-height: 60vh;
+		display: flex;
+		flex-direction: column;
+		overflow-y: scroll;
+	}
+
+	&__resultWrap {
+		position: relative;
+	}
+	&__result {
+		position: relative;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		width: 100%;
+		padding: 1rem;
+		text-decoration: none;
+		transition: 0.3s background-color;
+		&:hover {
+			background-color: $primary-background;
+		}
+	}
+	&__img {
+		width: 3rem;
+		height: 3rem;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+	&__text {
+		font-size: 1.2rem;
+		color: $primary-color;
+	}
+
+	&__recent {
+		overflow-y: scroll;
+	}
+
+	&__recentIcon {
+		position: absolute;
+		top: 50%;
+		right: 0;
+		transform: translateY(-50%);
+		padding: 0.5rem;
+		font-size: 1.2rem;
+		color: $primary-color;
+		margin-left: auto;
+		transition: 0.3s color;
+		cursor: pointer;
+		&:hover {
+			color: $secondary-color;
+		}
+	}
 }
 
 .searchbar {

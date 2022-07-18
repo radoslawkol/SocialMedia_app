@@ -23,7 +23,7 @@ import { createPost } from "../../functions/post";
 import { dataURItoBlob } from "../../functions/dataUrltoBlob";
 import { uploadImages } from "../../functions/uploadImages";
 
-export default function CreatePostModal({ setShowCreateModal }) {
+export default function CreatePostModal({ setShowCreateModal, setPosts }) {
 	const { user } = useSelector((state) => ({ ...state }));
 	const [text, setText] = useState("");
 	const [showImagePreview, setShowImagePreview] = useState(false);
@@ -79,7 +79,7 @@ export default function CreatePostModal({ setShowCreateModal }) {
 				user.token
 			);
 
-			if (res !== "ok") {
+			if (res.status !== "success") {
 				setLoading(false);
 				return setError(res);
 			}
@@ -88,6 +88,7 @@ export default function CreatePostModal({ setShowCreateModal }) {
 			setShowBgs(false);
 			setShowCreateModal(false);
 			setText("");
+			setPosts((prev) => [res.post, ...prev]);
 		} else if (images && images.length) {
 			setLoading(true);
 			const postImages = images.map((img) => {
@@ -111,23 +112,25 @@ export default function CreatePostModal({ setShowCreateModal }) {
 				user.token
 			);
 
-			if (res !== "ok") {
+			if (res.status !== "success") {
 				setLoading(false);
 				return setError(res);
 			}
 			setLoading(false);
 			setShowCreateModal(false);
+			setPosts((prev) => [res.post, ...prev]);
 			setText("");
 		} else if (text) {
 			setLoading(true);
 			const res = await createPost(null, null, text, null, user.id, user.token);
 
-			if (res !== "ok") {
+			if (res.status !== "success") {
 				setLoading(false);
 				return setError(res);
 			}
 			setLoading(false);
 			setShowCreateModal(false);
+			setPosts((prev) => [res.post, ...prev]);
 			setText("");
 		}
 	};

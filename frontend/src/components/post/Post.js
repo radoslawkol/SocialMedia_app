@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import classes from "./Post.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -22,8 +22,9 @@ export default function Post({ post, profile }) {
 	const [reacts, setReacts] = useState("");
 	const [check, setCheck] = useState("");
 	const [comments, setComments] = useState([]);
+	const [isPostSaved, setIsPostSaved] = useState();
 	const [showMoreComments, setShowMoreComments] = useState(false);
-	console.log(comments);
+	const postRef = useRef();
 
 	const { user } = useSelector((state) => ({ ...state }));
 
@@ -43,7 +44,7 @@ export default function Post({ post, profile }) {
 	}, [post]);
 
 	return (
-		<div className={classes.post}>
+		<div className={classes.post} ref={postRef}>
 			<div className={classes.post__header}>
 				<Link
 					to={`/profile/${post.user.username}`}
@@ -233,6 +234,8 @@ export default function Post({ post, profile }) {
 					imagesLength={post?.photos?.length}
 					setShowMenu={setShowMenu}
 					images={post?.photos}
+					postId={post._id}
+					postRef={postRef}
 				/>
 			)}
 		</div>

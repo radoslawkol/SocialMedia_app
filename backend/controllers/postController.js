@@ -1,5 +1,6 @@
 const Post = require("../models/Post");
 const User = require("../models/User");
+const mongoose = require("mongoose");
 
 exports.createPost = async (req, res) => {
 	try {
@@ -13,9 +14,14 @@ exports.createPost = async (req, res) => {
 			user,
 			comments,
 		});
+
+		const populatedPost = await newPost.populate(
+			"user",
+			"picture username firstName lastName"
+		);
 		res.status(201).json({
 			status: "success",
-			post: newPost,
+			post: populatedPost,
 		});
 	} catch (err) {
 		res.status(500).json({
@@ -88,6 +94,76 @@ exports.comment = async (req, res) => {
 			comments: newComment.comments,
 		});
 	} catch (err) {
+		res.status(500).json({
+			status: "fail",
+			message: err.message,
+		});
+	}
+};
+exports.savePost = async (req, res) => {
+	try {
+		const { postId } = req.body;
+
+		const user = await User.findById(req.user.id);
+		const isAlreadySaved = user.savedPosts.find((post) => {
+			if (post.post.toString() == postId) {
+				return true;
+			}
+		});
+
+		if (isAlreadySaved) {
+			await User.findByIdAndUpdate(
+				req.user.id,
+				{
+					$pull: {
+						savedPosts: {
+							post: postId,
+						},
+					},
+				},
+				{ new: true }
+			);
+
+			res.status(200).json({
+				status: "success",
+				message: "Successfully unsaved.",
+			});
+		} else {
+			const savedPost = await User.findByIdAndUpdate(
+				req.user.id,
+				{
+					$push: {
+						savedPosts: {
+							post: postId,
+							savedAt: new Date(),
+						},
+					},
+				},
+				{ new: true }
+			);
+
+			res.status(200).json({
+				status: "success",
+				post: savedPost,
+			});
+		}
+	} catch (err) {
+		console.log(err);
+		res.status(500).json({
+			status: "fail",
+			message: err.message,
+		});
+	}
+};
+exports.deletePost = async (req, res) => {
+	try {
+		await Post.findByIdAndRemove(req.params.id);
+
+		res.status(200).json({
+			status: "success",
+		});
+	} catch (err) {
+		console.log(err);
 		res.status(500).json({
 			status: "fail",
 			message: err.message,
