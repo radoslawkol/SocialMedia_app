@@ -6,6 +6,11 @@ import {
 	faThumbsUp,
 	faComment,
 	faShare,
+	faFaceSmile,
+	faFaceFrown,
+	faFaceAngry,
+	faHeart,
+	faFaceGrinStars,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
@@ -13,8 +18,10 @@ import ReactsPopup from "./ReactsPopup";
 import CreateComment from "./CreateComment";
 import { useSelector } from "react-redux";
 import PostMenu from "./PostMenu";
-import { getReact } from "../../functions/post";
+import { getReacts } from "../../functions/post";
 import Comment from "./Comment";
+import { reactsArr } from "../../data";
+import { reactPost } from "../../functions/post";
 
 export default function Post({ post, profile }) {
 	const [popupVisible, setPopupVisible] = useState(false);
@@ -24,20 +31,56 @@ export default function Post({ post, profile }) {
 	const [comments, setComments] = useState([]);
 	const [isPostSaved, setIsPostSaved] = useState();
 	const [showMoreComments, setShowMoreComments] = useState(false);
+	const [total, setTotal] = useState(0);
 	const postRef = useRef();
 
 	const { user } = useSelector((state) => ({ ...state }));
 
 	const getPostReacts = async () => {
-		const res = await getReact(post._id, user.token);
-		setReacts(res);
-		setCheck(res.check);
-		console.log(res.check);
+		const res = await getReacts(post._id, user.token);
+		console.log(res);
+		setReacts(res.reacts);
+		const checkedReact = reactsArr.find((react) => react.name === res.check);
+		setCheck(checkedReact);
+		setTotal(res.total);
+		console.log(reacts);
+	};
+
+	const reactHandler = async (react) => {
+		console.log(react);
+		await reactPost(post._id, react.name, user.token);
+		if (check?.name === react.name) {
+			setCheck();
+			let index = reacts.findIndex((x) => x._id === check.name);
+			if (index !== -1) {
+				setReacts([...reacts, (reacts[index].count = --reacts[index].count)]);
+				setTotal((prev) => --prev);
+				console.log(reacts);
+			}
+		} else {
+			const checkedReact = reactsArr.find((r) => r.name === react.name);
+			setCheck(checkedReact);
+
+			let index = reacts.findIndex((x) => x._id === react.name);
+			let index1 = reacts.findIndex((x) => x._id === check?.name);
+			console.log(index);
+			console.log(index1);
+			if (index !== -1) {
+				setReacts([...reacts, (reacts[index].count = ++reacts[index].count)]);
+				setTotal((prev) => ++prev);
+				console.log(reacts);
+			}
+			if (index1 !== -1) {
+				setReacts([...reacts, (reacts[index1].count = --reacts[index1].count)]);
+				setTotal((prev) => --prev);
+				console.log(reacts);
+			}
+		}
 	};
 
 	useEffect(() => {
 		getPostReacts();
-	}, [post]);
+	}, []);
 
 	useEffect(() => {
 		setComments(post.comments);
@@ -155,8 +198,30 @@ export default function Post({ post, profile }) {
 				)}
 				<div className={classes.post__infos}>
 					<div className={classes.post__reacts}>
-						<div className={classes.post__reactsImgs}>2</div>
-						<div className={classes.post__reactsNum}>1</div>
+						<div className={classes.post__reactsImgs}>
+							{reacts &&
+								reacts
+									?.sort((a, b) => b.count - a.count)
+									.slice(0, 3)
+									.map((r, i) => {
+										const react = reactsArr.find(
+											(react) => r._id === react.name
+										);
+										console.log(r);
+
+										if (r.count > 0) {
+											return (
+												<FontAwesomeIcon
+													icon={react?.icon}
+													key={i}
+													color={react?.color}
+													className={classes.post__reactIcon}
+												/>
+											);
+										}
+									})}
+						</div>
+						<div className={classes.post__reactsNum}>{total > 0 && total}</div>
 					</div>
 					<div className={classes.post__stats}>
 						<span
@@ -171,13 +236,12 @@ export default function Post({ post, profile }) {
 						<ReactsPopup
 							popupVisible={popupVisible}
 							setPopupVisible={setPopupVisible}
-							postId={post?._id}
-							check={check}
-							setCheck={setCheck}
+							reactHandler={reactHandler}
 						></ReactsPopup>
 					</div>
 					<div
 						className={classes.actions__action}
+						onClick={() => reactHandler(check ? check : { name: "like" })}
 						onMouseOver={() =>
 							setTimeout(() => {
 								setPopupVisible(true);
@@ -189,11 +253,19 @@ export default function Post({ post, profile }) {
 							}, 500)
 						}
 					>
-						{/* Issue to solve */}
+						{check ? (
+							<FontAwesomeIcon
+								icon={check?.icon}
+								color={check?.color}
+								className={classes.actions__icon}
+							/>
+						) : (
+							<FontAwesomeIcon icon={faThumbsUp} />
+						)}
 
-						{/* {check ? <FontAwesomeIcon icon={check} /> : ""}  */}
-						<FontAwesomeIcon icon={faThumbsUp} />
-						<span>Like</span>
+						<span style={{ color: `${check ? check.color : ""}` }}>
+							{check?.name ? check.name : "Like"}
+						</span>
 					</div>
 					<div className={classes.actions__action}>
 						<FontAwesomeIcon icon={faComment} />

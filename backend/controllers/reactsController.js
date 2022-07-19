@@ -5,7 +5,7 @@ exports.reactPost = async (req, res) => {
 		const { postId, react } = req.body;
 
 		const isReactExist = await React.findOne({
-			postRef: postId,
+			postRef: mongoose.Types.ObjectId(postId),
 			reactBy: mongoose.Types.ObjectId(req.user.id),
 		});
 
@@ -37,17 +37,59 @@ exports.getReacts = async (req, res) => {
 	try {
 		const { id } = req.params;
 
-		const reacts = await React.find({ postRef: mongoose.Types.ObjectId(id) });
+		const reacts = await React.find({
+			postRef: mongoose.Types.ObjectId(id),
+		});
+
+		const groupedReacts = reacts.reduce((group, react) => {
+			let key = react.react;
+			group[key] = group[key] || [];
+			group[key].push(react);
+			return group;
+		}, {});
+
+		const finalArr = [
+			{
+				_id: "like",
+				count: groupedReacts.like ? groupedReacts.like.length : 0,
+			},
+			{
+				_id: "love",
+				count: groupedReacts.love ? groupedReacts.love.length : 0,
+			},
+			{
+				_id: "happy",
+				count: groupedReacts.happy ? groupedReacts.happy.length : 0,
+			},
+			{
+				_id: "wow",
+				count: groupedReacts.wow ? groupedReacts.wow.length : 0,
+			},
+			{
+				_id: "angry",
+				count: groupedReacts.angry ? groupedReacts.angry.length : 0,
+			},
+			{
+				_id: "sad",
+				count: groupedReacts.sad ? groupedReacts.sad.length : 0,
+			},
+		].sort((a, b) => {
+			return b.count - a.count;
+		});
+		console.log(finalArr);
+
 		const checkedReact = await React.findOne({
 			postRef: req.params.id,
 			reactBy: req.user.id,
 		});
 
 		res.status(200).json({
-			reacts,
+			reacts: finalArr,
 			check: checkedReact?.react,
+			total: reacts.length,
 		});
 	} catch (err) {
+		console.log(err);
 		res.status(500).json({
 			status: "fail",
 			message: err.message,

@@ -153,6 +153,23 @@ $imageHeight: 20rem;
 		margin: 1rem 2rem;
 		padding: 0.5rem;
 	}
+	&__reacts {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	&__reactsImgs {
+		display: flex;
+		gap: 0.5rem;
+	}
+
+	&__reactIcon {
+		font-size: 1.4rem;
+	}
+	&__reactsNum {
+		font-size: 1.2rem;
+	}
 }
 
 .actions {
@@ -175,6 +192,7 @@ $imageHeight: 20rem;
 	&__action {
 		padding: 1rem 0.5rem;
 		display: flex;
+		align-items: center;
 		gap: 0.5rem;
 		font-size: 1.2rem;
 		cursor: pointer;
@@ -184,6 +202,9 @@ $imageHeight: 20rem;
 		@include media-size(large) {
 			font-size: 1.6rem;
 		}
+	}
+	&__icon {
+		font-size: 1.4rem;
 	}
 }
 

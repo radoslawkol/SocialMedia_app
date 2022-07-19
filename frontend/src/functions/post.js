@@ -53,7 +53,7 @@ export const reactPost = async (postId, react, token) => {
 		return err.response.data.message;
 	}
 };
-export const getReact = async (postId, token) => {
+export const getReacts = async (postId, token) => {
 	try {
 		const { data } = await axios.get(
 			// eslint-disable-next-line no-undef
