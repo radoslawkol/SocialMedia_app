@@ -20,14 +20,14 @@ export default function PostMenu({
 	images,
 	postId,
 	postRef,
+	isPostSaved,
+	setIsPostSaved,
 }) {
 	const { user } = useSelector((state) => ({ ...state }));
 
 	const [isAuthor, setIsAuthor] = useState(
 		postUserId === userId ? true : false
 	);
-
-	const [isSaved, setIsSaved] = useState(false);
 
 	const menuRef = useRef();
 	useclickOutsideClose(menuRef, () => setShowMenu(false));
@@ -43,19 +43,18 @@ export default function PostMenu({
 	const savePostHandler = async () => {
 		savePost(postId, user.token);
 		setShowMenu(false);
-		setIsSaved((prev) => !prev);
+		setIsPostSaved((prev) => !prev);
 	};
 
 	const removePostHandler = async () => {
 		const res = await deletePost(postId, user.token);
-		console.log(res);
 		if (res.status === "success") {
 			postRef.current.remove();
 		}
 	};
 	return (
 		<ul className={classes.menu} ref={menuRef}>
-			{!isAuthor && !isSaved ? (
+			{!isAuthor && !isPostSaved ? (
 				<div onClick={savePostHandler}>
 					<MenuItem
 						icon={faBookmark}

@@ -1,0 +1,64 @@
+@import "../../sass/index.scss";
+
+.menu {
+	min-height: 100%;
+	padding: 1rem;
+	width: 5rem;
+	box-shadow: 1px 1px 3px $backdrop-color;
+	@include media-size(medium) {
+		width: 16rem;
+	}
+	&__layer {
+		position: fixed;
+	}
+
+	&__heading {
+		display: none;
+		margin: 2rem 0;
+		font-size: 1.8rem;
+		@include media-size(medium) {
+			display: block;
+			font-size: 2rem;
+		}
+	}
+
+	&__list {
+		display: flex;
+		gap: 1rem;
+		flex-direction: column;
+		list-style: none;
+	}
+
+	&__item {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		text-decoration: none;
+		font-size: 1.4rem;
+		color: $primary-color;
+		transition: color 0.3s;
+
+		&--active {
+			& > .menu__icon,
+			& > .menu__label {
+				color: $secondary-color;
+			}
+		}
+		&:hover {
+			color: $secondary-color;
+		}
+	}
+	&__label {
+		display: none;
+		@include media-size(medium) {
+			display: block;
+		}
+	}
+	&__icon {
+		width: 2rem;
+		height: 2rem;
+		padding: 0.5rem;
+		background-color: $primary-background;
+		border-radius: 50%;
+	}
+}

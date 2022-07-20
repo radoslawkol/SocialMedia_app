@@ -1,0 +1,25 @@
+@import "../../sass/index.scss";
+
+.main {
+	width: 100%;
+	min-height: calc(100vh - 5rem);
+	background-color: $primary-background;
+	flex: 1;
+
+	&__section {
+		margin: 2rem 2rem 3rem;
+	}
+	&__container {
+		margin-top: 2rem;
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2rem;
+		align-items: center;
+	}
+	&__heading {
+		font-size: 1.8rem;
+		@include media-size(medium) {
+			font-size: 2rem;
+		}
+	}
+}

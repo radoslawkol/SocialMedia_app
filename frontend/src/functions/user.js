@@ -76,3 +76,21 @@ export const deleteFromHistory = async (searchUser, token) => {
 		return err.response.data.message;
 	}
 };
+export const getFriendsInfos = async (token) => {
+	try {
+		const { data } = await axios.get(
+			// eslint-disable-next-line no-undef
+			`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/getFriendsInfos`,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+		console.log(data);
+		return data;
+	} catch (err) {
+		console.log(err);
+		return err.response.data.message;
+	}
+};

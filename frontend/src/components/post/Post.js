@@ -6,11 +6,6 @@ import {
 	faThumbsUp,
 	faComment,
 	faShare,
-	faFaceSmile,
-	faFaceFrown,
-	faFaceAngry,
-	faHeart,
-	faFaceGrinStars,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
@@ -40,6 +35,7 @@ export default function Post({ post, profile }) {
 		const res = await getReacts(post._id, user.token);
 		console.log(res);
 		setReacts(res.reacts);
+		setIsPostSaved(res.checkSaved);
 		const checkedReact = reactsArr.find((react) => react.name === res.check);
 		setCheck(checkedReact);
 		setTotal(res.total);
@@ -308,6 +304,8 @@ export default function Post({ post, profile }) {
 					images={post?.photos}
 					postId={post._id}
 					postRef={postRef}
+					isPostSaved={isPostSaved}
+					setIsPostSaved={setIsPostSaved}
 				/>
 			)}
 		</div>

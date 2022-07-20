@@ -112,17 +112,13 @@ exports.savePost = async (req, res) => {
 		});
 
 		if (isAlreadySaved) {
-			await User.findByIdAndUpdate(
-				req.user.id,
-				{
-					$pull: {
-						savedPosts: {
-							post: postId,
-						},
+			await User.findByIdAndUpdate(req.user.id, {
+				$pull: {
+					savedPosts: {
+						post: postId,
 					},
 				},
-				{ new: true }
-			);
+			});
 
 			res.status(200).json({
 				status: "success",

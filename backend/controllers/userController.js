@@ -4,6 +4,7 @@ const Code = require("../models/Code");
 const generateCode = require("../helpers/generateCode");
 const { sendResetCode } = require("../helpers/mailer.js");
 const bcrypt = require("bcrypt");
+const mongoose = require("mongoose");
 
 exports.findUser = async (req, res) => {
 	try {
@@ -556,7 +557,7 @@ exports.deleteRequest = async (req, res) => {
 			if (receiver.requests.includes(sender._id)) {
 				await receiver.updateOne({
 					$pull: {
-						requets: sender._id,
+						requests: sender._id,
 					},
 				});
 				await receiver.updateOne({
@@ -689,6 +690,87 @@ exports.deleteFromHistory = async (req, res) => {
 
 		res.status(200).json({
 			status: "success",
+		});
+	} catch (err) {
+		console.log(err);
+		res.status(500).json({
+			status: "fail",
+			message: err.message,
+		});
+	}
+};
+exports.getFriendsInfos = async (req, res) => {
+	try {
+		const user = await User.findById(req.user.id)
+			.select("friends requests")
+			.populate("friends", "firstName lastName picture username")
+			.populate("requests", "firstName lastName picture username");
+
+		const sentRequests = await User.find({
+			requests: mongoose.Types.ObjectId(req.user.id),
+		}).select("firstName lastName picture username");
+
+		const users = await User.find();
+
+		const friendsProposal = users
+			.filter((u) => {
+				if (u._id.toString() === req.user.id) {
+					return false;
+				}
+				return true;
+			})
+			.filter((u) => {
+				let check = true;
+				if (sentRequests) {
+					sentRequests?.map((request) => {
+						if (request._id.toString() === u._id.toString()) {
+							check = false;
+						} else {
+							check = true;
+						}
+					});
+				}
+				return check;
+			})
+			.filter((u) => {
+				let check = true;
+
+				if (user.requests) {
+					user.requests?.map((request) => {
+						if (request._id.toString() === u._id.toString()) {
+							check = false;
+						} else {
+							check = true;
+						}
+					});
+				}
+
+				return check;
+			})
+			.filter((u) => {
+				let check = true;
+
+				if (user.friends) {
+					user.friends.map((friend) => {
+						if (friend._id.toString() === u._id.toString()) {
+							check = false;
+						} else {
+							check = true;
+						}
+					});
+				}
+
+				return check;
+			});
+
+		res.status(200).json({
+			status: "success",
+			data: {
+				friends: user.friends,
+				requests: user.requests,
+				sentRequests: sentRequests,
+				friendsProposal,
+			},
 		});
 	} catch (err) {
 		console.log(err);

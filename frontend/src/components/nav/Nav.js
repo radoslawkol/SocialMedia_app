@@ -63,7 +63,7 @@ export default function Nav({ page }) {
 					<li className={classes.menu__tab}>
 						<Link to='/friends'>
 							<FontAwesomeIcon
-								color={color}
+								color={`${page === "friends" ? "#8F00FF" : color}`}
 								icon={faUserGroup}
 							></FontAwesomeIcon>
 						</Link>

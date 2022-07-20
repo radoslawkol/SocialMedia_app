@@ -20,6 +20,7 @@ const {
 	addToSearchHistory,
 	getSearchHistory,
 	deleteFromHistory,
+	getFriendsInfos,
 } = require("../controllers/userController");
 const {
 	register,
@@ -54,5 +55,6 @@ router.post("/search/:searchTerm", auth, search);
 router.patch("/addToSearchHistory", auth, addToSearchHistory);
 router.get("/getSearchHistory", auth, getSearchHistory);
 router.patch("/deleteFromHistory", auth, deleteFromHistory);
+router.get("/getFriendsInfos", auth, getFriendsInfos);
 
 module.exports = router;
