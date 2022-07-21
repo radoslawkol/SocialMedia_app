@@ -11,10 +11,10 @@
 		gap: 0.5rem;
 		padding: 0.5rem;
 		border: none;
-		color: $white-color;
+		color: var(--white-color);
 		border-radius: 5px;
 		font-size: 1.4em;
-		background-color: $secondary-color;
+		background-color: var(--secondary-color);
 		cursor: pointer;
 		transition: transform 0.3s;
 		&:hover {
@@ -22,7 +22,7 @@
 		}
 
 		&--grey {
-			background-color: $primary-color;
+			background-color: var(--primary-color);
 		}
 	}
 }
@@ -38,20 +38,20 @@
 	padding: 1rem;
 	border-radius: 15px;
 
-	background-color: $secondary-background;
+	background-color: var(--secondary-background);
 	box-shadow: 1px 1px 2px gray;
 	z-index: 1;
 	&__btn {
 		text-align: left;
 		width: 100%;
 		font-size: 1.4rem;
-		color: $primary-color;
+		color: var(--primary-color);
 		border: none;
 		background-color: transparent;
 		transition: color 0.3s;
 		cursor: pointer;
 		&:hover {
-			color: $secondary-color;
+			color: var(--secondary-color);
 		}
 	}
 }

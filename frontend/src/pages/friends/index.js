@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import FriendsContent from "./FriendsContent";
 import { useReducer } from "react";
 import { useParams } from "react-router-dom";
+import { GridLoader } from "react-spinners";
 
 const friendsReducer = (state, action) => {
 	switch (action.type) {
@@ -67,7 +68,12 @@ export default function Friends({ page }) {
 			<Nav page={page}></Nav>
 			<div className={classes.friends__container}>
 				<FriendsMenu />
-				<FriendsContent data={data} getData={getData} type={type} />
+				<FriendsContent
+					data={data}
+					getData={getData}
+					type={type}
+					loading={loading}
+				/>
 			</div>
 		</div>
 	);

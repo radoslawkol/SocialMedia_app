@@ -4,7 +4,7 @@
 	position: relative;
 	width: 30rem;
 	padding: 2rem;
-	background-color: $secondary-background;
+	background-color: var(--secondary-background);
 	border-radius: 15px;
 	z-index: 2001;
 	@include media-size(medium) {
@@ -18,12 +18,14 @@
 		margin-bottom: 1rem;
 		text-align: center;
 		font-size: 1.6rem;
+		color: var(--primary-color);
 	}
 	&__close {
 		position: absolute;
 		padding: 1rem;
 		top: 0;
 		right: 0;
+		color: var(--primary-color);
 		font-size: 1.6rem;
 		cursor: pointer;
 	}
@@ -36,6 +38,7 @@
 	&__user {
 		display: flex;
 		align-items: center;
+		color: var(--primary-color);
 	}
 	&__userName {
 		margin-left: 0.5rem;
@@ -52,7 +55,7 @@
 		padding: 1rem;
 		border: none;
 		background: transparent;
-		color: $secondary-color;
+		color: var(--secondary-color);
 		cursor: pointer;
 	}
 
@@ -60,6 +63,9 @@
 		margin: 1rem;
 		border: none;
 		resize: none;
+		color: var(--primary-color);
+		background: var(--secondary-background);
+
 		&:focus {
 			outline: none;
 		}
@@ -70,8 +76,8 @@
 		width: 100%;
 		border: none;
 		border-radius: 15px;
-		background-color: $secondary-color;
-		color: $white-color;
+		background-color: var(--secondary-color);
+		color: var(--white-color);
 		cursor: pointer;
 	}
 	&__rightBtns {
@@ -141,7 +147,7 @@
 	justify-content: center;
 	align-items: center;
 	border-radius: 5px;
-	border: 1px solid $primary-color;
+	border: 1px solid var(--primary-color);
 	cursor: pointer;
 }
 
@@ -154,7 +160,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background: rgba($secondary-background, 0.8);
+	background: rgba(var(--secondary-background), 0.8);
 	z-index: 100;
 
 	&__message {
@@ -163,12 +169,12 @@
 		font-size: 1.4em;
 	}
 	&__btn {
-		background: $secondary-color;
+		background: var(--secondary-color);
 		padding: 0.8rem;
 		margin-left: 1rem;
 		border: none;
 		border-radius: 15px;
-		color: $white-color;
+		color: var(--white-color);
 		cursor: pointer;
 	}
 }

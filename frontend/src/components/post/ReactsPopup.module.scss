@@ -10,7 +10,7 @@
 	justify-content: center;
 	border-radius: 100px;
 	box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-	background: $secondary-background;
+	background: var(--secondary-background);
 	@include media-size(medium) {
 		width: 18rem;
 	}

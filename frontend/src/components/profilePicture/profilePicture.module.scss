@@ -6,7 +6,7 @@
 	min-height: 30rem;
 	padding: 2rem;
 	border-radius: 15px;
-	background-color: $secondary-background;
+	background-color: var(--secondary-background);
 	@include media-size(small) {
 		width: 40rem;
 	}
@@ -20,6 +20,7 @@
 
 	&__heading {
 		font-size: 1.8rem;
+		color: var(--primary-color);
 	}
 
 	&__close {
@@ -28,6 +29,7 @@
 		top: 0;
 		font-size: 1.4rem;
 		padding: 1rem;
+		color: var(--primary-color);
 		cursor: pointer;
 	}
 

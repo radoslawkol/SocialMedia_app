@@ -9,12 +9,12 @@
 	transition: background-color 0.3s;
 	cursor: pointer;
 	&:hover {
-		background-color: $primary-background;
+		background-color: var(--primary-background);
 	}
 
 	&__icon {
 		font-size: 1.6rem;
-		color: $primary-color;
+		color: var(--primary-color);
 	}
 	&__title {
 		font-size: 1.4rem;

@@ -8,9 +8,9 @@
 	width: 24rem;
 	min-height: 40rem;
 	text-align: center;
-	background-color: $white-color;
+	background-color: var(--white-background);
 	border-radius: 0 0 15px 15px;
-	box-shadow: 1px 1px 3px $backdrop-color;
+	box-shadow: 2px 2px 3px var(--backdrop-color);
 	z-index: 1000;
 }
 .logo {
@@ -44,7 +44,7 @@
 		text-decoration: none;
 		transition: 0.3s background-color;
 		&:hover {
-			background-color: $primary-background;
+			background-color: var(--primary-background);
 		}
 	}
 	&__img {
@@ -55,7 +55,7 @@
 	}
 	&__text {
 		font-size: 1.2rem;
-		color: $primary-color;
+		color: var(--primary-color);
 	}
 
 	&__recent {
@@ -69,12 +69,12 @@
 		transform: translateY(-50%);
 		padding: 0.5rem;
 		font-size: 1.2rem;
-		color: $primary-color;
+		color: var(--primary-color);
 		margin-left: auto;
 		transition: 0.3s color;
 		cursor: pointer;
 		&:hover {
-			color: $secondary-color;
+			color: var(--secondary-color);
 		}
 	}
 }
@@ -88,7 +88,7 @@
 	height: 2.5rem;
 	border-radius: 100px;
 	border: none;
-	background-color: $backdrop-color;
+	background-color: var(--backdrop-color);
 	cursor: pointer;
 	@include media-size(large) {
 		width: 16rem;
@@ -103,6 +103,7 @@
 	border: none;
 	outline: none;
 	padding: 0 0.5rem;
+	color: var(--primary-color);
 	@include media-size(large) {
 		width: 13rem;
 	}
@@ -117,4 +118,5 @@
 	margin: 1rem;
 	font-size: 1.4rem;
 	text-align: left;
+	color: var(--primary-color);
 }

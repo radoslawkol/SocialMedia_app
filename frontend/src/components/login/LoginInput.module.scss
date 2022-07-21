@@ -3,11 +3,11 @@
 .LoginInput {
 	width: 100%;
 	padding: 1rem;
-	border: 1px solid $primary-color;
+	border: 1px solid var(--primary-color);
 	border-radius: 20px;
 	transition: outline 0.3s;
 	&:focus {
-		outline: $secondary-color solid 1px;
+		outline: var(--secondary-color) solid 1px;
 	}
 	&--error {
 		border: 1px solid red;

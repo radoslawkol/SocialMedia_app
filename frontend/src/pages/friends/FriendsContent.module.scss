@@ -3,10 +3,11 @@
 .main {
 	width: 100%;
 	min-height: calc(100vh - 5rem);
-	background-color: $primary-background;
+	background-color: var(--primary-background);
 	flex: 1;
 
 	&__section {
+		position: relative;
 		margin: 2rem 2rem 3rem;
 	}
 	&__container {
@@ -18,8 +19,13 @@
 	}
 	&__heading {
 		font-size: 1.8rem;
+		color: var(--primary-color);
 		@include media-size(medium) {
 			font-size: 2rem;
 		}
+	}
+
+	&__loader {
+		margin-top: 1rem;
 	}
 }

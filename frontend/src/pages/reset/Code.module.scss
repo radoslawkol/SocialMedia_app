@@ -8,17 +8,19 @@
 	width: 30rem;
 	padding: 2rem;
 	border-radius: 15px;
-	background: $secondary-background;
+	background: var(--secondary-background);
 	@include media-size(medium) {
 		width: 40rem;
 	}
 	&__heading {
 		font-size: 1.6rem;
 		margin-bottom: 1rem;
+		color: var(--primary-color);
 	}
 	&__text {
 		margin: 1rem 0;
 		font-size: 1.2rem;
+		color: var(--primary-color);
 	}
 
 	&__btns {
@@ -31,19 +33,19 @@
 
 	&__continue {
 		padding: 1rem;
-		color: $white-color;
+		color: var(--white-color);
 		border: none;
 		border-radius: 15px;
-		background-color: $secondary-color;
+		background-color: var(--secondary-color);
 		cursor: pointer;
 	}
 
 	&__cancel {
 		padding: 1rem;
 		font-size: 1.2rem;
-		color: $primary-color;
+		color: var(--primary-color);
 		border-radius: 15px;
-		background: $primary-background;
+		background: var(--primary-background);
 		text-decoration: none;
 	}
 }

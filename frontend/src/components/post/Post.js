@@ -82,6 +82,8 @@ export default function Post({ post, profile }) {
 		setComments(post.comments);
 	}, [post]);
 
+	const commentBtnHandler = () => {};
+
 	return (
 		<div className={classes.post} ref={postRef}>
 			<div className={classes.post__header}>
@@ -263,7 +265,7 @@ export default function Post({ post, profile }) {
 							{check?.name ? check.name : "Like"}
 						</span>
 					</div>
-					<div className={classes.actions__action}>
+					<div className={classes.actions__action} onClick={commentBtnHandler}>
 						<FontAwesomeIcon icon={faComment} />
 						<span>Comment</span>
 					</div>

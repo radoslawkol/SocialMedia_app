@@ -4,7 +4,8 @@
 	min-height: 100%;
 	padding: 1rem;
 	width: 5rem;
-	box-shadow: 1px 1px 3px $backdrop-color;
+	background-color: var(--white-background);
+	box-shadow: 1px 1px 3px var(--backdrop-color);
 	@include media-size(medium) {
 		width: 16rem;
 	}
@@ -16,6 +17,7 @@
 		display: none;
 		margin: 2rem 0;
 		font-size: 1.8rem;
+		color: var(--primary-color);
 		@include media-size(medium) {
 			display: block;
 			font-size: 2rem;
@@ -35,17 +37,18 @@
 		gap: 0.5rem;
 		text-decoration: none;
 		font-size: 1.4rem;
-		color: $primary-color;
+		color: var(--primary-color);
 		transition: color 0.3s;
 
 		&--active {
 			& > .menu__icon,
 			& > .menu__label {
-				color: $secondary-color;
+				color: var(--secondary-color);
+				font-size: 1.5rem;
 			}
 		}
 		&:hover {
-			color: $secondary-color;
+			color: var(--secondary-color);
 		}
 	}
 	&__label {
@@ -58,7 +61,7 @@
 		width: 2rem;
 		height: 2rem;
 		padding: 0.5rem;
-		background-color: $primary-background;
+		background-color: var(--primary-background);
 		border-radius: 50%;
 	}
 }

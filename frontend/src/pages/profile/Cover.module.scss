@@ -10,8 +10,8 @@
 	gap: 1rem;
 	padding: 1rem;
 	border-radius: 15px;
-	background-color: $secondary-background;
-	box-shadow: 1px 1px 2px $primary-background;
+	background-color: var(--secondary-background);
+	box-shadow: 1px 1px 2px var(--primary-background);
 	transform: translateY(-4px);
 	z-index: 20;
 	cursor: default;
@@ -24,8 +24,8 @@
 		transition: background-color 0.4s, color 0.4s;
 		cursor: pointer;
 		&:hover {
-			color: $white-color;
-			background-color: $secondary-color;
+			color: var(--white-color);
+			background-color: var(--secondary-color);
 		}
 	}
 }

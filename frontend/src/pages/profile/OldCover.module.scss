@@ -5,7 +5,7 @@
 	padding: 2rem;
 	width: 30rem;
 	border-radius: 15px;
-	background-color: $secondary-background;
+	background-color: var(--secondary-background);
 	@include media-size(medium) {
 		width: 40rem;
 	}
@@ -16,6 +16,7 @@
 		right: 0;
 		padding: 1rem;
 		font-size: 1.4rem;
+		color: var(--primary-color);
 		cursor: pointer;
 	}
 
@@ -23,8 +24,8 @@
 		padding-bottom: 0.5rem;
 		text-align: center;
 		font-size: 1.6rem;
-		color: $primary-color;
-		border-bottom: 1px solid $primary-color;
+		color: var(--primary-color);
+		border-bottom: 1px solid var(--primary-color);
 	}
 
 	&__container {

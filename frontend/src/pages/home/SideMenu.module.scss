@@ -24,11 +24,11 @@
 	border-radius: 15px;
 	cursor: pointer;
 	text-decoration: none;
-	color: $primary-color;
+	color: var(--primary-color);
 	transition: background-color 0.3s;
 	&:hover,
 	&:focus {
-		background-color: $secondary-background;
+		background-color: var(--secondary-background);
 	}
 }
 

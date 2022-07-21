@@ -6,10 +6,9 @@
 	height: 45rem;
 	padding: 2rem;
 	border-radius: 15px;
-	background-color: $secondary-background;
+	background-color: var(--secondary-background);
 	overflow-y: scroll;
-
-	scrollbar-color: $primary-background;
+	scrollbar-color: var(--primary-background);
 	scrollbar-width: thin;
 	&::-webkit-scrollbar {
 		width: 8px;
@@ -17,11 +16,11 @@
 	}
 	&::-webkit-scrollbar-thumb {
 		height: 1rem;
-		background: $secondary-color;
+		background: var(--secondary-color);
 		border-radius: 5px;
 	}
 	&::-webkit-scrollbar-track {
-		background: $primary-background;
+		background: var(--primary-background);
 	}
 	@include media-size(medium) {
 		width: 40rem;
@@ -31,6 +30,7 @@
 		margin-bottom: 2rem;
 		text-align: center;
 		font-size: 2rem;
+		color: var(--primary-color);
 	}
 
 	&__close {
@@ -39,6 +39,7 @@
 		right: 0;
 		padding: 1rem;
 		font-size: 1.6rem;
+		color: var(--primary-color);
 		cursor: pointer;
 	}
 }

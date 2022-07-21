@@ -6,7 +6,7 @@
 	min-height: 30rem;
 	padding: 2rem;
 	border-radius: 15px;
-	background-color: $secondary-background;
+	background-color: var(--secondary-background);
 	z-index: 100;
 	@include media-size(small) {
 		width: 40rem;
@@ -15,6 +15,7 @@
 	&__heading {
 		margin-bottom: 0.5rem;
 		font-size: 1.8rem;
+		color: var(--primary-color);
 	}
 
 	&__close {
@@ -23,6 +24,7 @@
 		top: 0;
 		font-size: 1.4rem;
 		padding: 1rem;
+		color: var(--primary-color);
 		cursor: pointer;
 	}
 
@@ -31,12 +33,12 @@
 		padding: 1rem;
 		margin-top: 1rem;
 		border-radius: 15px;
-		border: 1px solid $primary-background;
+		border: 1px solid var(--primary-background);
 		resize: none;
-		background-color: $primary-background;
+		background-color: var(--primary-background);
 		&:focus,
 		&:hover {
-			outline-color: $secondary-color;
+			outline-color: var(--secondary-color);
 		}
 	}
 	&__container {
@@ -64,14 +66,14 @@
 		-webkit-appearance: none;
 		height: 0.5rem;
 		border-radius: 100px;
-		background-color: $primary-background;
+		background-color: var(--primary-background);
 		&::-webkit-slider-thumb {
 			-webkit-appearance: none;
 			width: 2rem;
 			height: 2rem;
 			outline: none;
 			border-radius: 50%;
-			background-color: $secondary-color;
+			background-color: var(--secondary-color);
 			cursor: pointer;
 		}
 	}
@@ -95,13 +97,13 @@
 		padding: 0.5rem 1rem;
 		border: none;
 		border-radius: 15px;
-		color: $primary-color;
-		background-color: $primary-background;
+		color: var(--primary-color);
+		background-color: var(--primary-background);
 		cursor: pointer;
 		transition: background-color 0.3s, color 0.3s;
 		&:hover {
-			color: $white-color;
-			background-color: $secondary-color;
+			color: var(--white-color);
+			background-color: var(--secondary-color);
 		}
 	}
 
@@ -118,13 +120,13 @@
 		border-radius: 15px;
 		cursor: pointer;
 		&:hover {
-			background-color: rgba($primary-background, 0.4);
+			background-color: rgba(var(--primary-background) 0.4);
 		}
 		&:nth-child(2) {
-			color: $white-color;
-			background-color: $secondary-color;
+			color: var(--white-color);
+			background-color: var(--secondary-color);
 			&:hover {
-				background-color: rgba($secondary-color, 0.7);
+				background-color: rgba(var(--secondary-color), 0.7);
 			}
 		}
 	}

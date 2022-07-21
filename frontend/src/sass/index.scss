@@ -3,16 +3,32 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+:root {
+	--primary-background: #eeeeee;
+	--secondary-background: #fff;
+	--green-background: #18d837;
+	--green-background-rgb: #18d838eb;
+	--backdrop-color: rgba(218, 214, 214, 0.841);
+	--border-grey: 1px solid rgb(148, 147, 147);
+	--primary-color: #323232;
+	--secondary-color: #8f00ff;
+	--secondary-color-rgba: #9000ffe1;
+	--white-color: #fff;
+	--white-background: #fff;
+}
 
-$primary-background: #eeeeee;
-$secondary-background: #fff;
-$green-background: #18d837;
-$backdrop-color: rgba(218, 214, 214, 0.841);
-$border-grey: 1px solid rgb(148, 147, 147);
-
-$primary-color: #323232;
-$secondary-color: #8f00ff;
-$white-color: #fff;
+.dark {
+	--primary-background: #333;
+	--secondary-background: rgb(20, 19, 19);
+	--primary-color: #ebe7e7;
+	--secondary-color: #8f00ff;
+	--secondary-color-rgba: #9000ffe1;
+	--white-background: rgb(17, 17, 17);
+	--backdrop-color: rgba(38, 36, 36, 0.872);
+	--border-grey: 1px solid rgb(53, 52, 52);
+	--green-background: #18d837;
+	--green-background-rgb: #18d838db;
+}
 
 html {
 	font-size: 62.5%;
@@ -36,26 +52,34 @@ body {
 	}
 }
 
+.emoji-picker-react .emoji-group:before {
+	background: var(--primary-background) !important;
+}
+.emoji-picker-react input.emoji-search {
+	background: var(--secondary-background) !important;
+	color: var(--primary-color) !important;
+}
+
 .btn {
 	border: none;
 	border-radius: 20px;
 	padding: 1rem;
 	&--purple {
-		background-color: $secondary-color;
-		color: $white-color;
+		background-color: var(--secondary-color);
+		color: var(--white-color);
 		transition: background-color 0.3s transform 0.3s;
 		&:hover {
 			transform: scale(0.98);
-			background-color: rgba($secondary-color, 0.8);
+			background-color: var(--secondary-color-rgba);
 		}
 	}
 	&--green {
-		background-color: $green-background;
-		color: $white-color;
+		background-color: var(--green-background);
+		color: var(--white-color);
 		transition: background-color 0.3s transform 0.3s;
 		&:hover {
 			transform: scale(0.98);
-			background-color: rgba($green-background, 0.8);
+			background-color: var(--green-background-rgb);
 		}
 	}
 	&:hover {
@@ -80,7 +104,7 @@ body {
 	margin-top: 2rem;
 	text-align: center;
 	font-size: 1.6rem;
-	color: $green-background;
+	color: var(--green-background);
 }
 
 .backdrop {
@@ -92,16 +116,10 @@ body {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: $backdrop-color;
+	background-color: var(--backdrop-color);
 	backdrop-filter: blur(3px);
 	z-index: 2000;
 }
-
-// .reactEasyCrop_CropAreaGrid {
-// 	width: 30rem !important;
-// 	height: 30rem !important;
-// 	color: $backdrop-color;
-// }
 
 .reactEasyCrop_CropAreaGrid {
 	width: 100% !important;

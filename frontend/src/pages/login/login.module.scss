@@ -4,14 +4,11 @@
 	padding-top: 5rem;
 	width: 100vw;
 	height: 100vh;
-	background-color: $primary-background;
+	background-color: var(--primary-background);
 	@include media-size(medium-large) {
 		display: flex;
 		align-items: baseline;
 		padding: 5rem;
-	}
-
-	&__left-side {
 	}
 
 	&__image {
@@ -33,7 +30,7 @@
 		margin-bottom: 2rem;
 		font-size: 3.4rem;
 		font-weight: 700;
-		color: $secondary-color;
+		color: var(--secondary-color);
 	}
 
 	&__content {
@@ -44,7 +41,7 @@
 		}
 	}
 	&__text {
-		color: $primary-color;
+		color: var(--primary-color);
 		font-size: 1.8rem;
 	}
 	&__wave {
@@ -58,7 +55,7 @@
 	width: 30rem;
 	margin: 0 auto;
 	padding: 4rem;
-	background-color: $secondary-background;
+	background-color: var(--secondary-background);
 	border-radius: 15px;
 	z-index: 1;
 	@include media-size(medium-large) {
@@ -83,7 +80,7 @@
 	padding: 1rem 0;
 	text-align: center;
 	font-size: 1.2rem;
-	color: $secondary-color;
+	color: var(--secondary-color);
 	text-decoration: none;
 }
 

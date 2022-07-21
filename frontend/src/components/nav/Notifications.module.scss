@@ -6,13 +6,15 @@
 	right: 0;
 	width: 24rem;
 	height: 40rem;
-	background-color: $white-color;
+	background-color: var(--white-background);
 	border-radius: 15px;
-	border: $border-grey;
+	box-shadow: 2px 2px 3px var(--backdrop-color);
+	z-index: 1000;
 
 	&__heading {
 		margin: 1rem;
 		text-align: center;
 		font-size: 1.4rem;
+		color: var(--primary-color);
 	}
 }

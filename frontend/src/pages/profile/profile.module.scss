@@ -2,16 +2,17 @@
 
 .profile {
 	margin-top: 5rem;
-	background-color: $primary-background;
+	background-color: var(--primary-background);
 	@include media-size(small) {
 		margin-top: 0;
 	}
+
 
 	&__container {
 		display: flex;
 		flex-direction: column;
 		padding: 0 2rem;
-		border-top: 1px solid $primary-color;
+		border-top: 1px solid var(--primary-color);
 
 		@media (min-width: "470px") {
 			padding: 0 6rem;
@@ -20,21 +21,21 @@
 			flex-direction: row;
 			gap: 2rem;
 			align-items: flex-start;
-			padding: 0 2rem;
+			padding: 0 2rem 4rem;
 		}
 		@include media-size(large) {
-			padding: 2rem 6rem;
+			padding: 2rem 6rem 6rem;
 		}
 		@include media-size(medium-large) {
-			padding: 0 10rem;
+			padding: 0 10rem 6rem;
 		}
 		@include media-size(extra-large) {
 			width: 80%;
-			margin: 5rem auto;
+			margin: 5rem auto 0;
 		}
 		@include media-size(extra-large) {
 			gap: 6rem;
-			padding: 0 16rem;
+			padding: 0 16rem 6rem;
 		}
 	}
 	&__left {
@@ -72,32 +73,32 @@
 	}
 }
 
-.fixed {
-	@include media-size(small) {
-		position: fixed;
-	}
-	@include media-size(large) {
-		width: 26rem;
-	}
-	@include media-size(medium-large) {
-		width: 31rem;
-	}
-}
+// .fixed {
+// 	@include media-size(small) {
+// 		position: fixed;
+// 	}
+// 	@include media-size(large) {
+// 		width: 26rem;
+// 	}
+// 	@include media-size(medium-large) {
+// 		width: 31rem;
+// 	}
+// }
 
-.scroll {
-	@include media-size(small) {
-		margin-left: 45%;
-	}
-	@include media-size(large) {
-		margin-left: 28rem;
-	}
-	@include media-size(medium-large) {
-		margin-left: 33rem;
-	}
-	@include media-size(extra-large) {
-		margin-left: 35rem;
-	}
-	@include media-size(big) {
-		margin-left: 37rem;
-	}
-}
+// .scroll {
+// 	@include media-size(small) {
+// 		margin-left: 45%;
+// 	}
+// 	@include media-size(large) {
+// 		margin-left: 28rem;
+// 	}
+// 	@include media-size(medium-large) {
+// 		margin-left: 33rem;
+// 	}
+// 	@include media-size(extra-large) {
+// 		margin-left: 35rem;
+// 	}
+// 	@include media-size(big) {
+// 		margin-left: 37rem;
+// 	}
+// }

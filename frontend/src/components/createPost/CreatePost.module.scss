@@ -7,7 +7,7 @@
 	padding: 1rem;
 	border-radius: 15px;
 	width: 100%;
-	background-color: $secondary-background;
+	background-color: var(--secondary-background);
 
 	&__img {
 		width: 2.5rem;
@@ -20,6 +20,8 @@
 		padding: 0.5rem;
 		text-align: left;
 		cursor: pointer;
+		background: var(--primary-background);
+		color: var(--primary-color);
 		@include media-size(small) {
 			width: 100%;
 		}

@@ -3,10 +3,15 @@
 .friends {
 	padding: 2rem;
 	border-radius: 15px;
-	background-color: $secondary-background;
+	background-color: var(--secondary-background);
 
 	&__heading {
 		font-size: 1.8rem;
+		color: var(--primary-color);
+	}
+
+	&__loader {
+		margin-top: 1rem;
 	}
 
 	&__header {
@@ -18,16 +23,17 @@
 
 	&__btn {
 		font-size: 1.2rem;
-		color: $secondary-color;
+		color: var(--secondary-color);
 		text-decoration: none;
 		transition: color 0.3s;
 		&:hover {
-			color: rgba($secondary-color, 0.7);
+			color: rgba(var(--secondary-color), 0.7);
 		}
 	}
 
 	&__count {
 		font-size: 1.2rem;
+		color: var(--primary-color);
 	}
 
 	&__container {

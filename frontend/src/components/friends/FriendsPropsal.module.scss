@@ -22,7 +22,8 @@
 	gap: 2rem;
 	text-align: center;
 	padding: 2rem;
-	background-color: $secondary-background;
+	border-radius: 15px;
+	background-color: var(--secondary-background);
 
 	&__link {
 		text-decoration: none;
@@ -38,6 +39,6 @@
 		margin: 1rem;
 		font-size: 1.4em;
 		font-weight: 600;
-		color: $primary-color;
+		color: var(--primary-color);
 	}
 }

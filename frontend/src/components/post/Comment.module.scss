@@ -16,16 +16,18 @@
 		gap: 3px;
 		padding: 0.5rem;
 		border-radius: 15px;
-		background-color: $primary-background;
+		background-color: var(--primary-background);
 	}
 
 	&__username {
 		font-weight: 600;
 		font-size: 1.2rem;
+		color: var(--primary-color);
 	}
 
 	&__text {
 		font-size: 1.2rem;
+		color: var(--primary-color);
 	}
 
 	&__user {
@@ -49,5 +51,6 @@
 
 	&__time {
 		text-align: right;
+		color: var(--primary-color);
 	}
 }

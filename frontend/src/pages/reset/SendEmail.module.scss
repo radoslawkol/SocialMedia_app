@@ -8,7 +8,7 @@
 	left: 50%;
 	transform: translateX(-50%);
 	border-radius: 15px;
-	background-color: $secondary-background;
+	background-color: var(--secondary-background);
 	@include media-size(medium) {
 		width: 40rem;
 	}
@@ -16,15 +16,18 @@
 	&__heading {
 		margin-bottom: 1rem;
 		font-size: 1.6rem;
+		color: var(--primary-color);
 	}
 	&__text {
 		font-size: 1.2rem;
+		color: var(--primary-color);
 	}
 
 	&__content {
 		margin-top: 2rem;
 		display: flex;
 		gap: 2rem;
+		color: var(--primary-color);
 	}
 	&__img {
 		width: 4rem;
@@ -62,11 +65,12 @@
 		border-radius: 15px;
 		cursor: pointer;
 		&--grey {
-			background-color: $primary-background;
+			color: var(--primary-color);
+			background-color: var(--primary-background);
 		}
 		&--confirm {
-			color: $white-color;
-			background-color: $secondary-color;
+			color: var(--white-color);
+			background-color: var(--secondary-color);
 		}
 	}
 }

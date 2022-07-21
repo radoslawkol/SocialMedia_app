@@ -10,7 +10,6 @@ import {
 import useclickOutsideClose from "../../functions/useClickOutsideClose";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "../../functions/getCroppedImg";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { uploadImages } from "../../functions/uploadImages";
 import { updatePicture } from "../../functions/userPictureCover";
@@ -102,15 +101,8 @@ export default function UpdateProfilePicture({
 				setImage("");
 				pictureRef.current.src = `${images[0].url}`;
 
-				Cookie.set(
-					"user",
-					JSON.stringify({ user: { ...user, picture: images[0].url } })
-				);
-				// dispatch({ type: "UPDATE_PICTURE", payload: images[0].url });
-				dispatch({
-					type: "UPDATE_PICTURE",
-					payload: { user: { ...user, picture: images[0].url } },
-				});
+				Cookie.set("user", JSON.stringify({ ...user, picture: images[0].url }));
+				dispatch({ type: "UPDATE_PICTURE", payload: images[0].url });
 				setShowPictureModal(false);
 			} else {
 				setLoading(false);

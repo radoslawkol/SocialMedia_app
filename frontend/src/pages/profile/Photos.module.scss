@@ -3,11 +3,16 @@
 .photos {
 	padding: 2rem;
 	border-radius: 15px;
-	background-color: $secondary-background;
+	background-color: var(--secondary-background);
+
+	&__loader {
+		margin-top: 1rem;
+	}
 
 	&__heading {
 		margin-bottom: 1rem;
 		font-size: 1.8rem;
+		color: var(--primary-color);
 	}
 	&__list {
 		width: 100%;

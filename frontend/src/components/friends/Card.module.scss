@@ -4,15 +4,16 @@
 	position: relative;
 	width: 16rem;
 	height: 21rem;
-	background-color: $secondary-background;
+	background-color: var(--secondary-background);
 	border-radius: 15px;
-	box-shadow: 2px 2px 3px $backdrop-color;
+	box-shadow: 2px 2px 3px var(--backdrop-color);
 	overflow: hidden;
 
 	&__name {
 		margin: 1rem;
 		text-align: center;
 		font-size: 1.6rem;
+		color: var(--primary-color);
 	}
 
 	&__picture {

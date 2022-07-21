@@ -35,6 +35,14 @@ const initialState = {
 
 function App() {
 	const { user } = useSelector((state) => ({ ...state }));
+	const { theme } = useSelector((state) => ({ ...state }));
+	const modalRoot = document.getElementById("modal-root");
+
+	if (theme) {
+		modalRoot.classList.add("dark");
+	} else {
+		modalRoot.classList.remove("dark");
+	}
 
 	const [{ loading, error, posts }, dispatch] = useReducer(
 		postReducer,
@@ -65,33 +73,35 @@ function App() {
 	}, [initialState.posts]);
 
 	return (
-		<Router>
-			<Routes>
-				<Route element={<LoggedInRoutes></LoggedInRoutes>}>
-					<Route
-						path='/'
-						element={<Home page='home' fetchedPosts={posts} />}
-					></Route>
-					<Route path='/profile' element={<Profile />}></Route>
-					<Route path='/profile/:username' element={<Profile />}></Route>
-					<Route path='/friends' element={<Friends page='friends' />}></Route>
-					<Route
-						path='/friends/:type'
-						element={<Friends page='friends' />}
-					></Route>
-					<Route
-						path='/activate/:token'
-						element={<Home activate={true} />}
-					></Route>
-				</Route>
-				<Route>
-					<Route element={<NotLoggedInRoutes />}>
-						<Route path='/login' element={<Login />}></Route>
+		<div className={`${theme ? "dark" : ""}`}>
+			<Router>
+				<Routes>
+					<Route element={<LoggedInRoutes></LoggedInRoutes>}>
+						<Route
+							path='/'
+							element={<Home page='home' fetchedPosts={posts} />}
+						></Route>
+						<Route path='/profile' element={<Profile />}></Route>
+						<Route path='/profile/:username' element={<Profile />}></Route>
+						<Route path='/friends' element={<Friends page='friends' />}></Route>
+						<Route
+							path='/friends/:type'
+							element={<Friends page='friends' />}
+						></Route>
+						<Route
+							path='/activate/:token'
+							element={<Home activate={true} />}
+						></Route>
 					</Route>
-				</Route>
-				<Route path='/reset' element={<Reset />}></Route>
-			</Routes>
-		</Router>
+					<Route>
+						<Route element={<NotLoggedInRoutes />}>
+							<Route path='/login' element={<Login />}></Route>
+						</Route>
+					</Route>
+					<Route path='/reset' element={<Reset />}></Route>
+				</Routes>
+			</Router>
+		</div>
 	);
 }
 

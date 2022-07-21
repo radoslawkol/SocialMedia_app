@@ -10,12 +10,12 @@
 		padding: 0.5rem;
 		outline: none;
 		border: none;
-		background-color: $primary-background;
+		background-color: var(--primary-background);
 		cursor: pointer;
 
 		& > option {
 			&:checked {
-				color: $secondary-color;
+				color: var(--secondary-color);
 			}
 		}
 	}
@@ -27,7 +27,7 @@
 		resize: none;
 		&:focus,
 		&:hover {
-			outline-color: $secondary-color;
+			outline-color: var(--secondary-color);
 		}
 	}
 
@@ -36,6 +36,7 @@
 		justify-content: flex-end;
 		margin: 0.5rem;
 		font-size: 1.2rem;
+		color: var(--primary-color);
 	}
 
 	&__btns {
@@ -48,11 +49,12 @@
 		padding: 0.5rem;
 		border: none;
 		border-radius: 5px;
-		background-color: $primary-background;
+		color: var(--primary-color);
+		background-color: var(--primary-background);
 		cursor: pointer;
 		&:nth-child(2) {
-			color: $white-color;
-			background-color: $secondary-color;
+			color: var(--white-color);
+			background-color: var(--secondary-color);
 		}
 	}
 }

@@ -21,7 +21,7 @@
 		display: flex;
 		justify-content: space-between;
 		border-radius: 100px;
-		background-color: $primary-background;
+		background-color: var(--primary-background);
 		@media (min-width: "410px") {
 			padding: 0.5rem;
 		}
@@ -34,6 +34,7 @@
 		height: 2rem;
 		padding: 0.5rem;
 		border: 0;
+		color: var(--primary-color);
 		background-color: transparent;
 		@media (min-width: "410px") {
 			padding: 1rem;
@@ -53,6 +54,8 @@
 	&__btn {
 		border: none;
 		cursor: pointer;
+		background: transparent;
+		color: var(--primary-color);
 	}
 
 	&__imgPreview {
@@ -79,7 +82,9 @@
 		padding: 0.5rem;
 		border: 1px solid black;
 		border-radius: 50%;
-		background-color: $secondary-background;
+		background-color: var(--secondary-background);
+		color: var(--primary-color);
+
 		cursor: pointer;
 	}
 }

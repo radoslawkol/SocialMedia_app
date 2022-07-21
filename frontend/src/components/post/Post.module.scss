@@ -6,7 +6,7 @@ $imageHeight: 20rem;
 	position: relative;
 	width: 100%;
 	border-radius: 15px;
-	background: $secondary-background;
+	background: var(--secondary-background);
 
 	&__header {
 		display: flex;
@@ -23,7 +23,7 @@ $imageHeight: 20rem;
 		cursor: pointer;
 		transition: color 0.3s;
 		&:hover {
-			color: $secondary-color;
+			color: var(--secondary-color);
 		}
 	}
 
@@ -32,7 +32,7 @@ $imageHeight: 20rem;
 		align-items: center;
 		gap: 0.5rem;
 		font-size: 1.2rem;
-		color: $primary-color;
+		color: var(--primary-color);
 		text-decoration: none;
 	}
 
@@ -44,9 +44,6 @@ $imageHeight: 20rem;
 		width: 4rem;
 		height: 4rem;
 		border-radius: 50%;
-	}
-
-	&__userName {
 	}
 
 	&__time {
@@ -128,7 +125,7 @@ $imageHeight: 20rem;
 		width: 20rem;
 		height: 20rem;
 		border-radius: 50%;
-		border: 3px solid $secondary-background;
+		border: 3px solid var(--secondary-background);
 		object-fit: cover;
 		z-index: 1;
 	}
@@ -194,6 +191,7 @@ $imageHeight: 20rem;
 		display: flex;
 		align-items: center;
 		gap: 0.5rem;
+		color: var(--primary-color);
 		font-size: 1.2rem;
 		cursor: pointer;
 		@include media-size(small) {
@@ -302,5 +300,5 @@ $imageHeight: 20rem;
 	align-items: center;
 	justify-content: center;
 	font-size: 1.4rem;
-	background-color: rgba($secondary-background, 0.1);
+	background-color: rgba(var(--secondary-background), 0.1);
 }

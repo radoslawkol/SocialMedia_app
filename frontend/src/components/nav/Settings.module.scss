@@ -5,14 +5,16 @@
 	top: 4.1rem;
 	right: 0;
 	width: 30rem;
-	background-color: $white-color;
+	background-color: var(--white-background);
 	border-radius: 15px;
-	border: $border-grey;
+	box-shadow: 2px 2px 3px var(--backdrop-color);
+	z-index: 1000;
 
 	&__heading {
 		padding: 1rem 0 0;
 		font-size: 1.8rem;
 		text-align: center;
+		color: var(--primary-color);
 	}
 
 	&__option {
@@ -25,7 +27,7 @@
 		transition: background-color 0.3s;
 		&:hover,
 		&:focus {
-			background-color: $backdrop-color;
+			background-color: var(--backdrop-color);
 		}
 	}
 
@@ -33,7 +35,7 @@
 		width: 3rem;
 		height: 3rem;
 		border-radius: 50%;
-		background-color: $backdrop-color;
+		background-color: var(--backdrop-color);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -41,9 +43,11 @@
 
 	&__icon {
 		font-size: 1.6rem;
+		color: var(--primary-color);
 	}
 	&__text {
 		font-weight: 600;
 		font-size: 1.4rem;
+		color: var(--primary-color);
 	}
 }

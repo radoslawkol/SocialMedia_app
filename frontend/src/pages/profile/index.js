@@ -12,6 +12,7 @@ import GridPost from "./GridPost";
 import Photos from "./Photos";
 import Friends from "./Friends";
 import { InView, useInView } from "react-intersection-observer";
+import { FadeLoader } from "react-spinners";
 
 const profileReducer = (state, action) => {
 	switch (action.type) {
@@ -190,6 +191,7 @@ export default function Profile() {
 							isVisitor={isVisitor}
 							user={user}
 						/>
+
 						<Photos user={user} username={userName} photos={photos} />
 						<Friends friends={profile?.user?.friends} />
 					</div>

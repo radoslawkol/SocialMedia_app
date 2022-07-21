@@ -4,9 +4,14 @@
 	width: 100%;
 	padding: 2rem;
 	border-radius: 15px;
-	background-color: $secondary-background;
+	background-color: var(--secondary-background);
 	&__heading {
 		font-size: 2rem;
+		color: var(--primary-color);
+	}
+
+	&__loader {
+		margin-top: 1rem;
 	}
 
 	&__btns {
@@ -22,11 +27,12 @@
 		padding: 1rem 0;
 		border: none;
 		border-radius: 15px;
-		background-color: $primary-background;
+		color: var(--primary-color);
+		background-color: var(--primary-background);
 		cursor: pointer;
 		transition: background-color 0.3s;
 		&:hover {
-			background-color: rgba($primary-background, 0.6);
+			background-color: rgba(var(--primary-background), 0.6);
 		}
 	}
 
@@ -36,17 +42,23 @@
 		align-items: center;
 		gap: 0.5rem;
 		font-size: 1.4rem;
+		color: var(--primary-color);
 		> a {
 			text-decoration: none;
 		}
 	}
+
+	&__textInfo {
+		&:focus,
+		&:visited {
+			color: var(--secondary-color-rgba);
+		}
+	}
 	&__icon {
-		fill: $secondary-color;
+		fill: var(--secondary-color);
 		&--insta {
 			width: 2rem;
 			height: 2rem;
-			fill: $secondary-color;
-			color: $secondary-color;
 		}
 	}
 
@@ -57,5 +69,6 @@
 	&__bioText {
 		font-size: 1.4rem;
 		word-break: break-word;
+		color: var(--primary-color);
 	}
 }
