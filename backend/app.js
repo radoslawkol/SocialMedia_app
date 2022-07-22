@@ -4,6 +4,8 @@ const userRouter = require("./routes/userRoutes");
 const postRouter = require("./routes/postRoutes");
 const uploadRouter = require("./routes/uploadRoutes");
 const reactRouter = require("./routes/reactRoutes");
+const conversationRouter = require("./routes/conversationRoutes");
+const messagesRouter = require("./routes/messagesRoutes");
 const cookieParser = require("cookie-parser");
 const fileupload = require("express-fileupload");
 
@@ -41,5 +43,7 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/posts", postRouter);
 app.use("/api/v1/images", uploadRouter);
 app.use("/api/v1/reacts", reactRouter);
+app.use("/api/v1/conversations", conversationRouter);
+app.use("/api/v1/messages", messagesRouter);
 
 module.exports = app;

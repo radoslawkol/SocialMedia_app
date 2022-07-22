@@ -7,6 +7,8 @@ import {
 	faComment,
 	faShare,
 } from "@fortawesome/free-solid-svg-icons";
+import bg4 from "../../images/moroccan-flower-dark.webp";
+import bg6 from "../../images/oriental-tiles.png";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import ReactsPopup from "./ReactsPopup";
@@ -83,6 +85,8 @@ export default function Post({ post, profile }) {
 	}, [post]);
 
 	const commentBtnHandler = () => {};
+
+	const bgConverted = "/" + post.background?.split("/").slice(3).join("/");
 
 	return (
 		<div className={classes.post} ref={postRef}>
@@ -169,7 +173,7 @@ export default function Post({ post, profile }) {
 						<div className={classes.post__profilePictureBg}>
 							<img
 								src={post.user.cover}
-								alt='post image'
+								alt=''
 								className={classes.post__profilePictureImg}
 							/>
 						</div>
@@ -191,7 +195,16 @@ export default function Post({ post, profile }) {
 						className={classes.post__background}
 						style={{ backgroundImage: `url(${post.background})` }}
 					>
-						<p className={classes.post__bgText}>{post.text}</p>
+						<p
+							className={classes.post__bgText}
+							style={{
+								color: `${
+									bgConverted === bg4 || bgConverted === bg6 ? "white" : "black"
+								}`,
+							}}
+						>
+							{post.text}
+						</p>
 					</div>
 				)}
 				<div className={classes.post__infos}>

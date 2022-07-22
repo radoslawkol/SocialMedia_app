@@ -74,6 +74,7 @@ $imageHeight: 20rem;
 		justify-content: flex-end;
 		gap: 1rem;
 		padding: 2rem;
+		color: var(--primary-color);
 		font-size: 1.2rem;
 	}
 
@@ -166,6 +167,7 @@ $imageHeight: 20rem;
 	}
 	&__reactsNum {
 		font-size: 1.2rem;
+		color: var(--primary-color);
 	}
 }
 

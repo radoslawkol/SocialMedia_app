@@ -1,0 +1,55 @@
+@import "../../sass/index.scss";
+
+.box {
+	&__messageWrap {
+		position: relative;
+		width: 18rem;
+		display: flex;
+		gap: 3px;
+		align-items: flex-start;
+		@include media-size(medium) {
+			width: 24rem;
+		}
+		@include media-size(large) {
+			width: 30rem;
+		}
+		@include media-size(extra-large) {
+			width: 36rem;
+		}
+		&--user {
+			margin-left: auto;
+		}
+	}
+
+	&__message {
+		padding: 1rem;
+		border-radius: 15px;
+		background-color: var(--secondary-color);
+		&--user {
+			background-color: var(--user-message-color);
+		}
+	}
+
+	&__picture {
+		width: 2rem;
+		height: 2rem;
+		border-radius: 50%;
+		@include media-size(large) {
+			width: 3rem;
+			height: 3rem;
+		}
+	}
+	&__text {
+		font-size: 1.2rem;
+		color: var(--white-color);
+	}
+
+	&__time {
+		position: absolute;
+		bottom: -1.5rem;
+		left: 2rem;
+		margin-left: 1rem;
+		font-size: 1rem;
+		color: var(--primary-color);
+	}
+}

@@ -1,0 +1,31 @@
+@import "../../sass/index.scss";
+
+.menu {
+	max-height: 100%;
+	width: 12rem;
+	background-color: var(--secondary-background);
+	@include media-size(medium) {
+		width: 18rem;
+	}
+	@include media-size(extra-large) {
+		width: 22rem;
+	}
+
+	&__heading {
+		margin-left: 1rem;
+		padding: 3rem 0 2rem;
+		font-size: 2rem;
+		color: var(--primary-color);
+	}
+
+	&__container {
+		max-height: 70vh;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		overflow-y: auto;
+		@include media-size(extra-large) {
+			align-items: center;
+		}
+	}
+}

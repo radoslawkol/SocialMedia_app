@@ -134,6 +134,8 @@ export default function CreatePostModal({ setShowCreateModal, setPosts }) {
 			setText("");
 		}
 	};
+	const bgConverted = "/" + background?.split("/").slice(3).join("/");
+
 	return (
 		<div className='backdrop'>
 			<div className={classes.modal} ref={modalRef}>
@@ -202,6 +204,12 @@ export default function CreatePostModal({ setShowCreateModal, setPosts }) {
 									paddingTop: `${Math.abs(
 										textRef.current.value.length * 0.1 - 24
 									)}%`,
+
+									color: `${
+										bgConverted === bg4 || bgConverted === bg6
+											? "white"
+											: "black"
+									}`,
 								}}
 								placeholder={`What's on your mind, ${user.firstName}?`}
 							/>

@@ -1,0 +1,47 @@
+@import "../../sass/index.scss";
+
+.menu {
+	&__item {
+		padding: 0.5rem 1rem;
+		display: flex;
+		align-items: center;
+		gap: 3px;
+		width: 100%;
+		text-decoration: none;
+		transition: background-color 0.3s;
+		cursor: pointer;
+		@include media-size(medium) {
+			padding: 0.5rem 1.5rem;
+		}
+		@include media-size(large) {
+			padding: 0.5rem 2rem;
+			gap: 1rem;
+		}
+		&:hover {
+			background-color: var(--backdrop-color);
+		}
+	}
+
+	&__img {
+		width: 3rem;
+		height: 3rem;
+		border-radius: 50%;
+		object-fit: cover;
+		@include media-size(large) {
+			width: 4rem;
+			height: 4rem;
+		}
+	}
+
+	&__name {
+		color: var(--primary-color);
+		font-size: 1.2rem;
+		word-break: normal;
+		@include media-size(medium) {
+			font-size: 1.4rem;
+		}
+		@include media-size(large) {
+			font-size: 1.6rem;
+		}
+	}
+}

@@ -15,6 +15,7 @@
 	--secondary-color-rgba: #9000ffe1;
 	--white-color: #fff;
 	--white-background: #fff;
+	--user-message-color: #504d4d;
 }
 
 .dark {
@@ -28,6 +29,7 @@
 	--border-grey: 1px solid rgb(53, 52, 52);
 	--green-background: #18d837;
 	--green-background-rgb: #18d838db;
+	--user-message-color: #504d4d;
 }
 
 html {
@@ -50,6 +52,10 @@ body {
 	@media (min-width: "982px") {
 		transform: translateX(-40px);
 	}
+}
+
+.aside.emoji-picker-react {
+	background: var(--secondary-background) !important;
 }
 
 .emoji-picker-react .emoji-group:before {

@@ -9,6 +9,7 @@ import Friends from "./pages/friends";
 import Reset from "./pages/reset";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import Chat from "./pages/chat";
 
 const postReducer = (state, action) => {
 	switch (action.type) {
@@ -92,6 +93,7 @@ function App() {
 							path='/activate/:token'
 							element={<Home activate={true} />}
 						></Route>
+						<Route path='/chat' element={<Chat />}></Route>
 					</Route>
 					<Route>
 						<Route element={<NotLoggedInRoutes />}>
