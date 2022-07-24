@@ -1,6 +1,7 @@
 const Message = require("../models/Message");
 
 exports.createMessage = async (req, res) => {
+	console.log(req.body);
 	try {
 		const newMessage = await Message.create({
 			conversationId: req.body.conversationId,
@@ -8,9 +9,14 @@ exports.createMessage = async (req, res) => {
 			text: req.body.text,
 		});
 
+		const populatedMessage = await newMessage.populate(
+			"sender",
+			"firstName lastName picture username"
+		);
+
 		res.status(200).json({
 			status: "success",
-			message: newMessage,
+			message: populatedMessage,
 		});
 	} catch (err) {
 		res.status(500).json({

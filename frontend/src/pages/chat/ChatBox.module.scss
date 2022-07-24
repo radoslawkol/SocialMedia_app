@@ -77,6 +77,48 @@
 		color: var(--secondary-color);
 		cursor: pointer;
 	}
+
+	&__banner {
+		width: 100%;
+		position: absolute;
+		top: 20%;
+		left: 50%;
+		transform: translateX(-50%);
+		padding: 2rem;
+		text-align: center;
+		@media (min-width: "455px") {
+			width: 80%;
+		}
+		@media (min-width: "670px") {
+			width: 70%;
+		}
+		@media (min-width: "758px") {
+			width: 60%;
+		}
+		@media (min-width: "910px") {
+			width: 50%;
+		}
+		@media (min-width: "1070px") {
+			width: 30%;
+		}
+	}
+
+	&__img {
+		width: 16rem;
+		@media (min-width: "758px") {
+			width: 26rem;
+		}
+	}
+
+	&__infoMessage {
+		text-align: center;
+		margin-top: 2rem;
+		font-size: 2.5rem;
+		color: var(--primary-color);
+		@media (min-width: "1070px") {
+			font-size: 3rem;
+		}
+	}
 }
 
 .emoji_wrapper {

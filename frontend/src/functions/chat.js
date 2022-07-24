@@ -36,3 +36,21 @@ export const getMessages = async (conversationId, token) => {
 		return err.response.data.message;
 	}
 };
+export const createMessage = async (conversationId, text, sender, token) => {
+	try {
+		const { data } = await axios.post(
+			// eslint-disable-next-line no-undef
+			`${process.env.REACT_APP_BACKEND_URL}/api/v1/messages`,
+			{ conversationId, sender, text },
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+		return data;
+	} catch (err) {
+		console.log(err);
+		return err.response.data.message;
+	}
+};

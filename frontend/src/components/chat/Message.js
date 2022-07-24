@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Message.module.scss";
+import Moment from "react-moment";
 
 export default function Message({ user, friend, own, message }) {
 	if (own) {
@@ -17,7 +18,9 @@ export default function Message({ user, friend, own, message }) {
 				>
 					<p className={classes.box__text}>{message.text}</p>
 				</div>
-				<span className={classes.box__time}>{message.createdAt}</span>
+				<span className={classes.box__time}>
+					<Moment fromNow>{message.createdAt}</Moment>
+				</span>
 			</div>
 		);
 	} else {
@@ -31,7 +34,9 @@ export default function Message({ user, friend, own, message }) {
 				<div className={classes.box__message}>
 					<p className={classes.box__text}>{message?.text}</p>
 				</div>
-				<span className={classes.box__time}>{message.createdAt}</span>
+				<span className={classes.box__time}>
+					<Moment fromNow>{message.createdAt}</Moment>
+				</span>
 			</div>
 		);
 	}

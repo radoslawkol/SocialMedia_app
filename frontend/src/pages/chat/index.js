@@ -3,15 +3,22 @@ import Nav from "../../components/nav/Nav";
 import classes from "./chat.module.scss";
 import ChatMenu from "./ChatMenu";
 import ChatBox from "./ChatBox";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
-import { getConversations, getMessages } from "../../functions/chat";
+import {
+	createMessage,
+	getConversations,
+	getMessages,
+} from "../../functions/chat";
+import { io } from "socket.io-client";
 
 export default function Chat() {
 	const { user } = useSelector((state) => ({ ...state }));
 	const [conversations, setConversations] = useState([]);
 	const [currentChat, setCurrentChat] = useState();
 	const [messages, setMessages] = useState([]);
+	const [arrivalMessage, setArrivalMessage] = useState(null);
+	const socket = useRef();
 
 	console.log(currentChat);
 
@@ -23,6 +30,37 @@ export default function Chat() {
 			setConversations(res.conversations);
 		}
 	};
+
+	useEffect(() => {
+		socket.current = io("ws://localhost:8900");
+		socket.current?.on("getMessage", (data) => {
+			console.log(data.senderId);
+			console.log(currentChat);
+			setArrivalMessage({
+				sender: data.senderId,
+				text: data.text,
+				createdAt: Date.now(),
+			});
+		});
+	}, [currentChat]);
+
+	useEffect(() => {
+		if (arrivalMessage) {
+			const sender = currentChat?.members.find(
+				(member) => member._id === arrivalMessage.sender
+			);
+			console.log(sender);
+			arrivalMessage &&
+				setMessages((prev) => [...prev, { ...arrivalMessage, sender }]);
+		}
+	}, [arrivalMessage, currentChat]);
+
+	useEffect(() => {
+		socket.current?.emit("addUser", user.id);
+		socket.current?.on("getUsers", (users) => {
+			console.log(users);
+		});
+	}, [user]);
 
 	useEffect(() => {
 		getData();
@@ -57,6 +95,8 @@ export default function Chat() {
 					setCurrentChat={setCurrentChat}
 					currentChat={currentChat}
 					messages={messages}
+					setMessages={setMessages}
+					socket={socket}
 				/>
 			</div>
 		</div>
