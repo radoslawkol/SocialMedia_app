@@ -3,6 +3,7 @@ import classes from "./FriendsContent.module.scss";
 import Card from "../../components/friends/Card";
 import { useMediaQuery } from "react-responsive";
 import { PulseLoader } from "react-spinners";
+import Birthdays from "../../components/friends/Birthdays";
 
 export default function FriendsContent({ data, getData, type, loading }) {
 	const isSmall = useMediaQuery({
@@ -110,13 +111,13 @@ export default function FriendsContent({ data, getData, type, loading }) {
 
 			{type === "birthdays" && (
 				<section className={classes.main__section}>
-					<h2 className={classes.main__heading}>Birthdays</h2>
+					<h2 className={classes.main__heading}>Upcomming Birthdays</h2>
 					{loading ? (
 						<div className={classes.main__loader}>
 							<PulseLoader size={15} color='#8F00FF' />
 						</div>
 					) : (
-						<p>Friends birthdays</p>
+						<Birthdays friends={data?.friends} />
 					)}
 				</section>
 			)}

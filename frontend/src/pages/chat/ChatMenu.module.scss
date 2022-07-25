@@ -1,6 +1,9 @@
 @import "../../sass/index.scss";
 
 .menu {
+	&__itemWrapper {
+		width: 100%;
+	}
 	max-height: 100%;
 	width: 12rem;
 	background-color: var(--secondary-background);
@@ -19,13 +22,12 @@
 	}
 
 	&__container {
+		width: 100%;
 		max-height: 70vh;
 		display: flex;
 		flex-direction: column;
+		align-items: flex-start;
 		gap: 0.5rem;
 		overflow-y: auto;
-		@include media-size(extra-large) {
-			align-items: center;
-		}
 	}
 }

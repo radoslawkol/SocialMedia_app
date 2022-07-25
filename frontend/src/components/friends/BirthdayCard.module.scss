@@ -1,0 +1,61 @@
+@import "../../sass/index.scss";
+.card {
+	width: 22rem;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	padding: 1rem;
+	border-radius: 15px;
+	background-color: var(--secondary-background);
+	text-decoration: none;
+	color: var(--primary-color);
+	@include media-size(medium) {
+		width: 30rem;
+		justify-content: space-between;
+		padding: 1rem 2rem;
+	}
+
+	&__user {
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		@include media-size(medium) {
+			gap: 1rem;
+		}
+	}
+	&__info {
+		display: flex;
+		flex-direction: column;
+		gap: 1px;
+	}
+
+	&__picture {
+		width: 3rem;
+		height: 3rem;
+		border-radius: 50%;
+		@include media-size(medium) {
+			width: 5rem;
+			height: 5rem;
+		}
+	}
+
+	&__age {
+		font-size: 1.2rem;
+		@include media-size(medium) {
+			font-size: 1.4em;
+		}
+	}
+
+	&__name {
+		font-size: 1.4rem;
+		font-weight: bold;
+		@include media-size(medium) {
+			font-size: 1.6rem;
+		}
+	}
+	&__date {
+		@include media-size(medium) {
+			font-size: 1.2rem;
+		}
+	}
+}

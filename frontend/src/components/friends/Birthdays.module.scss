@@ -1,0 +1,12 @@
+@import "../../sass/index.scss";
+
+.birthdays {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	gap: 2rem;
+	margin-top: 2rem;
+	@include media-size(small) {
+		flex-direction: row;
+	}
+}

@@ -18,6 +18,25 @@ export const getConversations = async (userId, token) => {
 		return err.response.data.message;
 	}
 };
+export const createConversation = async (senderId, receiverId, token) => {
+	try {
+		const { data } = await axios.post(
+			// eslint-disable-next-line no-undef
+			`${process.env.REACT_APP_BACKEND_URL}/api/v1/conversations`,
+			{ senderId, receiverId },
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+		return data;
+	} catch (err) {
+		console.log(err);
+		return err.response.data.message;
+	}
+};
+
 export const getMessages = async (conversationId, token) => {
 	try {
 		const { data } = await axios.get(

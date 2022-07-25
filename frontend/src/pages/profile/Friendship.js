@@ -12,8 +12,11 @@ import {
 	unfollow,
 	unfriend,
 } from "../../functions/friendsFunctions";
+import { createConversation } from "../../functions/chat";
+import { useNavigate } from "react-router-dom";
 
 export default function Friendship({ friendshipFetched, profileId }) {
+	const navigate = useNavigate();
 	const { user } = useSelector((state) => ({ ...state }));
 	const [friendship, setFriendship] = useState();
 	const [showFriendsMenu, setShowFriendsMenu] = useState(false);
@@ -73,6 +76,12 @@ export default function Friendship({ friendshipFetched, profileId }) {
 			requestReceived: false,
 		});
 		await unfriend(profileId, user.token);
+	};
+
+	const messageHandler = async () => {
+		console.log(user.id, profileId);
+		await createConversation(user.id, profileId, user.token);
+		navigate("/chat");
 	};
 
 	useEffect(() => {
@@ -165,7 +174,7 @@ export default function Friendship({ friendshipFetched, profileId }) {
 					Follow
 				</button>
 			)}
-			<button className={classes.friends__btn}>
+			<button className={classes.friends__btn} onClick={messageHandler}>
 				<FontAwesomeIcon icon={faUserFriends} />
 				Message
 			</button>

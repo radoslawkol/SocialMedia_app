@@ -21,6 +21,7 @@ const {
 	getSearchHistory,
 	deleteFromHistory,
 	getFriendsInfos,
+	getFriendsBirth,
 } = require("../controllers/userController");
 const {
 	register,

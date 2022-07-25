@@ -22,6 +22,10 @@
 		}
 	}
 
+	&__active {
+		background-color: var(--backdrop-color);
+	}
+
 	&__img {
 		width: 3rem;
 		height: 3rem;

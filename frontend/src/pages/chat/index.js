@@ -45,7 +45,9 @@ export default function Chat() {
 	}, [currentChat]);
 
 	useEffect(() => {
+		console.log(arrivalMessage);
 		if (arrivalMessage) {
+			console.log(currentChat);
 			const sender = currentChat?.members.find(
 				(member) => member._id === arrivalMessage.sender
 			);

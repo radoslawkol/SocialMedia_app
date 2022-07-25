@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import classes from "./ChatMenu.module.scss";
 import Conversation from "../../components/chat/Conversation";
 
 export default function ChatMenu({ conversations, user, setCurrentChat }) {
+	const [active, setActive] = useState();
+	const clickHandler = (i, conversation) => {
+		setCurrentChat(conversation);
+		setActive(i);
+	};
 	return (
 		<div className={classes.menu}>
 			<h2 className={classes.menu__heading}>Chats</h2>
@@ -10,8 +15,16 @@ export default function ChatMenu({ conversations, user, setCurrentChat }) {
 				{conversations &&
 					conversations?.map((conversation, i) => {
 						return (
-							<div onClick={() => setCurrentChat(conversation)} key={i}>
-								<Conversation conversation={conversation} user={user} />
+							<div
+								onClick={() => clickHandler(i, conversation)}
+								key={i}
+								className={`${classes.menu__itemWrapper}`}
+							>
+								<Conversation
+									conversation={conversation}
+									user={user}
+									active={active === i ? true : false}
+								/>
 							</div>
 						);
 					})}

@@ -3,7 +3,7 @@ import classes from "./Conversation.module.scss";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-export default function Conversation({ conversation, user }) {
+export default function Conversation({ conversation, user, active }) {
 	const [friend, setFriend] = useState();
 
 	console.log(friend);
@@ -16,7 +16,9 @@ export default function Conversation({ conversation, user }) {
 	}, [friend]);
 
 	return (
-		<div className={classes.menu__item}>
+		<div
+			className={`${classes.menu__item} ${active ? classes.menu__active : ""}`}
+		>
 			<img
 				src={friend?.picture}
 				alt='friend image'

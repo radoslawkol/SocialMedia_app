@@ -3,6 +3,19 @@ const mongoose = require("mongoose");
 
 exports.createConversation = async (req, res) => {
 	try {
+		const check = await Conversation.findOne({
+			members: { $all: [req.body.senderId, req.body.receiverId] },
+		});
+
+		console.log(check);
+
+		if (check) {
+			return res.status(400).json({
+				status: "fail",
+				message: "You are already in conversation with this person.",
+			});
+		}
+
 		const newConversation = await Conversation.create({
 			members: [req.body.senderId, req.body.receiverId],
 		});

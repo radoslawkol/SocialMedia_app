@@ -38,10 +38,11 @@ export default function ChatBox({
 	useclickOutsideClose(emojiRef, () => setOpenEmoji(false));
 
 	const submitHandler = async (e) => {
-		console.log(e);
 		const receiver = currentChat.members.find(
 			(member) => member._id !== user.id
 		);
+
+		console.log(receiver);
 
 		if (e.code === "Enter") {
 			socket.current.emit("sendMessage", {

@@ -703,7 +703,10 @@ exports.getFriendsInfos = async (req, res) => {
 	try {
 		const user = await User.findById(req.user.id)
 			.select("friends requests")
-			.populate("friends", "firstName lastName picture username")
+			.populate(
+				"friends",
+				"firstName lastName picture username bDay bMonth bYear"
+			)
 			.populate("requests", "firstName lastName picture username");
 
 		const sentRequests = await User.find({
