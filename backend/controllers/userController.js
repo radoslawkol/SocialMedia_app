@@ -783,3 +783,57 @@ exports.getFriendsInfos = async (req, res) => {
 		});
 	}
 };
+
+exports.getSavedPosts = async (req, res) => {
+	try {
+		const saved = await User.findById(req.params.id)
+			.select("savedPosts")
+			.populate({
+				path: "savedPosts.post",
+				select: "background photos text type user",
+				populate: {
+					path: "user",
+					select: "firstName lastName username picture",
+				},
+			});
+
+		if (saved) {
+			return res.status(200).json({
+				status: "success",
+				saved,
+			});
+		}
+		res.status(400).json({
+			status: "fail",
+			message: 'You don"t have saved posts.',
+		});
+	} catch (err) {
+		console.log(err);
+		res.status(500).json({
+			status: "fail",
+			message: err.message,
+		});
+	}
+};
+exports.unsavePost = async (req, res) => {
+	try {
+		console.log(req.body);
+		await User.findByIdAndUpdate(req.params.id, {
+			$pull: {
+				savedPosts: {
+					post: req.body.postId,
+				},
+			},
+		});
+
+		res.status(200).json({
+			status: "success",
+		});
+	} catch (err) {
+		console.log(err);
+		res.status(500).json({
+			status: "fail",
+			message: err.message,
+		});
+	}
+};

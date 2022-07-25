@@ -63,13 +63,15 @@ export default function PostMenu({
 					/>
 				</div>
 			) : (
-				<div onClick={savePostHandler}>
-					<MenuItem
-						icon={faBookmark}
-						title='Unsave Post'
-						subtitle='Remove this post from your saved items.'
-					/>
-				</div>
+				!isAuthor && (
+					<div onClick={savePostHandler}>
+						<MenuItem
+							icon={faBookmark}
+							title='Unsave Post'
+							subtitle='Remove this post from your saved items.'
+						/>
+					</div>
+				)
 			)}
 
 			{imagesLength !== 0 && (

@@ -94,3 +94,40 @@ export const getFriendsInfos = async (token) => {
 		return err.response.data.message;
 	}
 };
+export const getSavedPosts = async (id, token) => {
+	try {
+		const { data } = await axios.get(
+			// eslint-disable-next-line no-undef
+			`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/getSavedPosts/${id}`,
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+		return data;
+	} catch (err) {
+		console.log(err);
+		return err.response.data.message;
+	}
+};
+export const unsavePost = async (postId, userId, token) => {
+	try {
+		const { data } = await axios.patch(
+			// eslint-disable-next-line no-undef
+			`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/unsavePost/${userId}`,
+			{
+				postId,
+			},
+			{
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			}
+		);
+		return data;
+	} catch (err) {
+		console.log(err);
+		return err.response.data.message;
+	}
+};

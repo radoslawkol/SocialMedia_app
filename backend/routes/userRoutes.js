@@ -21,7 +21,8 @@ const {
 	getSearchHistory,
 	deleteFromHistory,
 	getFriendsInfos,
-	getFriendsBirth,
+	getSavedPosts,
+	unsavePost,
 } = require("../controllers/userController");
 const {
 	register,
@@ -57,5 +58,7 @@ router.patch("/addToSearchHistory", auth, addToSearchHistory);
 router.get("/getSearchHistory", auth, getSearchHistory);
 router.patch("/deleteFromHistory", auth, deleteFromHistory);
 router.get("/getFriendsInfos", auth, getFriendsInfos);
+router.get("/getSavedPosts/:id", auth, getSavedPosts);
+router.patch("/unsavePost/:id", auth, unsavePost);
 
 module.exports = router;
