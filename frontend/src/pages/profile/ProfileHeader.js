@@ -18,11 +18,21 @@ import Cookie from "js-cookie";
 import { useMediaQuery } from "react-responsive";
 import OldCover from "./OldCover";
 import Friendship from "./Friendship";
+import Skeleton, { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 const modalRoot = document.getElementById("modal-root");
 
-export default function ProfileHeader({ isVisitor, photos, profile }) {
+export default function ProfileHeader({
+	isVisitor,
+	photos,
+	profile,
+	profileLoading,
+}) {
 	const isSmall = useMediaQuery({
 		query: "(min-width: 576px)",
+	});
+	const isMedium = useMediaQuery({
+		query: "(min-width: 776px)",
 	});
 	const dispatch = useDispatch();
 	const { user } = useSelector((state) => ({ ...state }));
@@ -114,75 +124,91 @@ export default function ProfileHeader({ isVisitor, photos, profile }) {
 	const aspectHeight = isSmall ? 500 : 300;
 	return (
 		<div className={classes.header}>
-			<div
-				className={classes.header__cover}
-				style={{
-					backgroundImage: `url(${
-						profile?.user?.cover && !cover ? profile?.user?.cover : ""
-					})`,
-				}}
-				ref={coverRef}
-			>
-				{cover && (
-					<div className={classes.header__cropper}>
-						<Cropper
-							image={cover}
-							crop={crop}
-							zoom={zoom}
-							aspect={width / aspectHeight}
-							onCropChange={setCrop}
-							onCropComplete={onCropComplete}
-							onZoomChange={setZoom}
-							showGrid={true}
-							objectFit='horizontal-cover'
-						/>
-					</div>
-				)}
-				{!isVisitor && (
-					<button
-						className={classes.header__coverBtn}
-						onClick={() => setShowCoverMenu(true)}
-					>
-						<FontAwesomeIcon
-							icon={faCamera}
-							className={classes.header__photoIcon}
-						/>
-						Add Cover Photo
-						{showCoverMenu && (
-							<Cover
-								setShowCoverMenu={setShowCoverMenu}
-								setError={setError}
-								setCover={setCover}
-								setShowOldModal={setShowOldModal}
+			{profileLoading ? (
+				<Skeleton height={`${isSmall ? "50rem" : "30rem"}`} />
+			) : (
+				<div
+					className={classes.header__cover}
+					style={{
+						backgroundImage: `url(${
+							profile?.user?.cover && !cover ? profile?.user?.cover : ""
+						})`,
+					}}
+					ref={coverRef}
+				>
+					{cover && (
+						<div className={classes.header__cropper}>
+							<Cropper
+								image={cover}
+								crop={crop}
+								zoom={zoom}
+								aspect={width / aspectHeight}
+								onCropChange={setCrop}
+								onCropComplete={onCropComplete}
+								onZoomChange={setZoom}
+								showGrid={true}
+								objectFit='horizontal-cover'
 							/>
-						)}
-					</button>
-				)}
-			</div>
+						</div>
+					)}
+					{!isVisitor && (
+						<button
+							className={classes.header__coverBtn}
+							onClick={() => setShowCoverMenu(true)}
+						>
+							<FontAwesomeIcon
+								icon={faCamera}
+								className={classes.header__photoIcon}
+							/>
+							Add Cover Photo
+							{showCoverMenu && (
+								<Cover
+									setShowCoverMenu={setShowCoverMenu}
+									setError={setError}
+									setCover={setCover}
+									setShowOldModal={setShowOldModal}
+								/>
+							)}
+						</button>
+					)}
+				</div>
+			)}
 			<div className={classes.header__info}>
 				<div className={classes.header__user}>
-					<div className={classes.header__userPicture}>
-						<img
-							src={profile?.user?.picture}
-							alt='user picture'
-							className={classes.header__userImg}
-							ref={pictureRef}
+					{profileLoading ? (
+						<Skeleton
+							width={`${isMedium ? "14rem" : "10rem"}`}
+							height={`${isMedium ? "14rem" : "10rem"}`}
+							circle
 						/>
-						{!isVisitor && (
-							<button
-								className={classes.header__pictureBtn}
-								onClick={() => setShowPictureModal(true)}
-							>
-								<FontAwesomeIcon
-									icon={faCamera}
-									className={classes.header__photoIcon}
-								/>
-							</button>
-						)}
-					</div>
-					<strong className={classes.header__username}>
-						{profile?.user?.firstName} {profile?.user?.lastName}
-					</strong>
+					) : (
+						<div className={classes.header__userPicture}>
+							<img
+								src={profile?.user?.picture}
+								alt='user picture'
+								className={classes.header__userImg}
+								ref={pictureRef}
+							/>
+							{!isVisitor && (
+								<button
+									className={classes.header__pictureBtn}
+									onClick={() => setShowPictureModal(true)}
+								>
+									<FontAwesomeIcon
+										icon={faCamera}
+										className={classes.header__photoIcon}
+									/>
+								</button>
+							)}
+						</div>
+					)}
+					{profileLoading ? (
+						<Skeleton width='16rem' height='2.5rem' />
+					) : (
+						<strong className={classes.header__username}>
+							{profile?.user?.firstName} {profile?.user?.lastName}
+						</strong>
+					)}
 					{isVisitor && (
 						<Friendship
 							friendshipFetched={profile?.user?.friendship}
@@ -191,21 +217,31 @@ export default function ProfileHeader({ isVisitor, photos, profile }) {
 					)}
 				</div>
 				<div className={classes.header__friends}>
-					{profile?.user?.friends.slice(0, 5).map((friend, i) => {
-						return (
-							<Link
-								key={i}
-								to={`/profile/${friend.username}'`}
-								className={classes.header__friendLink}
-							>
-								<img
-									src={friend.picture}
-									alt="friend's picture"
-									className={classes.header__friend}
-								/>
-							</Link>
-						);
-					})}
+					{profileLoading ? (
+						<div style={{ display: "flex" }}>
+							<Skeleton width='2.2rem' height='2.2rem' circle />
+							<Skeleton width='2.2rem' height='2.2rem' circle />
+							<Skeleton width='2.2rem' height='2.2rem' circle />
+							<Skeleton width='2.2rem' height='2.2rem' circle />
+							<Skeleton width='2.2rem' height='2.2rem' circle />
+						</div>
+					) : (
+						profile?.user?.friends.slice(0, 5).map((friend, i) => {
+							return (
+								<Link
+									key={i}
+									to={`/profile/${friend.username}'`}
+									className={classes.header__friendLink}
+								>
+									<img
+										src={friend.picture}
+										alt="friend's picture"
+										className={classes.header__friend}
+									/>
+								</Link>
+							);
+						})
+					)}
 				</div>
 			</div>
 			{showPictureModal &&

@@ -30,9 +30,10 @@
 		color: var(--primary-color);
 		background-color: var(--primary-background);
 		cursor: pointer;
-		transition: background-color 0.3s;
+		transition: background-color 0.3s, color 0.3s;
 		&:hover {
-			background-color: rgba(var(--primary-background), 0.6);
+			background-color: var(--secondary-color-rgba);
+			color: var(--white-color);
 		}
 	}
 

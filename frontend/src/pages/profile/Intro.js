@@ -20,6 +20,7 @@ const modalRoot = document.getElementById("modal-root");
 export default function Intro({ fetchedDetails, isVisitor, user }) {
 	const [details, setDetails] = useState();
 	const [modalVisible, setModalVisible] = useState(false);
+	const [loading, setLoading] = useState(true);
 
 	const initial = {
 		bio: fetchedDetails?.bio ? fetchedDetails.bio : "",
@@ -61,6 +62,13 @@ export default function Intro({ fetchedDetails, isVisitor, user }) {
 	useEffect(() => {
 		setDetails(fetchedDetails);
 		setInfos(fetchedDetails);
+		if (fetchedDetails) {
+			setLoading(false);
+		} else {
+			setTimeout(() => {
+				setLoading(false);
+			}, 1000);
+		}
 	}, [fetchedDetails]);
 
 	const handleChange = (e) => {
@@ -69,7 +77,7 @@ export default function Intro({ fetchedDetails, isVisitor, user }) {
 		setMax(100 - e.target.value.length);
 	};
 
-	if (!details) {
+	if (loading) {
 		return (
 			<div className={classes.intro}>
 				<h2 className={classes.intro__heading}>Intro</h2>

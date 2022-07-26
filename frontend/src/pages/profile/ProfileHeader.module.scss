@@ -72,6 +72,7 @@
 		justify-content: center;
 		gap: 2rem;
 		align-items: center;
+		z-index: 100;
 		@include media-size(small) {
 			flex-direction: row;
 			transform: translateY(-2.5rem);
@@ -92,6 +93,7 @@
 		position: relative;
 		width: 10rem;
 		height: 10rem;
+
 		@include media-size(medium) {
 			width: 14rem;
 			height: 14rem;
@@ -209,5 +211,9 @@
 			color: var(--white-color);
 			background-color: var(--secondary-color);
 		}
+	}
+
+	&__avatarSkeleton {
+		z-index: 100;
 	}
 }

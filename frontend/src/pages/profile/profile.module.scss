@@ -7,6 +7,9 @@
 		margin-top: 0;
 	}
 
+	&__wrapper {
+		background-color: var(--primary-background);
+	}
 
 	&__container {
 		display: flex;
@@ -39,12 +42,9 @@
 		}
 	}
 	&__left {
-		top: 6rem;
+		position: relative;
 		width: 100%;
 		margin: 2rem auto;
-		display: flex;
-		flex-direction: column;
-		gap: 2rem;
 		@include media-size(small) {
 			width: 40%;
 			margin: 0;
@@ -71,34 +71,38 @@
 			width: 60%;
 		}
 	}
+
+	&__leftContent {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		@include media-size(small) {
+			width: 20rem;
+		}
+		@media (min-width: "655px") {
+			width: 23rem;
+		}
+		@include media-size(medium) {
+			width: 28rem;
+		}
+		@media (min-width: "830px") {
+			width: 30rem;
+		}
+		@include media-size(large) {
+			width: 26rem;
+		}
+		@include media-size(extra-large) {
+			width: 30rem;
+		}
+	}
 }
 
-// .fixed {
-// 	@include media-size(small) {
-// 		position: fixed;
-// 	}
-// 	@include media-size(large) {
-// 		width: 26rem;
-// 	}
-// 	@include media-size(medium-large) {
-// 		width: 31rem;
-// 	}
-// }
-
-// .scroll {
-// 	@include media-size(small) {
-// 		margin-left: 45%;
-// 	}
-// 	@include media-size(large) {
-// 		margin-left: 28rem;
-// 	}
-// 	@include media-size(medium-large) {
-// 		margin-left: 33rem;
-// 	}
-// 	@include media-size(extra-large) {
-// 		margin-left: 35rem;
-// 	}
-// 	@include media-size(big) {
-// 		margin-left: 37rem;
-// 	}
-// }
+.scrollFixedTop {
+	position: fixed;
+	top: 6rem;
+}
+.scrollFixedBottom {
+	position: fixed;
+	bottom: 1rem;
+}

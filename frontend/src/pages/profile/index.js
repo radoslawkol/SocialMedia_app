@@ -12,7 +12,7 @@ import GridPost from "./GridPost";
 import Photos from "./Photos";
 import Friends from "./Friends";
 import { InView, useInView } from "react-intersection-observer";
-import { FadeLoader } from "react-spinners";
+import { useMediaQuery } from "react-responsive";
 
 const profileReducer = (state, action) => {
 	switch (action.type) {
@@ -173,34 +173,79 @@ export default function Profile() {
 		setPosts(profile.posts);
 	}, [profile.posts]);
 
-	return (
-		<>
-			<Nav page='profile'></Nav>
-			<ProfileHeader profile={profile} isVisitor={isVisitor} photos={photos} />
-			<main className={classes.profile}>
-				<FriendsProposal />
-				<InView
-					threshold={0.0225}
-					as='div'
-					onChange={(inView, entry) => handleIntersectionChange(inView, entry)}
-					className={classes.profile__container}
-				>
-					<div className={classes.profile__left} ref={leftSideRef}>
-						<Intro
-							fetchedDetails={profile?.user?.details}
-							isVisitor={isVisitor}
-							user={user}
-						/>
+	const isSmall = useMediaQuery({
+		query: "(min-width: 576px)",
+	});
 
-						<Photos user={user} username={userName} photos={photos} />
-						<Friends friends={profile?.user?.friends} />
+	const [height, setHeight] = useState();
+	const [leftHeight, setLeftHeight] = useState();
+	const [scrollHeight, setScrollHeight] = useState();
+	const proposalRef = useRef();
+	const profileHeader = useRef();
+	const leftContent = useRef();
+
+	useEffect(() => {
+		setHeight(
+			profileHeader.current.clientHeight + proposalRef.current.clientHeight
+		);
+		setLeftHeight(leftContent.current.clientHeight);
+		console.log(height, leftHeight);
+		window.addEventListener("scroll", getScroll, { passive: true });
+
+		return () => {
+			window.addEventListener("scroll", getScroll, { passive: true });
+		};
+	}, [loading, scrollHeight]);
+
+	const getScroll = () => {
+		setScrollHeight(window.scrollY);
+		console.log(`scroll: ${scrollHeight}`);
+	};
+
+	return (
+		<div className={classes.profile__wrapper}>
+			<Nav page='profile'></Nav>
+			<div ref={profileHeader}>
+				<ProfileHeader
+					profile={profile}
+					isVisitor={isVisitor}
+					photos={photos}
+					profileLoading={loading}
+				/>
+			</div>
+			<main className={classes.profile}>
+				<div ref={proposalRef}>
+					<FriendsProposal />
+				</div>
+				<div className={classes.profile__container}>
+					<div className={classes.profile__left}>
+						<div
+							className={`${classes.profile__leftContent} ${
+								isSmall && scrollHeight >= height && leftHeight > 1000
+									? `${classes.scrollFixedBottom}`
+									: isSmall &&
+									  scrollHeight >= height &&
+									  leftHeight < 1000 &&
+									  `${classes.scrollFixedTop}`
+							}`}
+							ref={leftContent}
+						>
+							<Intro
+								fetchedDetails={profile?.user?.details}
+								isVisitor={isVisitor}
+								user={user}
+							/>
+
+							<Photos user={user} username={userName} photos={photos} />
+							<Friends friends={profile?.user?.friends} />
+						</div>
 					</div>
 					<div className={classes.profile__right} ref={rightRef}>
 						{!isVisitor && <CreatePost setPosts={setPosts} />}
 						<GridPost posts={posts} profile={profile} />
 					</div>
-				</InView>
+				</div>
 			</main>
-		</>
+		</div>
 	);
 }

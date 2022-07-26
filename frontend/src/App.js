@@ -72,7 +72,7 @@ function App() {
 
 	useEffect(() => {
 		getAllPosts();
-	}, [initialState.posts]);
+	}, [initialState.posts, user]);
 
 	return (
 		<div className={`${theme ? "dark" : ""}`}>

@@ -25,9 +25,10 @@
 		padding: 0.8rem;
 		border-radius: 15px;
 		resize: none;
-		&:focus,
-		&:hover {
-			outline-color: var(--secondary-color);
+		border: 1px solid var(--primary-color);
+		&:focus {
+			outline: none;
+			border: 2px solid var(--secondary-color);
 		}
 	}
 
