@@ -193,7 +193,7 @@ export default function Profile() {
 		window.addEventListener("scroll", getScroll, { passive: true });
 
 		return () => {
-			window.addEventListener("scroll", getScroll, { passive: true });
+			window.removeEventListener("scroll", getScroll, { passive: true });
 		};
 	}, [loading, scrollHeight]);
 

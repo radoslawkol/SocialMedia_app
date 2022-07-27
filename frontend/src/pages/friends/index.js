@@ -49,7 +49,7 @@ export default function Friends({ page }) {
 	const getData = async () => {
 		try {
 			dispatch({ type: "FRIENDS_REQUEST" });
-			const res = await getFriendsInfos(user.token);
+			const res = await getFriendsInfos(false, user.token);
 
 			if (res.status === "success") {
 				dispatch({ type: "FRIENDS_SUCCESS", payload: res.data });

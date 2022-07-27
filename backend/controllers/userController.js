@@ -701,6 +701,8 @@ exports.deleteFromHistory = async (req, res) => {
 };
 exports.getFriendsInfos = async (req, res) => {
 	try {
+		const isSlider = req.query.slider;
+
 		const user = await User.findById(req.user.id)
 			.select("friends requests")
 			.populate(
@@ -713,9 +715,11 @@ exports.getFriendsInfos = async (req, res) => {
 			requests: mongoose.Types.ObjectId(req.user.id),
 		}).select("firstName lastName picture username");
 
-		const users = await User.find();
+		const users = await User.find().select(
+			"_id friends requests sentRequests firstName lastName username picture"
+		);
 
-		const friendsProposal = users
+		let friendsProposal = users
 			.filter((u) => {
 				if (u._id.toString() === req.user.id) {
 					return false;
@@ -766,15 +770,25 @@ exports.getFriendsInfos = async (req, res) => {
 				return check;
 			});
 
-		res.status(200).json({
-			status: "success",
-			data: {
-				friends: user.friends,
-				requests: user.requests,
-				sentRequests: sentRequests,
+		friendsProposal = friendsProposal.slice(0, 20);
+
+		if (isSlider === "true") {
+			res.status(200).json({
+				status: "success",
 				friendsProposal,
-			},
-		});
+			});
+		} else {
+			console.log("evoke");
+			res.status(200).json({
+				status: "success",
+				data: {
+					friends: user.friends,
+					requests: user.requests,
+					sentRequests: sentRequests,
+					friendsProposal,
+				},
+			});
+		}
 	} catch (err) {
 		console.log(err);
 		res.status(500).json({

@@ -23,6 +23,7 @@ const {
 	getFriendsInfos,
 	getSavedPosts,
 	unsavePost,
+	getFriendsProposal,
 } = require("../controllers/userController");
 const {
 	register,

@@ -76,11 +76,11 @@ export const deleteFromHistory = async (searchUser, token) => {
 		return err.response.data.message;
 	}
 };
-export const getFriendsInfos = async (token) => {
+export const getFriendsInfos = async (slider = false, token) => {
 	try {
 		const { data } = await axios.get(
 			// eslint-disable-next-line no-undef
-			`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/getFriendsInfos`,
+			`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/getFriendsInfos?slider=${slider}`,
 			{
 				headers: {
 					Authorization: `Bearer ${token}`,

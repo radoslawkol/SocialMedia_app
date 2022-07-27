@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./FriendsPropsal.module.scss";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import { getFriendsInfos } from "../../functions/user";
+import { useSelector } from "react-redux";
+import { FadeLoader } from "react-spinners";
+import { addFriend } from "../../functions/friendsFunctions";
 
 export default function FriendsProposal({ home }) {
+	const { user } = useSelector((state) => ({ ...state }));
+	const isExtraSmall = useMediaQuery({
+		query: "(max-width: 575px)",
+	});
 	const isSmallScreen = useMediaQuery({
 		query: "(min-width: 576px)",
 	});
@@ -41,7 +49,6 @@ export default function FriendsProposal({ home }) {
 	}
 
 	let settings = {
-		dots: true,
 		infinite: true,
 		speed: 500,
 		slidesToShow: slideToShow,
@@ -50,77 +57,72 @@ export default function FriendsProposal({ home }) {
 		autoplaySpeed: 3000,
 	};
 
-	return (
-		<Slider
-			{...settings}
-			className={classes.slider}
-			style={{ width: `${home && "100%"}` }}
-		>
-			<div className={classes.card}>
-				<Link to='/profile/friend' className={classes.card__link}>
-					<img
-						src='https://res.cloudinary.com/detfhw9ll/image/upload/v1652289877/cld-sample.jpg'
-						alt='user image'
-						className={classes.card__img}
-					/>
-					<p className={classes.card__username}>Anita Kowal</p>
-				</Link>
-				<button className={`${classes.card__btn} btn btn--purple`}>
-					Add friend
-				</button>
+	const [proposals, setProposals] = useState([]);
+
+	const getData = async () => {
+		const res = await getFriendsInfos(true, user.token);
+
+		console.log(res);
+
+		if (res.status === "success") {
+			setProposals(res.friendsProposal);
+		}
+	};
+
+	useEffect(() => {
+		getData();
+		console.log(proposals);
+	}, []);
+
+	const addFriendHandler = async (id) => {
+		const res = await addFriend(id, user.token);
+
+		if (res === "ok") {
+			getData();
+		}
+	};
+
+	if (proposals?.length > 0) {
+		return (
+			<Slider
+				{...settings}
+				className={classes.slider}
+				style={{ width: `${!home && !isExtraSmall ? "70%" : !home && "50%"}` }}
+			>
+				{proposals.slice(0, 10).map((proposal, i) => {
+					return (
+						<div className={classes.card} key={i}>
+							<Link
+								to={`/profile/${proposal.username}`}
+								className={classes.card__link}
+							>
+								<img
+									src={proposal.picture}
+									alt='user image'
+									className={classes.card__img}
+								/>
+								<p
+									className={classes.card__username}
+								>{`${proposal.firstName} ${proposal.lastName}`}</p>
+							</Link>
+							<div className={classes.card__btnWrap}>
+								<button
+									className={`${classes.card__btn} btn btn--purple`}
+									onClick={() => addFriendHandler(proposal._id)}
+								>
+									Add friend
+								</button>
+							</div>
+						</div>
+					);
+				})}
+			</Slider>
+		);
+	} else {
+		return (
+			<div className={classes.loader}>
+				<FadeLoader size={20} color='#8F00FF' />;
 			</div>
-			<div className={classes.card}>
-				<Link to='/profile/friend' className={classes.card__link}>
-					<img
-						src='https://res.cloudinary.com/detfhw9ll/image/upload/v1652289877/cld-sample.jpg'
-						alt='user image'
-						className={classes.card__img}
-					/>
-					<p className={classes.card__username}>Marek Noob</p>
-				</Link>
-				<button className={`${classes.card__btn} btn btn--purple`}>
-					Add friend
-				</button>
-			</div>
-			<div className={classes.card}>
-				<Link to='/profile/friend' className={classes.card__link}>
-					<img
-						src='https://res.cloudinary.com/detfhw9ll/image/upload/v1652289877/cld-sample.jpg'
-						alt='user image'
-						className={classes.card__img}
-					/>
-					<p className={classes.card__username}>Olaf Kołodziej</p>
-				</Link>
-				<button className={`${classes.card__btn} btn btn--purple`}>
-					Add friend
-				</button>
-			</div>
-			<div className={classes.card}>
-				<Link to='/profile/friend' className={classes.card__link}>
-					<img
-						src='https://res.cloudinary.com/detfhw9ll/image/upload/v1652289877/cld-sample.jpg'
-						alt='user image'
-						className={classes.card__img}
-					/>
-					<p className={classes.card__username}>Fiona Shrek</p>
-				</Link>
-				<button className={`${classes.card__btn} btn btn--purple`}>
-					Add friend
-				</button>
-			</div>
-			<div className={classes.card}>
-				<Link to='/profile/friend' className={classes.card__link}>
-					<img
-						src='https://res.cloudinary.com/detfhw9ll/image/upload/v1652289877/cld-sample.jpg'
-						alt='user image'
-						className={classes.card__img}
-					/>
-					<p className={classes.card__username}>Mona Lisa</p>
-				</Link>
-				<button className={`${classes.card__btn} btn btn--purple`}>
-					Add friend
-				</button>
-			</div>
-		</Slider>
-	);
+		);
+	}
 }
