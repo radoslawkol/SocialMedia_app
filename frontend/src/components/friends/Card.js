@@ -8,6 +8,7 @@ import {
 	unfriend,
 } from "../../functions/friendsFunctions";
 import classes from "./Card.module.scss";
+import { createNotification } from "../../functions/notifications";
 
 export default function Card({ otherUser, type, getData }) {
 	const { user } = useSelector((state) => ({ ...state }));
@@ -25,6 +26,7 @@ export default function Card({ otherUser, type, getData }) {
 
 		if (res === "ok") {
 			getData();
+			createNotification("acceptRequest", user.id, otherUser._id, user.token);
 		}
 	};
 	const deleteRequestHandler = async () => {
@@ -46,6 +48,7 @@ export default function Card({ otherUser, type, getData }) {
 
 		if (res === "ok") {
 			getData();
+			createNotification("friendRequest", user.id, otherUser._id, user.token);
 		}
 	};
 	return (

@@ -94,6 +94,7 @@ export default function ProfileHeader({
 					null,
 					images,
 					user.id,
+					null,
 					user.token
 				);
 

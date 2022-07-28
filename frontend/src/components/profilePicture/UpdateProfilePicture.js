@@ -17,6 +17,7 @@ import { createPost } from "../../functions/post";
 import { PulseLoader } from "react-spinners";
 import { useDispatch } from "react-redux";
 import Cookie from "js-cookie";
+import { createNotification } from "../../functions/notifications";
 
 export default function UpdateProfilePicture({
 	setShowPictureModal,
@@ -90,6 +91,7 @@ export default function UpdateProfilePicture({
 					description,
 					images,
 					user.id,
+					null,
 					user.token
 				);
 
@@ -104,6 +106,7 @@ export default function UpdateProfilePicture({
 				Cookie.set("user", JSON.stringify({ ...user, picture: images[0].url }));
 				dispatch({ type: "UPDATE_PICTURE", payload: images[0].url });
 				setShowPictureModal(false);
+				createNotification("newPicture", user.id, "", user.token);
 			} else {
 				setLoading(false);
 				setError(updatedPicture);

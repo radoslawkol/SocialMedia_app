@@ -19,6 +19,7 @@ import { createPost, getReacts } from "../../functions/post";
 import Comment from "./Comment";
 import { reactsArr } from "../../data";
 import { reactPost } from "../../functions/post";
+import { createNotification } from "../../functions/notifications";
 
 export default function Post({ post, setPosts }) {
 	const [popupVisible, setPopupVisible] = useState(false);
@@ -104,6 +105,8 @@ export default function Post({ post, setPosts }) {
 
 			if (res.status === "success") {
 				setPosts((prev) => [res.post, ...prev]);
+
+				createNotification("sharedPost", user.id, "", user.token);
 			}
 		} else if (post.photos.length > 0) {
 			const res = await createPost(
@@ -116,11 +119,12 @@ export default function Post({ post, setPosts }) {
 				user.token
 			);
 
-			console.log(res);
 			if (res.status === "success") {
 				setPosts((prev) => [res.post, ...prev]);
+
+				createNotification("sharedPost", user.id, "", user.token);
 			}
-		} else {
+		} else if (post.text && post.photos.length < 1) {
 			const res = await createPost(
 				"sharedPost",
 				null,
@@ -133,8 +137,12 @@ export default function Post({ post, setPosts }) {
 
 			if (res.status === "success") {
 				setPosts((prev) => [res.post, ...prev]);
+
+				createNotification("sharedPost", user.id, "", user.token);
 			}
 		}
+
+		window.scrollTo({ top: 0, behavior: "smooth" });
 	};
 	console.log(post);
 
@@ -355,6 +363,7 @@ export default function Post({ post, setPosts }) {
 				<CreateComment
 					user={user}
 					postId={post?._id}
+					post={post}
 					fetchedComments={post?.comments}
 					setComments={setComments}
 					textRef={commentInputRef}

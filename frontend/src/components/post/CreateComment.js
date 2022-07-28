@@ -8,8 +8,15 @@ import { comment } from "../../functions/post";
 import { dataURItoBlob } from "../../functions/dataUrltoBlob";
 import { uploadImages } from "../../functions/uploadImages";
 import { ClipLoader } from "react-spinners";
+import { createNotification } from "../../functions/notifications";
 
-export default function CreateComment({ user, postId, setComments, textRef }) {
+export default function CreateComment({
+	user,
+	postId,
+	setComments,
+	textRef,
+	post,
+}) {
 	const [openEmoji, setOpenEmoji] = useState(false);
 	const [cursorPosition, setCursorPosition] = useState(false);
 	const [text, setText] = useState("");
@@ -81,12 +88,14 @@ export default function CreateComment({ user, postId, setComments, textRef }) {
 				setLoading(false);
 				setText("");
 				setImage("");
+				createNotification("commentedPost", user.id, post.user._id, user.token);
 			} else {
 				const comments = await comment(postId, text, "", user.token);
 				setComments(comments.comments);
 
 				setLoading(false);
 				setText("");
+				createNotification("commentedPost", user.id, post.user._id, user.token);
 			}
 		}
 	};

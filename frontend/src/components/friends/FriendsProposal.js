@@ -7,6 +7,7 @@ import { getFriendsInfos } from "../../functions/user";
 import { useSelector } from "react-redux";
 import { FadeLoader } from "react-spinners";
 import { addFriend } from "../../functions/friendsFunctions";
+import { createNotification } from "../../functions/notifications";
 
 export default function FriendsProposal({ home }) {
 	const { user } = useSelector((state) => ({ ...state }));
@@ -79,6 +80,7 @@ export default function FriendsProposal({ home }) {
 
 		if (res === "ok") {
 			getData();
+			createNotification("friendRequest", user.id, id, user.token);
 		}
 	};
 

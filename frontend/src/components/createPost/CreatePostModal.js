@@ -22,6 +22,7 @@ import PropagateLoader from "react-spinners/PropagateLoader";
 import { createPost } from "../../functions/post";
 import { dataURItoBlob } from "../../functions/dataUrltoBlob";
 import { uploadImages } from "../../functions/uploadImages";
+import { createNotification } from "../../functions/notifications";
 
 export default function CreatePostModal({ setShowCreateModal, setPosts }) {
 	const { user } = useSelector((state) => ({ ...state }));
@@ -90,6 +91,7 @@ export default function CreatePostModal({ setShowCreateModal, setPosts }) {
 			setShowCreateModal(false);
 			setText("");
 			setPosts((prev) => [res.post, ...prev]);
+			createNotification("newPost", user.id, "", user.token);
 		} else if (images && images.length) {
 			setLoading(true);
 			const postImages = images.map((img) => {
@@ -122,6 +124,7 @@ export default function CreatePostModal({ setShowCreateModal, setPosts }) {
 			setShowCreateModal(false);
 			setPosts((prev) => [res.post, ...prev]);
 			setText("");
+			createNotification("newPost", user.id, "", user.token);
 		} else if (text) {
 			setLoading(true);
 			const res = await createPost(
@@ -142,6 +145,7 @@ export default function CreatePostModal({ setShowCreateModal, setPosts }) {
 			setShowCreateModal(false);
 			setPosts((prev) => [res.post, ...prev]);
 			setText("");
+			createNotification("newPost", user.id, "", user.token);
 		}
 	};
 	const bgConverted = "/" + background?.split("/").slice(3).join("/");

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import classes from "./Nav.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "./../../images/logo.svg";
@@ -16,6 +16,7 @@ import ProfileModal from "./ProfileModal";
 import Notifications from "./Notifications";
 import Settings from "./Settings";
 import { useSelector } from "react-redux";
+import { getNotifications } from "../../functions/notifications";
 
 export default function Nav({ page }) {
 	const { user } = useSelector((state) => ({ ...state }));
@@ -23,8 +24,23 @@ export default function Nav({ page }) {
 	const [showProfileModal, setShowProfileModal] = useState(false);
 	const [showNotificationsModal, setShowNotificationsModal] = useState(false);
 	const [showSettingsModal, setShowSettingsModal] = useState(false);
+	const [notifications, setNotifications] = useState([]);
+	const [notificationsNum, setNotificationsNum] = useState(0);
 
 	const color = "#575A89";
+
+	const getData = async () => {
+		const res = await getNotifications(user.token);
+
+		if (res.status === "success") {
+			setNotificationsNum(res.unReadNotificationsNum);
+			setNotifications(res.notifications);
+		}
+	};
+
+	useEffect(() => {
+		getData();
+	}, []);
 	return (
 		<>
 			<nav className={classes.nav}>
@@ -111,9 +127,13 @@ export default function Nav({ page }) {
 						onClick={() => setShowNotificationsModal(true)}
 					>
 						<FontAwesomeIcon icon={faBell} color='#575A89'></FontAwesomeIcon>
-						<div className={classes.notifications__circle}>
-							<span className={classes.notifications__count}>11</span>
-						</div>
+						{notificationsNum >= 1 && (
+							<div className={classes.notifications__circle}>
+								<span className={classes.notifications__count}>
+									{notificationsNum}
+								</span>
+							</div>
+						)}
 					</button>
 					<button
 						className={classes.settings}
@@ -132,6 +152,8 @@ export default function Nav({ page }) {
 			{showNotificationsModal && (
 				<Notifications
 					setShowNotificationsModal={setShowNotificationsModal}
+					notifications={notifications}
+					setNotifications={setNotifications}
 				></Notifications>
 			)}
 			{showSettingsModal && (

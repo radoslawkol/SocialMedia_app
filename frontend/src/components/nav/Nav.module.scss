@@ -144,6 +144,7 @@
 	cursor: pointer;
 
 	&__circle {
+		min-width: 1.6rem;
 		position: absolute;
 		top: -6px;
 		right: -4px;

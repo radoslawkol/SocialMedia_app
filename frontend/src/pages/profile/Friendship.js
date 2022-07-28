@@ -14,6 +14,7 @@ import {
 } from "../../functions/friendsFunctions";
 import { createConversation } from "../../functions/chat";
 import { useNavigate } from "react-router-dom";
+import { createNotification } from "../../functions/notifications";
 
 export default function Friendship({ friendshipFetched, profileId }) {
 	const navigate = useNavigate();
@@ -30,6 +31,7 @@ export default function Friendship({ friendshipFetched, profileId }) {
 	const addFriendHandler = async () => {
 		setFriendship({ ...friendship, requestSent: true, following: true });
 		await addFriend(profileId, user.token);
+		createNotification("friendRequest", user.id, profileId, user.token);
 	};
 
 	const cancelRequestHandler = async () => {
@@ -55,6 +57,7 @@ export default function Friendship({ friendshipFetched, profileId }) {
 			requestReceived: false,
 		});
 		await acceptRequest(profileId, user.token);
+		createNotification("acceptRequest", user.id, profileId, user.token);
 	};
 	const deleteRequestHandler = async () => {
 		setFriendship({
