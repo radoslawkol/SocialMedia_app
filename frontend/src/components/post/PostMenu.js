@@ -22,6 +22,7 @@ export default function PostMenu({
 	postRef,
 	isPostSaved,
 	setIsPostSaved,
+	setPosts,
 }) {
 	const { user } = useSelector((state) => ({ ...state }));
 
@@ -49,7 +50,10 @@ export default function PostMenu({
 	const removePostHandler = async () => {
 		const res = await deletePost(postId, user.token);
 		if (res.status === "success") {
-			postRef.current.remove();
+			setPosts((prev) => {
+				return prev.filter((p) => p._id !== postId);
+			});
+			// postRef.current.remove();
 		}
 	};
 	return (

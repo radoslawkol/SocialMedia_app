@@ -76,6 +76,7 @@ export default function CreatePostModal({ setShowCreateModal, setPosts }) {
 				text,
 				null,
 				user.id,
+				null,
 				user.token
 			);
 
@@ -109,6 +110,7 @@ export default function CreatePostModal({ setShowCreateModal, setPosts }) {
 				text,
 				resImg.images,
 				user.id,
+				null,
 				user.token
 			);
 
@@ -122,7 +124,15 @@ export default function CreatePostModal({ setShowCreateModal, setPosts }) {
 			setText("");
 		} else if (text) {
 			setLoading(true);
-			const res = await createPost(null, null, text, null, user.id, user.token);
+			const res = await createPost(
+				null,
+				null,
+				text,
+				null,
+				user.id,
+				null,
+				user.token
+			);
 
 			if (res.status !== "success") {
 				setLoading(false);

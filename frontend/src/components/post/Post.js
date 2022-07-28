@@ -15,12 +15,12 @@ import ReactsPopup from "./ReactsPopup";
 import CreateComment from "./CreateComment";
 import { useSelector } from "react-redux";
 import PostMenu from "./PostMenu";
-import { getReacts } from "../../functions/post";
+import { createPost, getReacts } from "../../functions/post";
 import Comment from "./Comment";
 import { reactsArr } from "../../data";
 import { reactPost } from "../../functions/post";
 
-export default function Post({ post, profile }) {
+export default function Post({ post, setPosts }) {
 	const [popupVisible, setPopupVisible] = useState(false);
 	const [showMenu, setShowMenu] = useState(false);
 	const [reacts, setReacts] = useState("");
@@ -30,6 +30,7 @@ export default function Post({ post, profile }) {
 	const [showMoreComments, setShowMoreComments] = useState(false);
 	const [total, setTotal] = useState(0);
 	const postRef = useRef();
+	const commentInputRef = useRef();
 
 	const { user } = useSelector((state) => ({ ...state }));
 
@@ -41,7 +42,6 @@ export default function Post({ post, profile }) {
 		const checkedReact = reactsArr.find((react) => react.name === res.check);
 		setCheck(checkedReact);
 		setTotal(res.total);
-		console.log(reacts);
 	};
 
 	const reactHandler = async (react) => {
@@ -84,18 +84,70 @@ export default function Post({ post, profile }) {
 		setComments(post.comments);
 	}, [post]);
 
-	const commentBtnHandler = () => {};
+	const commentBtnHandler = () => {
+		commentInputRef.current.focus();
+	};
 
 	const bgConverted = "/" + post.background?.split("/").slice(3).join("/");
+
+	const shareHandler = async () => {
+		if (post.background) {
+			const res = await createPost(
+				"sharedPost",
+				post.background,
+				post.text,
+				null,
+				user.id,
+				post.user,
+				user.token
+			);
+
+			if (res.status === "success") {
+				setPosts((prev) => [res.post, ...prev]);
+			}
+		} else if (post.photos.length > 0) {
+			const res = await createPost(
+				"sharedPost",
+				null,
+				post.text,
+				post.photos,
+				user.id,
+				post.user,
+				user.token
+			);
+
+			console.log(res);
+			if (res.status === "success") {
+				setPosts((prev) => [res.post, ...prev]);
+			}
+		} else {
+			const res = await createPost(
+				"sharedPost",
+				null,
+				post.text,
+				null,
+				user.id,
+				post.user,
+				user.token
+			);
+
+			if (res.status === "success") {
+				setPosts((prev) => [res.post, ...prev]);
+			}
+		}
+	};
+	console.log(post);
 
 	return (
 		<div className={classes.post} ref={postRef}>
 			<div className={classes.post__header}>
-				<Link
-					to={`/profile/${post.user.username}`}
-					className={classes.post__user}
-				>
-					<img src={post.user.picture} className={classes.post__userImg}></img>
+				<div className={classes.post__user}>
+					<Link to={`/profile/${post.user.username}`}>
+						<img
+							src={post.user.picture}
+							className={classes.post__userImg}
+						></img>
+					</Link>
 					<div className={classes.post__userInfo}>
 						<span className={classes.post__userName}>
 							{post.user.firstName} {post.user.lastName}
@@ -110,13 +162,24 @@ export default function Post({ post, profile }) {
 									post.user.gender === "male" ? "his" : "her"
 								} cover picture`}
 						</span>
+						{post.type === "sharedPost" && (
+							<Link
+								to={`/profile/${post.sharedFrom?.username}`}
+								className={classes.post__shared}
+							>
+								shared from
+								<strong>
+									{` ${post.sharedFrom?.firstName} ${post.sharedFrom?.lastName}`}
+								</strong>
+							</Link>
+						)}
 						<span className={classes.post__time}>
 							<Moment fromNow interval={30}>
 								{post.createdAt}
 							</Moment>
 						</span>
 					</div>
-				</Link>
+				</div>
 				<button
 					className={classes.post__optionBtn}
 					onClick={() => setShowMenu(true)}
@@ -126,7 +189,8 @@ export default function Post({ post, profile }) {
 			</div>
 			<div className={classes.post__content}>
 				{!post.background && <p className={classes.post__text}>{post.text}</p>}
-				{post.photos && post.type === null ? (
+				{(post.photos && post.type === null) ||
+				(post.type === "sharedPost" && post.photos) ? (
 					<div
 						className={`${classes.post__images} ${
 							post.photos.length === 1
@@ -173,7 +237,6 @@ export default function Post({ post, profile }) {
 						<div className={classes.post__profilePictureBg}>
 							<img
 								src={post.user.cover}
-								alt=''
 								className={classes.post__profilePictureImg}
 							/>
 						</div>
@@ -218,7 +281,6 @@ export default function Post({ post, profile }) {
 										const react = reactsArr.find(
 											(react) => r._id === react.name
 										);
-										console.log(r);
 
 										if (r.count > 0) {
 											return (
@@ -238,7 +300,6 @@ export default function Post({ post, profile }) {
 						<span
 							className={classes.post__commentsCount}
 						>{`${comments.length} comments`}</span>
-						<span className={classes.post__sharesCount}>9 share</span>
 					</div>
 				</div>
 				<hr />
@@ -282,16 +343,21 @@ export default function Post({ post, profile }) {
 						<FontAwesomeIcon icon={faComment} />
 						<span>Comment</span>
 					</div>
-					<div className={classes.actions__action}>
+					<button
+						className={`${classes.actions__action} ${classes.actions__shareBtn}`}
+						onClick={shareHandler}
+						disabled={post.user._id === user.id}
+					>
 						<FontAwesomeIcon icon={faShare} />
 						<span>Share</span>
-					</div>
+					</button>
 				</div>
 				<CreateComment
 					user={user}
 					postId={post?._id}
 					fetchedComments={post?.comments}
 					setComments={setComments}
+					textRef={commentInputRef}
 				/>
 				{comments &&
 					comments.length !== 0 &&
@@ -321,6 +387,7 @@ export default function Post({ post, profile }) {
 					postRef={postRef}
 					isPostSaved={isPostSaved}
 					setIsPostSaved={setIsPostSaved}
+					setPosts={setPosts}
 				/>
 			)}
 		</div>

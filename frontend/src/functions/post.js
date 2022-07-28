@@ -6,6 +6,7 @@ export const createPost = async (
 	text,
 	photos,
 	user,
+	sharedFrom,
 	token
 ) => {
 	try {
@@ -18,6 +19,7 @@ export const createPost = async (
 				text,
 				photos,
 				user,
+				sharedFrom,
 				token,
 			},
 			{

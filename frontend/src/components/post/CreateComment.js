@@ -9,7 +9,7 @@ import { dataURItoBlob } from "../../functions/dataUrltoBlob";
 import { uploadImages } from "../../functions/uploadImages";
 import { ClipLoader } from "react-spinners";
 
-export default function CreateComment({ user, postId, setComments }) {
+export default function CreateComment({ user, postId, setComments, textRef }) {
 	const [openEmoji, setOpenEmoji] = useState(false);
 	const [cursorPosition, setCursorPosition] = useState(false);
 	const [text, setText] = useState("");
@@ -17,7 +17,6 @@ export default function CreateComment({ user, postId, setComments }) {
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
 	const emojiRef = useRef();
-	const textRef = useRef();
 	const imageInputRef = useRef();
 
 	const onEmojiClick = (e, { emoji }) => {

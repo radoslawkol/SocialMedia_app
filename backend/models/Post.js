@@ -5,7 +5,7 @@ const postSchema = new mongoose.Schema(
 	{
 		type: {
 			type: String,
-			enum: ["profilePicture", "coverPicture", null],
+			enum: ["profilePicture", "coverPicture", "sharedPost", null],
 			default: null,
 		},
 		text: {
@@ -21,6 +21,10 @@ const postSchema = new mongoose.Schema(
 			type: mongoose.ObjectId,
 			ref: "User",
 			required: true,
+		},
+		sharedFrom: {
+			type: mongoose.ObjectId,
+			ref: "User",
 		},
 		comments: [
 			{

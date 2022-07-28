@@ -20,6 +20,7 @@ $imageHeight: 20rem;
 		background: transparent;
 		border: none;
 		font-size: 1.6em;
+		color: var(--primary-color);
 		cursor: pointer;
 		transition: color 0.3s;
 		&:hover {
@@ -146,6 +147,10 @@ $imageHeight: 20rem;
 			object-fit: cover;
 		}
 	}
+	&__userName {
+		font-weight: bold;
+		columns: var(--primary-color);
+	}
 
 	&__moreBtn {
 		margin: 1rem 2rem;
@@ -168,6 +173,12 @@ $imageHeight: 20rem;
 	&__reactsNum {
 		font-size: 1.2rem;
 		color: var(--primary-color);
+	}
+
+	&__shared {
+		text-decoration: none;
+		color: var(--secondary-color);
+		letter-spacing: 0.5px;
 	}
 }
 
@@ -205,6 +216,14 @@ $imageHeight: 20rem;
 	}
 	&__icon {
 		font-size: 1.4rem;
+	}
+
+	&__shareBtn {
+		border: none;
+		background: transparent;
+	}
+	&__shareBtn:disabled {
+		color: var(--disabled-btn-color);
 	}
 }
 

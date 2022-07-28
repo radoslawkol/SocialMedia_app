@@ -4,7 +4,15 @@ const mongoose = require("mongoose");
 
 exports.createPost = async (req, res) => {
 	try {
-		const { type, text, photos, background, user, comments } = req.body;
+		const { type, text, photos, background, user, comments, sharedFrom } =
+			req.body;
+
+		if (sharedFrom?._id === req.user.id) {
+			return res.status(400).json({
+				status: "fail",
+				message: "You cannot share your own post",
+			});
+		}
 
 		const newPost = await Post.create({
 			type,
@@ -12,18 +20,26 @@ exports.createPost = async (req, res) => {
 			photos,
 			background,
 			user,
+			sharedFrom,
 			comments,
 		});
 
-		const populatedPost = await newPost.populate(
+		let populatedPost = await newPost.populate(
 			"user",
 			"picture username firstName lastName"
 		);
+
+		populatedPost = await populatedPost.populate(
+			"sharedFrom",
+			"firstName lastName username picture"
+		);
+
 		res.status(201).json({
 			status: "success",
 			post: populatedPost,
 		});
 	} catch (err) {
+		console.log(err);
 		res.status(500).json({
 			status: "fail",
 			message: err.message,
@@ -43,6 +59,7 @@ exports.getAllPosts = async (req, res) => {
 					"comments.commentedBy",
 					"picture  firstName lastName username"
 				)
+				.populate("sharedFrom", "firstName lastName username picture")
 				.sort({ createdAt: -1 })
 				.limit(10);
 		});
@@ -52,6 +69,7 @@ exports.getAllPosts = async (req, res) => {
 		const userPosts = await Post.find({ user: req.user.id })
 			.populate("user", "firstName lastName picture username gender")
 			.populate("comments.commentedBy", "picture  firstName lastName username")
+			.populate("sharedFrom", "firstName lastName username picture")
 			.sort({ createdAt: -1 })
 			.limit(10);
 

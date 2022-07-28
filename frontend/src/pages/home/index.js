@@ -30,7 +30,7 @@ export default function Home({ page, activate, fetchedPosts }) {
 					<GridLoader size={30} color='#8F00FF' />
 				) : (
 					posts.map((post) => {
-						return <Post key={post._id} post={post} />;
+						return <Post key={post._id} post={post} setPosts={setPosts} />;
 					})
 				)}
 			</main>

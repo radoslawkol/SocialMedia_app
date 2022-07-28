@@ -151,12 +151,13 @@ exports.getProfile = async (req, res) => {
 				"comments.commentedBy",
 				"firstName lastName picture username commentAt"
 			)
+			.populate("sharedFrom", "firstName lastName picture username")
 			.sort({ createdAt: -1 });
 
 		res.status(200).json({
 			status: "success",
 			user: { ...profile.toObject(), friendship },
-			posts,
+			posts: posts.slice(0, 30),
 		});
 	} catch (err) {
 		console.log(err);
