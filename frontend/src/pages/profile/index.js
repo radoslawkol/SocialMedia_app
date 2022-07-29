@@ -242,7 +242,12 @@ export default function Profile() {
 					</div>
 					<div className={classes.profile__right} ref={rightRef}>
 						{!isVisitor && <CreatePost setPosts={setPosts} />}
-						<GridPost posts={posts} setPosts={setPosts} profile={profile} />
+						<GridPost
+							posts={posts}
+							setPosts={setPosts}
+							profile={profile}
+							isVisitor={isVisitor}
+						/>
 					</div>
 				</div>
 			</main>

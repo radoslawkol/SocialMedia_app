@@ -1,6 +1,14 @@
+@import "../../sass/index.scss";
+
 .grid {
 	display: flex;
-	flex-direction: column;
-	align-items: center;
-	gap: 3rem;
+	justify-content: center;
+	&__message {
+		padding: 2rem;
+		text-align: center;
+		font-size: 1.6rem;
+		border-radius: 15px;
+		background-color: var(--secondary-background);
+		color: var(--primary-color);
+	}
 }

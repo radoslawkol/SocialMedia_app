@@ -4,14 +4,14 @@
 	position: fixed;
 	top: 0;
 	left: 0;
-	padding: 0.5rem;
 	width: 24rem;
-	min-height: 40rem;
+	min-height: 10rem;
 	text-align: center;
 	background-color: var(--white-background);
 	border-radius: 0 0 15px 15px;
 	box-shadow: 2px 2px 3px var(--backdrop-color);
 	z-index: 1000;
+	overflow: hidden;
 }
 .logo {
 	width: 3rem;
@@ -21,14 +21,14 @@
 	display: flex;
 	align-items: center;
 	position: relative;
+	padding: 0.5rem;
 
 	&__results {
 		width: 100%;
-		min-height: 32rem;
-		max-height: 60vh;
+		max-height: 50vh;
 		display: flex;
 		flex-direction: column;
-		overflow-y: scroll;
+		overflow-y: auto;
 	}
 
 	&__resultWrap {
@@ -59,13 +59,14 @@
 	}
 
 	&__recent {
-		overflow-y: scroll;
+		max-height: 50vh;
+		overflow-y: auto;
 	}
 
 	&__recentIcon {
 		position: absolute;
 		top: 50%;
-		right: 0;
+		right: 1rem;
 		transform: translateY(-50%);
 		padding: 0.5rem;
 		font-size: 1.2rem;

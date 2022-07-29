@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 export default function SearchModal({ setShowSearchModal }) {
 	const { user } = useSelector((state) => ({ ...state }));
 	const modal = useRef();
+	const recentItem = useRef();
 	useclickOutsideClose(modal, () => setShowSearchModal(false));
 
 	const [searchTerm, setSearchTerm] = useState("");
@@ -47,12 +48,15 @@ export default function SearchModal({ setShowSearchModal }) {
 	};
 
 	const removeHandler = async (id) => {
-		await deleteFromHistory(id, user.token);
+		const res = await deleteFromHistory(id, user.token);
+		if (res.status === "success") {
+			recentItem.current.remove();
+		}
 	};
 
 	useEffect(() => {
 		getHistory();
-	}, [searchHistory]);
+	}, []);
 
 	return (
 		<div className={classes.modal} ref={modal}>
@@ -82,7 +86,11 @@ export default function SearchModal({ setShowSearchModal }) {
 							?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
 							.map((result, i) => {
 								return (
-									<div className={classes.search__resultWrap} key={i}>
+									<div
+										className={classes.search__resultWrap}
+										key={i}
+										ref={recentItem}
+									>
 										<Link
 											onClick={() => addToSearchHistoryHandler(result.user._id)}
 											to={`/profile/${result?.user?.username}`}

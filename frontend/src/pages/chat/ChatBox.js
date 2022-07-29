@@ -18,7 +18,6 @@ export default function ChatBox({
 }) {
 	const [text, setText] = useState("");
 	const [openEmoji, setOpenEmoji] = useState(false);
-	const [cursorPosition, setCursorPosition] = useState();
 	const textRef = useRef();
 	const emojiRef = useRef();
 	const scrollRef = useRef();
@@ -31,8 +30,6 @@ export default function ChatBox({
 		const endText = text.substring(ref.selectionStart);
 		const newText = startText + emoji + endText;
 		setText(newText);
-
-		setCursorPosition(startText.length + emoji.length);
 	};
 
 	useclickOutsideClose(emojiRef, () => setOpenEmoji(false));

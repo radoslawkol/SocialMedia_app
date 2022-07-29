@@ -121,7 +121,7 @@ export default function Nav({ page }) {
 						{notificationsNum >= 1 && (
 							<div className={classes.notifications__circle}>
 								<span className={classes.notifications__count}>
-									{notificationsNum}
+									{notificationsNum > 30 ? "30+" : notificationsNum}
 								</span>
 							</div>
 						)}
