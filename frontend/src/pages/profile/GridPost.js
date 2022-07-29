@@ -11,12 +11,9 @@ export default function GridPost({ posts, profile, setPosts }) {
 			) : (
 				posts?.map((post, i) => {
 					return (
-						<Post
-							post={post}
-							key={post.id}
-							setPosts={setPosts}
-							profile={profile}
-						></Post>
+						<React.Fragment key={post._id}>
+							<Post post={post} setPosts={setPosts} profile={profile}></Post>
+						</React.Fragment>
 					);
 				})
 			)}

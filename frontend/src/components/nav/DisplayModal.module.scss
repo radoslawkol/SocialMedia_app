@@ -31,24 +31,40 @@
 		font-size: 1.2rem;
 		color: var(--primary-color);
 	}
+	&__label {
+		position: relative;
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-weight: 600;
+		font-size: 1.4rem;
+		color: var(--primary-color);
+		cursor: pointer;
+	}
 
 	&__input {
+		height: 0;
+		width: 0;
 		cursor: pointer;
+	}
+
+	&__checkmark {
+		position: absolute;
+		left: 2.5rem;
+		width: 1.5rem;
+		height: 1.5rem;
+		border-radius: 50%;
+		background-color: var(--primary-background);
+	}
+
+	&__input:checked ~ &__checkmark {
+		background-color: var(--secondary-color);
 	}
 
 	&__options {
 		display: flex;
 		flex-direction: column;
 		gap: 1rem;
-	}
-	&__label {
-		display: flex;
-		align-items: center;
-		gap: 0.5rem;
-		font-weight: 600;
-		font-size: 1.4rem;
-		cursor: pointer;
-		color: var(--primary-color);
 	}
 	&__icon {
 		position: absolute;

@@ -37,8 +37,10 @@ export default function DisplayModal({ setDisplayModal }) {
 							name='display'
 							checked={theme ? "" : true}
 							id='off'
+							readOnly
 							className={classes.modal__input}
 						/>
+						<span className={classes.modal__checkmark}></span>
 					</label>
 					<label
 						htmlFor='on'
@@ -54,8 +56,10 @@ export default function DisplayModal({ setDisplayModal }) {
 							name='display'
 							checked={theme}
 							id='on'
+							readOnly
 							className={classes.modal__input}
 						/>
+						<span className={classes.modal__checkmark}></span>
 					</label>
 				</div>
 			</div>

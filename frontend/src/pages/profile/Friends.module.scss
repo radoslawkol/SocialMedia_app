@@ -38,9 +38,9 @@
 
 	&__container {
 		margin-top: 1rem;
-		display: grid;
-		grid-template-rows: repeat(2, 1fr);
-		grid-template-columns: repeat(4, 1fr);
+		display: flex;
+		gap: 0.5rem;
+		flex-wrap: wrap;
 	}
 
 	&__img {

@@ -90,12 +90,19 @@ export default function CreateComment({
 				setImage("");
 				createNotification("commentedPost", user.id, post.user._id, user.token);
 			} else {
-				const comments = await comment(postId, text, "", user.token);
-				setComments(comments.comments);
+				if (text) {
+					const comments = await comment(postId, text, "", user.token);
+					setComments(comments.comments);
 
-				setLoading(false);
-				setText("");
-				createNotification("commentedPost", user.id, post.user._id, user.token);
+					setLoading(false);
+					setText("");
+					createNotification(
+						"commentedPost",
+						user.id,
+						post.user._id,
+						user.token
+					);
+				}
 			}
 		}
 	};

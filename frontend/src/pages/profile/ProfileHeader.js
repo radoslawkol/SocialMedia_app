@@ -45,6 +45,7 @@ export default function ProfileHeader({
 	const [width, setWidth] = useState();
 	const pictureRef = useRef();
 	const coverRef = useRef();
+	const [coverUrl, setCoverUrl] = useState("");
 
 	useEffect(() => {
 		setWidth(coverRef.current.clientWidth);
@@ -84,7 +85,6 @@ export default function ProfileHeader({
 			formdata.append("path", path);
 
 			const { images } = await uploadImages(formdata, path, user.token);
-			console.log(images);
 			const updatedPicture = await updateCover(images[0].url, user.token);
 
 			if (updatedPicture === "ok") {
@@ -98,26 +98,27 @@ export default function ProfileHeader({
 					user.token
 				);
 
-				if (newPost !== "ok") {
+				console.log(newPost);
+
+				if (newPost.status !== "success") {
 					setLoading(false);
-					setError(newPost);
+					setError(newPost.message);
 				}
 				setLoading(false);
 				setCover("");
-				coverRef.current.style.backgroundImage = `url(${images[0].url})`;
-				Cookie.set(
-					"user",
-					JSON.stringify({ user: { ...user, cover: images[0].url } })
-				);
+				setCoverUrl(images[0].url);
+				Cookie.set("user", JSON.stringify({ ...user, cover: images[0].url }));
+				console.log(images[0].url);
 				dispatch({
-					type: "UPDATE_PICTURE",
-					payload: { user: { ...user, cover: images[0].url } },
+					type: "UPDATE_COVER",
+					payload: images[0].url,
 				});
 			} else {
 				setLoading(false);
-				setError(updatedPicture);
+				setError(updatedPicture.message);
 			}
 		} catch (err) {
+			console.log(err);
 			setLoading(false);
 			setError(err.response.data.message);
 		}
@@ -132,7 +133,11 @@ export default function ProfileHeader({
 					className={classes.header__cover}
 					style={{
 						backgroundImage: `url(${
-							profile?.user?.cover && !cover ? profile?.user?.cover : ""
+							coverUrl
+								? coverUrl
+								: profile?.user?.cover && !cover
+								? profile?.user?.cover
+								: ""
 						})`,
 					}}
 					ref={coverRef}
@@ -153,7 +158,7 @@ export default function ProfileHeader({
 						</div>
 					)}
 					{!isVisitor && (
-						<button
+						<div
 							className={classes.header__coverBtn}
 							onClick={() => setShowCoverMenu(true)}
 						>
@@ -170,7 +175,7 @@ export default function ProfileHeader({
 									setShowOldModal={setShowOldModal}
 								/>
 							)}
-						</button>
+						</div>
 					)}
 				</div>
 			)}

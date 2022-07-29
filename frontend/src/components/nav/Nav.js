@@ -70,11 +70,7 @@ export default function Nav({ page }) {
 								icon={faHouse}
 							></FontAwesomeIcon>
 						</Link>
-						{page === "home" ? (
-							<div className={classes.menu__border}></div>
-						) : (
-							""
-						)}
+						{page === "home" && <div className={classes.menu__border}></div>}
 					</li>
 					<li className={classes.menu__tab}>
 						<Link to='/friends'>
@@ -83,21 +79,16 @@ export default function Nav({ page }) {
 								icon={faUserGroup}
 							></FontAwesomeIcon>
 						</Link>
-						{page === "friends" ? (
-							<div className={classes.menu__border}></div>
-						) : (
-							""
-						)}
+						{page === "friends" && <div className={classes.menu__border}></div>}
 					</li>
 					<li className={classes.menu__tab}>
 						<Link to='/chat'>
-							<FontAwesomeIcon color={color} icon={faMessage}></FontAwesomeIcon>
+							<FontAwesomeIcon
+								color={`${page === "chat" ? "#8F00FF" : color}`}
+								icon={faMessage}
+							></FontAwesomeIcon>
 						</Link>
-						{page === "chat" ? (
-							<div className={classes.menu__border}></div>
-						) : (
-							""
-						)}
+						{page === "chat" && <div className={classes.menu__border}></div>}
 					</li>
 				</ul>
 				<div className={classes.options}>
