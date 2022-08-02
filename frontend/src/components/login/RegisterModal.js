@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Formik, Form } from "formik";
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import React from "react";
 import classes from "./RegisterModal.module.scss";
 import LoginInput from "./LoginInput";
@@ -39,6 +39,9 @@ export default function RegisterModal({ modalVisible, setModalVisible }) {
 	const [error, setError] = useState("");
 	const [success, setSuccess] = useState("");
 	const [loading, setLoading] = useState(false);
+	const [regExp, setRegExp] = useState(
+		/^([a-zA-Z]|[À-Ö]|[Ø-ö]|[ø-ǿ]|[Ȁ-ʯ]|[Ḁ-ỿ])+$/i
+	);
 
 	useclickOutsideClose(formRef, () => setModalVisible(false));
 
@@ -71,12 +74,15 @@ export default function RegisterModal({ modalVisible, setModalVisible }) {
 		firstName: Yup.string()
 			.min(2, "Name must have min. 2 charachters")
 			.max(20, "Name must have max. 20 charachters")
-			.matches(/^[a-zA-Z]+$/, "Name must contain alphabetic charachters.")
+			.matches(
+				regExp,
+				"Name must contain alphabetic charachters without spaces."
+			)
 			.required("First Name is required."),
 		lastName: Yup.string()
 			.min(2, "Surname must have min. 2 charachters")
 			.max(20, "Surname must have max. 20 charachters")
-			.matches(/^[a-zA-Z]+$/, "Surname must contain alphabetic charachters.")
+			.matches(regExp, "Surname must contain alphabetic charachters.")
 			.required("Last Name is required."),
 		email: Yup.string()
 			.max(100, "Email can not be longer than 100 characters.")
@@ -117,8 +123,8 @@ export default function RegisterModal({ modalVisible, setModalVisible }) {
 			setLoading(false);
 
 			if (data.status === "success") {
-				dispatch({ type: "LOGIN", payload: { user: data.user } });
-				Cookie.set("user", JSON.stringify({ user: data.user }));
+				dispatch({ type: "LOGIN", payload: data.user });
+				Cookie.set("user", JSON.stringify(data.user));
 				setTimeout(() => {
 					navigate("/");
 				}, 2000);
@@ -271,6 +277,7 @@ export default function RegisterModal({ modalVisible, setModalVisible }) {
 								<label htmlFor='male' className={classes.register__label}>
 									Male
 									<input
+										hidden
 										type='radio'
 										name='gender'
 										id='male'
@@ -278,10 +285,12 @@ export default function RegisterModal({ modalVisible, setModalVisible }) {
 										className={classes.register__genderInput}
 										onChange={registerChangeHandler}
 									/>
+									<div className={classes.register__checkbox}></div>
 								</label>
 								<label htmlFor='female' className={classes.register__label}>
 									Female
 									<input
+										hidden
 										type='radio'
 										name='gender'
 										id='female'
@@ -289,10 +298,12 @@ export default function RegisterModal({ modalVisible, setModalVisible }) {
 										className={classes.register__genderInput}
 										onChange={registerChangeHandler}
 									/>
+									<div className={classes.register__checkbox}></div>
 								</label>
 								<label htmlFor='custom' className={classes.register__label}>
 									Custom
 									<input
+										hidden
 										type='radio'
 										name='gender'
 										id='custom'
@@ -300,6 +311,7 @@ export default function RegisterModal({ modalVisible, setModalVisible }) {
 										className={classes.register__genderInput}
 										onChange={registerChangeHandler}
 									/>
+									<div className={classes.register__checkbox}></div>
 								</label>
 							</div>
 							{genderError && (

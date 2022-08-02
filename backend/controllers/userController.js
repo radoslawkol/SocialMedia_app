@@ -727,133 +727,29 @@ exports.getFriendsInfos = async (req, res) => {
 			requests: mongoose.Types.ObjectId(req.user.id),
 		}).select("firstName lastName picture username");
 
-		const users = await User.find()
-			.select(
-				"_id friends requests sentRequests firstName lastName username picture"
-			)
-			.populate("friends", "_id")
-			.populate("requests", "_id");
 
-		let friendsProposal = users
+		const allUsers = await User.find();
+		const user1 = await User.findById(req.user.id).select("requests friends");
+
+		const friendToRemove = user1.friends.map((friend) => friend.toString());
+		const requestsToRemove = user1.requests.map((request) =>
+			request.toString()
+		);
+		const sentRequestsToRemove = sentRequests.map((request) => {
+			return request._id.toString();
+		});
+
+		let friendsProposal = allUsers
+			.filter((u) => u._id.toString() !== req.user.id)
 			.filter((u) => {
-				if (u._id.toString() === req.user.id) {
-					return false;
-				}
-				return true;
+				return !friendToRemove.includes(u._id.toString());
 			})
 			.filter((u) => {
-				let check = true;
-
-				const returnFn = (value) => {
-					return value;
-				};
-
-				for (let request of sentRequests) {
-					if (request._id.toString() === u._id.toString()) {
-						console.log(false);
-						return false;
-					} else {
-						console.log(true);
-						return true;
-					}
-				}
-
-				// sentRequests?.forEach((request) => {
-				// 	if (request._id.toString() === u._id.toString()) {
-				// 		// check = false;
-				// 		returnFn(false);
-				// 	} else {
-				// 		// check = true;
-				// 		returnFn(true);
-				// 	}
-				// });
-
-				// return check;
+				return !requestsToRemove.includes(u._id.toString());
+			})
+			.filter((u) => {
+				return !sentRequestsToRemove.includes(u._id.toString());
 			});
-
-		// 	.filter((u) => {
-		// 		let check = true;
-		// 		if (sentRequests) {
-		// 			sentRequests?.map((request) => {
-		// 				if (request._id.toString() === u._id.toString()) {
-		// 					check = false;
-		// 				} else {
-		// 					check = true;
-		// 				}
-		// 			});
-		// 		}
-		// 		return check;
-		// 	})
-		// 	.filter((u) => {
-		// 		let check = true;
-
-		// 		if (user.requests) {
-		// 			user.requests?.map((request) => {
-		// 				if (request._id.toString() === u._id.toString()) {
-		// 					check = false;
-		// 				} else {
-		// 					check = true;
-		// 				}
-		// 			});
-		// 		}
-
-		// 		return check;
-		// 	})
-		// 	.filter((u) => {
-		// 		let check = true;
-
-		// 		user.friends.map((friend) => {
-		// 			console.log(friend._id.toString());
-		// 			console.log(u._id.toString());
-		// 			if (friend._id.toString() === u._id.toString()) {
-		// 				console.log(friend._id);
-		// 				console.log("To remove");
-		// 				check = false;
-		// 				console.log(check);
-		// 			} else {
-		// 				check = true;
-		// 			}
-		// 		});
-
-		// 		return check;
-		// 	});
-
-		// console.log(user.friends);
-		// const filterFunc = (u) => {
-		// 	let condition;
-		// 	user.friends.map((friend) => {
-		// 		if (friend._id.toString() === u._id.toString()) {
-		// 			condition = false;
-		// 		} else {
-		// 			condition = true;
-		// 		}
-		// 	});
-		// };
-
-		// let friendsProposal = users.filter((u) => filterFunc(u));
-
-		// const test = await User.findById(req.user.id).select("friends");
-		// console.log(test.friends);
-
-		// let friendsProposal = users.filter((u) => {
-		// 	console.log(test.friends);
-		// 	const srtArr = test.friends.map((friend) => {
-		// 		return friend.toString();
-		// 	});
-		// 	console.log(srtArr);
-		// 	console.log(u._id);
-
-		// 	const idStr = u._id.toString();
-		// 	console.log(idStr);
-		// 	return srtArr.some((str) => str != idStr);
-		// });
-
-		// let friendsProposal = users.filter((u) => {
-		// 	user.friends.forEach((friend) => {
-		// 		if (friend._id.toString() !== u._id.toString()) {
-		// 		}
-		// 	});
-		// });
 
 		friendsProposal = friendsProposal.slice(0, 20);
 

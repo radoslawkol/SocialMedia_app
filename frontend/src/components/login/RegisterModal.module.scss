@@ -24,11 +24,13 @@
 		right: 0;
 		padding: 1rem;
 		font-size: 1.6rem;
+		color: var(--primary-color);
 		cursor: pointer;
 	}
 
 	&__heading {
 		margin-bottom: 3rem;
+		color: var(--primary-color);
 		font-size: 2rem;
 		font-weight: 700;
 	}
@@ -41,6 +43,7 @@
 	&__title {
 		margin: 1.5rem 0 1rem;
 		font-weight: 400;
+		color: var(--primary-color);
 	}
 
 	&__birthday {
@@ -61,20 +64,47 @@
 	}
 
 	&__label {
-		width: 7rem;
+		min-width: 7rem;
 		display: flex;
 		justify-content: center;
 		align-items: center;
+		gap: 3px;
 		padding: 0.5rem;
 		font-size: 1.2rem;
+		color: var(--primary-color);
+		cursor: pointer;
 		border: 1px solid var(--primary-color);
 	}
+
+	&__checkbox {
+		width: 1.7rem;
+		height: 1.7rem;
+		border-radius: 50%;
+		background-color: var(--primary-color);
+	}
+
+	&__genderInput:checked ~ &__checkbox {
+		background-color: var(--secondary-color);
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		&::after {
+			content: "";
+			display: block;
+			width: 0.7rem;
+			height: 0.7rem;
+			border-radius: 50%;
+			background-color: var(--primary-color);
+		}
+	}
+
 	&__genderInput {
 		margin-left: 4px;
 	}
 
 	&__policy {
 		margin: 1rem;
+		color: var(--primary-color);
 	}
 
 	&__btn {
