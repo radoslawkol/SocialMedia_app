@@ -1,5 +1,6 @@
 const Notification = require("../models/Notification");
 const User = require("../models/User");
+const Post = require("../models/Post");
 
 exports.getNotifications = async (req, res) => {
 	try {
@@ -49,6 +50,12 @@ exports.getNotifications = async (req, res) => {
 exports.createNotification = async (req, res) => {
 	try {
 		const { type, sender, receiver } = req.body;
+
+		if (type === "commentedPost" && receiver === req.user.id) {
+			return res.status(400).json({
+				status: "fail",
+			});
+		}
 
 		const newNotification = await Notification.create({
 			type,

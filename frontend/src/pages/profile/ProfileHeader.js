@@ -236,7 +236,7 @@ export default function ProfileHeader({
 							return (
 								<Link
 									key={i}
-									to={`/profile/${friend.username}'`}
+									to={`/profile/${friend.username}`}
 									className={classes.header__friendLink}
 								>
 									<img

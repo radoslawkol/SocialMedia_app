@@ -4,6 +4,7 @@ import Conversation from "../../components/chat/Conversation";
 
 export default function ChatMenu({ conversations, user, setCurrentChat }) {
 	const [active, setActive] = useState();
+
 	const clickHandler = (i, conversation) => {
 		setCurrentChat(conversation);
 		setActive(i);

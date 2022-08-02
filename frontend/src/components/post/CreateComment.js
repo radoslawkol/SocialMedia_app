@@ -88,6 +88,7 @@ export default function CreateComment({
 				setLoading(false);
 				setText("");
 				setImage("");
+
 				createNotification("commentedPost", user.id, post.user._id, user.token);
 			} else {
 				if (text) {

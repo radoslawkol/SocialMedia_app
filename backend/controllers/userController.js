@@ -430,32 +430,43 @@ exports.acceptRequest = async (req, res) => {
 						friends: sender._id,
 					},
 				});
-				await receiver.updateOne({
-					$push: {
-						following: sender._id,
-					},
-				});
-				await receiver.updateOne({
-					$push: {
-						followers: sender._id,
-					},
-				});
+
+				if (!receiver.following.includes(sender._id)) {
+					await receiver.updateOne({
+						$push: {
+							following: sender._id,
+						},
+					});
+				}
+				if (!receiver.followers.includes(sender._id)) {
+					await receiver.updateOne({
+						$push: {
+							followers: sender._id,
+						},
+					});
+				}
 
 				await sender.updateOne({
 					$push: {
 						friends: receiver._id,
 					},
 				});
-				await sender.updateOne({
-					$push: {
-						following: receiver._id,
-					},
-				});
-				await sender.updateOne({
-					$push: {
-						followers: receiver._id,
-					},
-				});
+
+				if (!sender.following.includes(receiver._id)) {
+					await sender.updateOne({
+						$push: {
+							following: receiver._id,
+						},
+					});
+				}
+
+				if (!sender.followers.includes(receiver._id)) {
+					await sender.updateOne({
+						$push: {
+							followers: receiver._id,
+						},
+					});
+				}
 				await receiver.updateOne({
 					$pull: {
 						requests: sender._id,
@@ -716,9 +727,12 @@ exports.getFriendsInfos = async (req, res) => {
 			requests: mongoose.Types.ObjectId(req.user.id),
 		}).select("firstName lastName picture username");
 
-		const users = await User.find().select(
-			"_id friends requests sentRequests firstName lastName username picture"
-		);
+		const users = await User.find()
+			.select(
+				"_id friends requests sentRequests firstName lastName username picture"
+			)
+			.populate("friends", "_id")
+			.populate("requests", "_id");
 
 		let friendsProposal = users
 			.filter((u) => {
@@ -729,47 +743,117 @@ exports.getFriendsInfos = async (req, res) => {
 			})
 			.filter((u) => {
 				let check = true;
-				if (sentRequests) {
-					sentRequests?.map((request) => {
-						if (request._id.toString() === u._id.toString()) {
-							check = false;
-						} else {
-							check = true;
-						}
-					});
-				}
-				return check;
-			})
-			.filter((u) => {
-				let check = true;
 
-				if (user.requests) {
-					user.requests?.map((request) => {
-						if (request._id.toString() === u._id.toString()) {
-							check = false;
-						} else {
-							check = true;
-						}
-					});
+				const returnFn = (value) => {
+					return value;
+				};
+
+				for (let request of sentRequests) {
+					if (request._id.toString() === u._id.toString()) {
+						console.log(false);
+						return false;
+					} else {
+						console.log(true);
+						return true;
+					}
 				}
 
-				return check;
-			})
-			.filter((u) => {
-				let check = true;
+				// sentRequests?.forEach((request) => {
+				// 	if (request._id.toString() === u._id.toString()) {
+				// 		// check = false;
+				// 		returnFn(false);
+				// 	} else {
+				// 		// check = true;
+				// 		returnFn(true);
+				// 	}
+				// });
 
-				if (user.friends) {
-					user.friends.map((friend) => {
-						if (friend._id.toString() === u._id.toString()) {
-							check = false;
-						} else {
-							check = true;
-						}
-					});
-				}
-
-				return check;
+				// return check;
 			});
+
+		// 	.filter((u) => {
+		// 		let check = true;
+		// 		if (sentRequests) {
+		// 			sentRequests?.map((request) => {
+		// 				if (request._id.toString() === u._id.toString()) {
+		// 					check = false;
+		// 				} else {
+		// 					check = true;
+		// 				}
+		// 			});
+		// 		}
+		// 		return check;
+		// 	})
+		// 	.filter((u) => {
+		// 		let check = true;
+
+		// 		if (user.requests) {
+		// 			user.requests?.map((request) => {
+		// 				if (request._id.toString() === u._id.toString()) {
+		// 					check = false;
+		// 				} else {
+		// 					check = true;
+		// 				}
+		// 			});
+		// 		}
+
+		// 		return check;
+		// 	})
+		// 	.filter((u) => {
+		// 		let check = true;
+
+		// 		user.friends.map((friend) => {
+		// 			console.log(friend._id.toString());
+		// 			console.log(u._id.toString());
+		// 			if (friend._id.toString() === u._id.toString()) {
+		// 				console.log(friend._id);
+		// 				console.log("To remove");
+		// 				check = false;
+		// 				console.log(check);
+		// 			} else {
+		// 				check = true;
+		// 			}
+		// 		});
+
+		// 		return check;
+		// 	});
+
+		// console.log(user.friends);
+		// const filterFunc = (u) => {
+		// 	let condition;
+		// 	user.friends.map((friend) => {
+		// 		if (friend._id.toString() === u._id.toString()) {
+		// 			condition = false;
+		// 		} else {
+		// 			condition = true;
+		// 		}
+		// 	});
+		// };
+
+		// let friendsProposal = users.filter((u) => filterFunc(u));
+
+		// const test = await User.findById(req.user.id).select("friends");
+		// console.log(test.friends);
+
+		// let friendsProposal = users.filter((u) => {
+		// 	console.log(test.friends);
+		// 	const srtArr = test.friends.map((friend) => {
+		// 		return friend.toString();
+		// 	});
+		// 	console.log(srtArr);
+		// 	console.log(u._id);
+
+		// 	const idStr = u._id.toString();
+		// 	console.log(idStr);
+		// 	return srtArr.some((str) => str != idStr);
+		// });
+
+		// let friendsProposal = users.filter((u) => {
+		// 	user.friends.forEach((friend) => {
+		// 		if (friend._id.toString() !== u._id.toString()) {
+		// 		}
+		// 	});
+		// });
 
 		friendsProposal = friendsProposal.slice(0, 20);
 
@@ -779,7 +863,6 @@ exports.getFriendsInfos = async (req, res) => {
 				friendsProposal,
 			});
 		} else {
-			console.log("evoke");
 			res.status(200).json({
 				status: "success",
 				data: {

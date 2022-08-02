@@ -46,7 +46,12 @@ export default function Chat() {
 
 	useEffect(() => {
 		console.log(arrivalMessage);
-		if (arrivalMessage) {
+		if (
+			arrivalMessage &&
+			currentChat?.members.find(
+				(m) => m._id.toString() === arrivalMessage.sender
+			)
+		) {
 			console.log(currentChat);
 			const sender = currentChat?.members.find(
 				(member) => member._id === arrivalMessage.sender
@@ -55,7 +60,7 @@ export default function Chat() {
 			arrivalMessage &&
 				setMessages((prev) => [...prev, { ...arrivalMessage, sender }]);
 		}
-	}, [arrivalMessage, currentChat]);
+	}, [arrivalMessage]);
 
 	useEffect(() => {
 		socket.current?.emit("addUser", user.id);
