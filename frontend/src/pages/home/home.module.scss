@@ -28,4 +28,14 @@
 			width: 60rem;
 		}
 	}
+
+	&__message {
+		width: 100%;
+		font-size: 1.6rem;
+		padding: 2rem 1rem;
+		text-align: center;
+		color: var(--primary-color);
+		border-radius: 15px;
+		background-color: var(--secondary-background);
+	}
 }

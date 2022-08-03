@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import { PulseLoader } from "react-spinners";
 
 import SavedItem from "./SavedItem";
-import { faSort } from "@fortawesome/free-solid-svg-icons";
 
 export default function Saved() {
 	const { user } = useSelector((state) => ({ ...state }));
@@ -29,7 +28,7 @@ export default function Saved() {
 			<main className={classes.saved__main}>
 				<h2 className={classes.saved__heading}>Saved Posts</h2>
 				<section className={classes.saved__container}>
-					{posts ? (
+					{posts && posts?.length > 0 ? (
 						posts
 							?.sort((a, b) => new Date(b.savedAt) - new Date(a.savedAt))
 							.map((post, i) => {
@@ -37,8 +36,12 @@ export default function Saved() {
 									<SavedItem post={post.post} key={i} setPosts={setPosts} />
 								);
 							})
+					) : posts?.length === 0 ? (
+						<p className={classes.saved__message}>
+							You do not have any saved posts.
+						</p>
 					) : (
-						<PulseLoader color='8F00FF' />
+						<PulseLoader size={20} color='#8f00ff' />
 					)}
 				</section>
 			</main>

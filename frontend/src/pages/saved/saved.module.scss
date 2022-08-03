@@ -22,4 +22,8 @@
 		margin-top: 2rem;
 		overflow-y: auto;
 	}
+	&__message {
+		font-size: 1.6rem;
+		color: var(--primary-color);
+	}
 }

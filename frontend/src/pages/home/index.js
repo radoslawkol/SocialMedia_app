@@ -26,12 +26,17 @@ export default function Home({ page, activate, fetchedPosts }) {
 				<FriendsProposal home={true} />
 				{!user.verified && <SendVerification user={user} />}
 				<CreatePost setPosts={setPosts} />
-				{posts.length === 0 ? (
-					<GridLoader size={30} color='#8F00FF' />
-				) : (
+				{posts.length > 0 ? (
 					posts.map((post) => {
 						return <Post key={post._id} post={post} setPosts={setPosts} />;
 					})
+				) : posts.length === 0 ? (
+					<p className={classes.home__message}>
+						Create your first post and follow others to see interesting posts
+						here.
+					</p>
+				) : (
+					<GridLoader size={30} color='#8F00FF' />
 				)}
 			</main>
 			<SideMenu></SideMenu>

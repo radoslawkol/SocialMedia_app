@@ -13,7 +13,7 @@ export default function ChatMenu({ conversations, user, setCurrentChat }) {
 		<div className={classes.menu}>
 			<h2 className={classes.menu__heading}>Chats</h2>
 			<div className={classes.menu__container}>
-				{conversations &&
+				{conversations && conversations.length > 0 ? (
 					conversations?.map((conversation, i) => {
 						return (
 							<div
@@ -28,7 +28,10 @@ export default function ChatMenu({ conversations, user, setCurrentChat }) {
 								/>
 							</div>
 						);
-					})}
+					})
+				) : (
+					<p className={classes.menu__message}>Add people to chat with them.</p>
+				)}
 			</div>
 		</div>
 	);
