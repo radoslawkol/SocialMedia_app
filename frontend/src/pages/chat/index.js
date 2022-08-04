@@ -5,11 +5,7 @@ import ChatMenu from "./ChatMenu";
 import ChatBox from "./ChatBox";
 import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
-import {
-	createMessage,
-	getConversations,
-	getMessages,
-} from "../../functions/chat";
+import { getConversations, getMessages } from "../../functions/chat";
 import { io } from "socket.io-client";
 
 export default function Chat() {
@@ -19,8 +15,6 @@ export default function Chat() {
 	const [messages, setMessages] = useState([]);
 	const [arrivalMessage, setArrivalMessage] = useState(null);
 	const socket = useRef();
-
-	console.log(currentChat);
 
 	const getData = async () => {
 		const res = await getConversations(user.id, user.token);
@@ -32,7 +26,7 @@ export default function Chat() {
 	};
 
 	useEffect(() => {
-		socket.current = io("ws://localhost:8900");
+		socket.current = io("wss://beconnected-social-media-app.herokuapp.com/");
 		socket.current?.on("getMessage", (data) => {
 			console.log(data.senderId);
 			console.log(currentChat);

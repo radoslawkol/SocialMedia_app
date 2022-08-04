@@ -1,7 +1,7 @@
 const dotenv = require("dotenv").config();
 const io = require("socket.io")(8900, {
 	cors: {
-		origin: `${process.env.BASE_URL}`,
+		origin: [`${process.env.BASE_URL}:*`, "http://localhost:*"],
 	},
 });
 

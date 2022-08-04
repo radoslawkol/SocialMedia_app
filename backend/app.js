@@ -20,7 +20,10 @@ app.use(
 	})
 );
 
-const allowedOrgins = ["http://localhost:3000", "productionUrl"];
+const allowedOrgins = [
+	"http://localhost:3000",
+	"https://playful-seahorse-fb65aa.netlify.app",
+];
 
 function corsOptions(req, res) {
 	let origin = req.header("Origin");
@@ -28,7 +31,9 @@ function corsOptions(req, res) {
 	if (allowedOrgins.indexOf(origin) > -1) {
 		options = {
 			origin: true,
+			credentials: true,
 			useSucessStatus: 200,
+			methods: ["GET", "PUT", "POST", "PATCH", "DELETE", "OPTIONS"],
 		};
 	} else {
 		options = {
