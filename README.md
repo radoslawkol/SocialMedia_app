@@ -1,4 +1,7 @@
 # BeConnected - Social media app
+This is a social media app, mainly desing was inspired by facebook.
+[See BeConnected app](https://playful-seahorse-fb65aa.netlify.app/)
+
 
 ## My motivation
 
