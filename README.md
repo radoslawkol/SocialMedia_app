@@ -50,7 +50,7 @@ Now I am much more aware how does it work and find better solutions on the backe
 - Express
 - MongoDB
 - React
-- SASS
+- Sass
 - SOCKET.IO
 - OAuth2
 - Cloudinary
@@ -88,7 +88,35 @@ Now I am much more aware how does it work and find better solutions on the backe
 - Register - `POST /api/v1/usets/register`
 - Activate an account - `POST /api/v1/users/activate`
 
+### Posts
+- Create a post - `POST /api/v1/posts`
+- Get all posts - `GET /api/v1/posts`
+- Save a post - `PATCH /api/v1/posts/save`
+- Delete a post - `DELETE /api/v1/posts/:id`
+- Create a comment - `PATCH /api/v1/posts/comment`
+
+### Reactions 
+- React on a post - `PATCH /api/v1/reacts`
+- Get post reactions - `GET /api/v1/reacts/:postId`
+
+### Users
+- Get a user - `GET /api/v1/users/:id`
+- Get info about friends - `GET /api/v1/users/getFriendsInfos`
+
+### Conversations
+- Create a conversation - `POST /api/v1/conversations`
+- Get user's conversations - `GET /api/v1/conversations/:userId`
+
+### Messages
+- Create a message - `POST /api/v1/messages`
+- Get messages from conversation - `GET /api/v1/messages/:conversationId`
+
+### Notifications
+- Create a notification - `POST /api/v1/notifications`
+- Get notifications - `GET /api/v1/notifications`
+- Set notification as read `POST /api/v1/notifications/:id`
+
 
 ### Images
 - Upload images - `POST /api/v1/images`
-- Get 
+- Get images from Cloudinary `POST /api/v1/images/listImages` 
