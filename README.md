@@ -86,7 +86,6 @@ Now I am much more aware how does it work and find better solutions on the backe
 ### Auth
 - Login - `POST /api/v1/users/login`
 - Register - `POST /api/v1/usets/register`
-- Activate an account - `POST /api/v1/users/activate`
 
 ### Posts
 - Create a post - `POST /api/v1/posts`
@@ -101,7 +100,31 @@ Now I am much more aware how does it work and find better solutions on the backe
 
 ### Users
 - Get a user - `GET /api/v1/users/:id`
+- Activate an account - `POST /api/v1/users/activate`
+- Send verification link to user via email - `POST /api/v1/users/sendVerification`
+- Send reset password code to email - `POST /api/v1/users/sendResetPasswordCode`
+- Validate reser password code - `POST api/v1/users/validateResetCode`
+- Change password - `POST api/v1/users/changePassword`
+- Find a user by email - `GET /api/v1/users/findUser`
+- Get profile by username - `GET /api/v1/users/:username`
+- Update profile picture - `PATCH api/v1/users/updateProfilePicture`
+- Update profile details - `PATCH api/v1/users/updateDetails`
+- Update profile cover - `PATCH api/v1/users/updateCover`
+- Add a friend - `PATCH api/v1/users/addFriend/:id`
+- Cancel friend request - `PATCH api/v1/users/cancelRequest/:id`
+- Accept friend request - `PATCH api/v1/users/acceptRequest/:id`
+- Delete friend request - `PATCH api/v1/users/deleteRequest/:id`
+- Follow a profile - `PATCH api/v1/users/follow/:id`
+- Unfollow a profile - `PATCH api/v1/users/unfollow/:id`
+- Delete from friends - `PATCH api/v1/users/unfriend/:id`
 - Get info about friends - `GET /api/v1/users/getFriendsInfos`
+- Search users - `POST api/v1/users/search/:searchTerm`
+- Add user to searchHistory - `PATCH api/v1/users/addToSearchHistory`
+- Get search history - `GET api/v1/users/getSearchHistory`
+- Delete from search history - `PATCH api/v1/users/deleteFromHistory`
+- Get saved posts - `GET api/v1/users/getSavedPosts/:id`
+- Unsave a post - `PATCH api/v1/users/unsavePost/:id`
+
 
 ### Conversations
 - Create a conversation - `POST /api/v1/conversations`
