@@ -19,7 +19,6 @@ export default function Chat() {
 	const getData = async () => {
 		const res = await getConversations(user.id, user.token);
 
-		console.log(res);
 		if (res.status === "success") {
 			setConversations(res.conversations);
 		}
@@ -28,8 +27,6 @@ export default function Chat() {
 	useEffect(() => {
 		socket.current = io("wss://beconnected.onrender.com");
 		socket.current?.on("getMessage", (data) => {
-			console.log(data.senderId);
-			console.log(currentChat);
 			setArrivalMessage({
 				sender: data.senderId,
 				text: data.text,
@@ -39,18 +36,16 @@ export default function Chat() {
 	}, [currentChat]);
 
 	useEffect(() => {
-		console.log(arrivalMessage);
 		if (
 			arrivalMessage &&
 			currentChat?.members.find(
 				(m) => m._id.toString() === arrivalMessage.sender
 			)
 		) {
-			console.log(currentChat);
 			const sender = currentChat?.members.find(
 				(member) => member._id === arrivalMessage.sender
 			);
-			console.log(sender);
+
 			arrivalMessage &&
 				setMessages((prev) => [...prev, { ...arrivalMessage, sender }]);
 		}
@@ -58,9 +53,7 @@ export default function Chat() {
 
 	useEffect(() => {
 		socket.current?.emit("addUser", user.id);
-		socket.current?.on("getUsers", (users) => {
-			console.log(users);
-		});
+		socket.current?.on("getUsers", (users) => {});
 	}, [user]);
 
 	useEffect(() => {
@@ -73,8 +66,6 @@ export default function Chat() {
 		if (res.status === "success") {
 			setMessages(res.messages);
 		}
-
-		console.log(res);
 	};
 
 	useEffect(() => {

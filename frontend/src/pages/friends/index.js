@@ -58,7 +58,6 @@ export default function Friends({ page }) {
 			dispatch({ type: "FRIENDS_ERROR", payload: err.message });
 		}
 	};
-	console.log(data);
 
 	useEffect(() => {
 		getData();

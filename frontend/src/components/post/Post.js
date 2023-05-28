@@ -37,7 +37,7 @@ export default function Post({ post, setPosts }) {
 
 	const getPostReacts = async () => {
 		const res = await getReacts(post._id, user.token);
-		console.log(res);
+
 		setReacts(res.reacts);
 		setIsPostSaved(res.checkSaved);
 		const checkedReact = reactsArr.find((react) => react.name === res.check);
@@ -46,7 +46,6 @@ export default function Post({ post, setPosts }) {
 	};
 
 	const reactHandler = async (react) => {
-		console.log(react);
 		await reactPost(post._id, react.name, user.token);
 		if (check?.name === react.name) {
 			setCheck();
@@ -54,7 +53,6 @@ export default function Post({ post, setPosts }) {
 			if (index !== -1) {
 				setReacts([...reacts, (reacts[index].count = --reacts[index].count)]);
 				setTotal((prev) => --prev);
-				console.log(reacts);
 			}
 		} else {
 			const checkedReact = reactsArr.find((r) => r.name === react.name);
@@ -62,17 +60,14 @@ export default function Post({ post, setPosts }) {
 
 			let index = reacts.findIndex((x) => x._id === react.name);
 			let index1 = reacts.findIndex((x) => x._id === check?.name);
-			console.log(index);
-			console.log(index1);
+
 			if (index !== -1) {
 				setReacts([...reacts, (reacts[index].count = ++reacts[index].count)]);
 				setTotal((prev) => ++prev);
-				console.log(reacts);
 			}
 			if (index1 !== -1) {
 				setReacts([...reacts, (reacts[index1].count = --reacts[index1].count)]);
 				setTotal((prev) => --prev);
-				console.log(reacts);
 			}
 		}
 	};
@@ -144,7 +139,6 @@ export default function Post({ post, setPosts }) {
 
 		window.scrollTo({ top: 0, behavior: "smooth" });
 	};
-	console.log(post);
 
 	return (
 		<div className={classes.post} ref={postRef}>

@@ -8,7 +8,6 @@ export default function Birthdays({ user, friends }) {
 	const currMonth = new Date().getMonth() + 1;
 
 	useEffect(() => {
-		console.log(friends);
 		const filteredFriends = friends?.filter(
 			(friend) => Math.abs(currMonth - friend.bMonth) < 3
 		);

@@ -32,8 +32,6 @@ const io = require("socket.io")(server, {
 	},
 });
 
-console.log(process.env.PRODUCTION_URL);
-
 app.get("/", (req, res) => {
 	res.send("Server is up and running");
 });
@@ -45,8 +43,6 @@ let users = [];
 const addUser = (userId, socketId) => {
 	!users.some((user) => user.userId === userId) &&
 		users.push({ userId, socketId });
-
-	console.log(users);
 };
 
 const removeUser = (socketId) => {
@@ -54,14 +50,11 @@ const removeUser = (socketId) => {
 };
 
 const getUser = (userId) => {
-	console.log(userId);
 	return users.find((user) => user.userId === userId);
 };
 
 io.on("connection", (socket) => {
-	console.log("a user connected");
 	socket.on("addUser", (userId) => {
-		console.log(userId);
 		addUser(userId, socket.id);
 		io.emit("getUsers", users);
 	});
@@ -77,7 +70,6 @@ io.on("connection", (socket) => {
 	});
 
 	socket.on("disconnect", () => {
-		console.log("a user disconnected");
 		removeUser(socket.id);
 		io.emit("getUsers", users);
 	});

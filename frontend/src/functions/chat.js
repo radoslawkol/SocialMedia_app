@@ -14,7 +14,6 @@ export const getConversations = async (userId, token) => {
 		);
 		return data;
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };
@@ -32,7 +31,6 @@ export const createConversation = async (senderId, receiverId, token) => {
 		);
 		return data;
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };
@@ -51,7 +49,6 @@ export const getMessages = async (conversationId, token) => {
 		);
 		return data;
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };
@@ -69,7 +66,6 @@ export const createMessage = async (conversationId, text, sender, token) => {
 		);
 		return data;
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };

@@ -63,8 +63,6 @@ export default function FriendsProposal({ home }) {
 	const getData = async () => {
 		const res = await getFriendsInfos(true, user.token);
 
-		console.log(res);
-
 		if (res.status === "success") {
 			setProposals(res.friendsProposal);
 		}
@@ -72,7 +70,6 @@ export default function FriendsProposal({ home }) {
 
 	useEffect(() => {
 		getData();
-		console.log(proposals);
 	}, []);
 
 	const addFriendHandler = async (id) => {

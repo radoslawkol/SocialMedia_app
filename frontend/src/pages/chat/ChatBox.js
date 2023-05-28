@@ -39,8 +39,6 @@ export default function ChatBox({
 			(member) => member._id !== user.id
 		);
 
-		console.log(receiver);
-
 		if (e.code === "Enter") {
 			socket.current.emit("sendMessage", {
 				senderId: user.id,
@@ -68,8 +66,6 @@ export default function ChatBox({
 		});
 	}, [messages]);
 
-	console.log(currentChat);
-	console.log(messages);
 	return (
 		<div className={classes.box}>
 			{currentChat ? (

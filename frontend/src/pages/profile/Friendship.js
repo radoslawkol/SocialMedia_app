@@ -82,7 +82,6 @@ export default function Friendship({ friendshipFetched, profileId }) {
 	};
 
 	const messageHandler = async () => {
-		console.log(user.id, profileId);
 		await createConversation(user.id, profileId, user.token);
 		navigate("/chat");
 	};

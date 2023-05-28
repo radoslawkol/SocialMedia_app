@@ -5,8 +5,6 @@ import { useState, useEffect } from "react";
 export default function Conversation({ conversation, user, active }) {
 	const [friend, setFriend] = useState();
 
-	console.log(friend);
-
 	useEffect(() => {
 		const friend = conversation?.members?.find(
 			(member) => member._id !== user.id

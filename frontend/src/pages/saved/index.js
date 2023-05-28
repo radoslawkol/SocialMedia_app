@@ -13,7 +13,6 @@ export default function Saved() {
 	const getData = async () => {
 		const res = await getSavedPosts(user.id, user.token);
 
-		console.log(res);
 		if (res.status === "success") {
 			setPosts(res.saved.savedPosts);
 		}

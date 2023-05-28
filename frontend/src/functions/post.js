@@ -30,7 +30,6 @@ export const createPost = async (
 		);
 		return data;
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };
@@ -51,7 +50,6 @@ export const reactPost = async (postId, react, token) => {
 		);
 		return "ok";
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };
@@ -68,7 +66,6 @@ export const getReacts = async (postId, token) => {
 		);
 		return data;
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };
@@ -88,7 +85,6 @@ export const comment = async (postId, comment, image, token) => {
 		);
 		return data;
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };
@@ -107,7 +103,6 @@ export const savePost = async (postId, token) => {
 
 		return data;
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };
@@ -124,7 +119,6 @@ export const deletePost = async (postId, token) => {
 		);
 		return data;
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };

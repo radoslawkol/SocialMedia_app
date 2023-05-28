@@ -294,7 +294,11 @@ export default function CreatePostModal({ setShowCreateModal, setPosts }) {
 					<div className={classes.emoji_wrapper} ref={emojiRef}>
 						<Picker
 							onEmojiClick={onEmojiClick}
-							pickerStyle={{ width: "24rem" }}
+							pickerStyle={{
+								width: "24rem",
+								background: "var(--primary-background)",
+								boxShadow: "none",
+							}}
 						/>
 					</div>
 				)}

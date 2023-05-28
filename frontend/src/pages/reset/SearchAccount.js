@@ -32,14 +32,13 @@ export default function SearchAccount({
 					email,
 				}
 			);
-			console.log(data);
+
 			setUserInfos(data);
 			setSuccess(data.message);
 			setLoading(false);
 			setPopupvisible(1);
 			setError("");
 		} catch (err) {
-			console.log(err);
 			setLoading(false);
 			setError(err.response.data.message);
 		}

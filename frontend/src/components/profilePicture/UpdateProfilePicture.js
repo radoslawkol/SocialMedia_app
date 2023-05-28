@@ -28,7 +28,7 @@ export default function UpdateProfilePicture({
 }) {
 	const dispatch = useDispatch();
 	const { user } = useSelector((state) => ({ ...state }));
-	console.log(user);
+
 	const modalRef = useRef();
 	const [description, setDescription] = useState("");
 	const [loading, setLoading] = useState(false);
@@ -65,9 +65,7 @@ export default function UpdateProfilePicture({
 			} else {
 				return img;
 			}
-		} catch (err) {
-			console.log(err);
-		}
+		} catch (err) {}
 	});
 
 	const updateProfilePicture = async () => {
@@ -81,7 +79,7 @@ export default function UpdateProfilePicture({
 			formdata.append("path", path);
 
 			const { images } = await uploadImages(formdata, path, user.token);
-			console.log(images);
+
 			const updatedPicture = await updatePicture(images[0].url, user.token);
 
 			if (updatedPicture === "ok") {
@@ -112,7 +110,6 @@ export default function UpdateProfilePicture({
 				setError(updatedPicture);
 			}
 		} catch (err) {
-			console.log(err);
 			setLoading(false);
 			setError(err.response.data.message);
 		}

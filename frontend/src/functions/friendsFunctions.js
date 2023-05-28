@@ -31,7 +31,6 @@ export const cancelRequest = async (id, token) => {
 		);
 		return "ok";
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };
@@ -83,7 +82,6 @@ export const acceptRequest = async (id, token) => {
 		);
 		return "ok";
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };
@@ -101,7 +99,6 @@ export const unfriend = async (id, token) => {
 		);
 		return "ok";
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };

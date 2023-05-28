@@ -55,9 +55,7 @@ export default function Intro({ fetchedDetails, isVisitor, user }) {
 
 			setShowBio(false);
 			setDetails(data.details);
-		} catch (err) {
-			console.log(err.response.data.message);
-		}
+		} catch (err) {}
 	};
 	useEffect(() => {
 		setDetails(fetchedDetails);

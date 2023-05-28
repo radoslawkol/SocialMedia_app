@@ -42,7 +42,6 @@ export default function ProfilePicture({ setShowPictureModal, pictureRef }) {
 				}
 			);
 
-			console.log(data);
 			setOldPhotos(data.resources);
 		} catch (err) {
 			return err.response.data.message;

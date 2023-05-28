@@ -14,7 +14,6 @@ export const updatePicture = async (url, token) => {
 		);
 		return "ok";
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };
@@ -33,7 +32,6 @@ export const updateCover = async (url, token) => {
 		);
 		return "ok";
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };

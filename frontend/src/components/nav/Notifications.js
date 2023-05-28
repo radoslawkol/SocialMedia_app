@@ -13,8 +13,6 @@ export default function Notifications({
 	const modal = useRef();
 	const [loading, setLoading] = useState(true);
 
-	console.log(notifications);
-
 	useEffect(() => {
 		setTimeout(() => {
 			setLoading(false);

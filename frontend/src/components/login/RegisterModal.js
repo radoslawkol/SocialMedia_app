@@ -130,7 +130,6 @@ export default function RegisterModal({ modalVisible, setModalVisible }) {
 				}, 2000);
 			}
 		} catch (err) {
-			console.log(err);
 			setSuccess("");
 			setLoading(false);
 			setError(err.response.data.message);

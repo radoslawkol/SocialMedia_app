@@ -93,13 +93,11 @@ export default function Profile() {
 			);
 
 			if (data.status === "success") {
-				console.log(data);
 				dispatch({ type: "PROFILE_SUCCESS", payload: data });
 			} else {
 				navigate("/profile");
 			}
 		} catch (err) {
-			console.log(err);
 			dispatch({ type: "PROFILE_ERROR", payload: err.response.data.message });
 			navigate("/profile");
 		}
@@ -144,8 +142,6 @@ export default function Profile() {
 		}
 	};
 
-	console.log(profile);
-
 	useEffect(() => {
 		getPhotos();
 	}, [username]);
@@ -156,8 +152,6 @@ export default function Profile() {
 	const rightRef = useRef();
 
 	const handleIntersectionChange = (inView, entry) => {
-		console.log(entry);
-		console.log(inView);
 		if (inView) {
 			leftSideRef.current.classList.add(`${classes.fixed}`);
 			rightRef.current.classList.add(`${classes.scroll}`);
@@ -189,7 +183,7 @@ export default function Profile() {
 			profileHeader.current.clientHeight + proposalRef.current.clientHeight
 		);
 		setLeftHeight(leftContent.current.clientHeight);
-		console.log(height, leftHeight);
+
 		window.addEventListener("scroll", getScroll, { passive: true });
 
 		return () => {
@@ -199,7 +193,6 @@ export default function Profile() {
 
 	const getScroll = () => {
 		setScrollHeight(window.scrollY);
-		console.log(`scroll: ${scrollHeight}`);
 	};
 
 	return (

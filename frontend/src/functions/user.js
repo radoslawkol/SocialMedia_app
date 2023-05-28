@@ -14,7 +14,6 @@ export const search = async (searchTerm, token) => {
 		);
 		return data;
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };
@@ -31,10 +30,9 @@ export const addToSearchHistory = async (searchUser, token) => {
 				},
 			}
 		);
-		console.log(data);
+
 		return data;
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };
@@ -50,10 +48,9 @@ export const getSearchHistory = async (token) => {
 				},
 			}
 		);
-		console.log(data);
+
 		return data;
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };
@@ -69,10 +66,9 @@ export const deleteFromHistory = async (searchUser, token) => {
 				},
 			}
 		);
-		console.log(data);
+
 		return data;
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };
@@ -87,10 +83,9 @@ export const getFriendsInfos = async (slider = false, token) => {
 				},
 			}
 		);
-		console.log(data);
+
 		return data;
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };
@@ -107,7 +102,6 @@ export const getSavedPosts = async (id, token) => {
 		);
 		return data;
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };
@@ -127,7 +121,6 @@ export const unsavePost = async (postId, userId, token) => {
 		);
 		return data;
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };

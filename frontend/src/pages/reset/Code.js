@@ -42,7 +42,6 @@ export default function Code({
 			setSuccess(data.status);
 			setPopupvisible(3);
 		} catch (err) {
-			console.log(err);
 			setLoading(false);
 			setError(err.response.data.message);
 		}

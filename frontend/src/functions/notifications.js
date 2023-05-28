@@ -18,7 +18,6 @@ export const createNotification = async (type, sender, receiver, token) => {
 		);
 		return data;
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };
@@ -36,7 +35,6 @@ export const getNotifications = async (token) => {
 		);
 		return data;
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };
@@ -53,7 +51,6 @@ export const updateNotification = async (id, token) => {
 		);
 		return data;
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };

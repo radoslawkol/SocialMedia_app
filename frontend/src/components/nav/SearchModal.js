@@ -30,7 +30,7 @@ export default function SearchModal({ setShowSearchModal }) {
 			setShow(false);
 		}
 		const res = await search(searchTerm, user.token);
-		console.log(res);
+
 		if (res?.status === "success") {
 			setResults(res.results);
 			setShow(true);

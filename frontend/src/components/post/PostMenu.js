@@ -35,7 +35,6 @@ export default function PostMenu({
 
 	const downloadPost = async () => {
 		images.map((img) => {
-			console.log(img);
 			const imageName = img.url.slice(img.url.lastIndexOf("/") + 1);
 			saveAs(img.url, imageName);
 		});

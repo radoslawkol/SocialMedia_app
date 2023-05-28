@@ -69,9 +69,7 @@ export default function ProfileHeader({
 			} else {
 				return img;
 			}
-		} catch (err) {
-			console.log(err);
-		}
+		} catch (err) {}
 	});
 
 	const updateCoverPicture = async () => {
@@ -98,8 +96,6 @@ export default function ProfileHeader({
 					user.token
 				);
 
-				console.log(newPost);
-
 				if (newPost.status !== "success") {
 					setLoading(false);
 					setError(newPost.message);
@@ -108,7 +104,7 @@ export default function ProfileHeader({
 				setCover("");
 				setCoverUrl(images[0].url);
 				Cookie.set("user", JSON.stringify({ ...user, cover: images[0].url }));
-				console.log(images[0].url);
+
 				dispatch({
 					type: "UPDATE_COVER",
 					payload: images[0].url,
@@ -118,7 +114,6 @@ export default function ProfileHeader({
 				setError(updatedPicture.message);
 			}
 		} catch (err) {
-			console.log(err);
 			setLoading(false);
 			setError(err.response.data.message);
 		}

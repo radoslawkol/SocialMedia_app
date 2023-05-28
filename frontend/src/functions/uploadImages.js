@@ -15,7 +15,6 @@ export const uploadImages = async (formData, path, token) => {
 		);
 		return data;
 	} catch (err) {
-		console.log(err);
 		return err.response.data.message;
 	}
 };
