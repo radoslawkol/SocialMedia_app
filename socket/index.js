@@ -2,6 +2,7 @@ const dotenv = require("dotenv").config();
 const io = require("socket.io")(8900, {
 	cors: {
 		origin: [`https://beconnected-app.netlify.app:*`, "http://localhost:*"],
+		methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
 	},
 });
 
