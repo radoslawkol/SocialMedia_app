@@ -22,7 +22,7 @@ app.use(
 
 const allowedOrgins = [
 	"http://localhost:3000",
-	"https://playful-seahorse-fb65aa.netlify.app",
+	"https://beconnected-app.netlify.app",
 ];
 
 function corsOptions(req, res) {
