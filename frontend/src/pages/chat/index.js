@@ -26,7 +26,7 @@ export default function Chat() {
 	};
 
 	useEffect(() => {
-		socket.current = io("wss://beconnected-social-media-app.herokuapp.com/");
+		socket.current = io("wss://https://beconnected-socket.onrender.com");
 		socket.current?.on("getMessage", (data) => {
 			console.log(data.senderId);
 			console.log(currentChat);
