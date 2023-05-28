@@ -1,6 +1,5 @@
 import React from "react";
 import classes from "./Conversation.module.scss";
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 export default function Conversation({ conversation, user, active }) {
