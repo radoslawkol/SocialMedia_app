@@ -14,8 +14,8 @@ import { useDispatch } from "react-redux";
 import Cookie from "js-cookie";
 
 const loginInfos = {
-	email: "",
-	password: "",
+	email: "jisoh65037@mevori.com",
+	password: "123456",
 };
 
 export default function Login() {
@@ -49,7 +49,6 @@ export default function Login() {
 		try {
 			setLoading(true);
 			const { data } = await axios.post(
-				// eslint-disable-next-line no-undef
 				`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/login`,
 				{
 					email,

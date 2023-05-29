@@ -29,7 +29,6 @@ export default function Code({
 			setLoading(true);
 
 			const { data } = await axios.post(
-				// eslint-disable-next-line no-undef
 				`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/validateResetCode`,
 				{
 					email: userInfos.email,

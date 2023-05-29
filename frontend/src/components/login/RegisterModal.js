@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { Formik, Form } from "formik";
 import { useState, useRef } from "react";
 import React from "react";
@@ -26,7 +25,6 @@ const initialValues = {
 	gender: "",
 };
 
-// eslint-disable-next-line no-unused-vars
 export default function RegisterModal({ modalVisible, setModalVisible }) {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -104,7 +102,6 @@ export default function RegisterModal({ modalVisible, setModalVisible }) {
 			setLoading(true);
 
 			const { data } = await axios.post(
-				// eslint-disable-next-line no-undef
 				`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/register`,
 				{
 					firstName,

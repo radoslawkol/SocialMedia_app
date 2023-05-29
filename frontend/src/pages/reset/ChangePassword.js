@@ -34,7 +34,6 @@ export default function ChangePassword({
 		try {
 			setLoading(true);
 			const { data } = axios.post(
-				// eslint-disable-next-line no-undef
 				`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/changePassword`,
 				{
 					email: userInfos.email,

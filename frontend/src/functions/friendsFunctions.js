@@ -3,7 +3,6 @@ import axios from "axios";
 export const addFriend = async (id, token) => {
 	try {
 		const { data } = await axios.patch(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/addFriend/${id}`,
 			{},
 			{
@@ -20,7 +19,6 @@ export const addFriend = async (id, token) => {
 export const cancelRequest = async (id, token) => {
 	try {
 		const { data } = await axios.patch(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/cancelRequest/${id}`,
 			{},
 			{
@@ -37,7 +35,6 @@ export const cancelRequest = async (id, token) => {
 export const follow = async (id, token) => {
 	try {
 		const { data } = await axios.patch(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/follow/${id}`,
 			{},
 			{
@@ -54,7 +51,6 @@ export const follow = async (id, token) => {
 export const unfollow = async (id, token) => {
 	try {
 		const { data } = await axios.patch(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/unfollow/${id}`,
 			{},
 			{
@@ -71,7 +67,6 @@ export const unfollow = async (id, token) => {
 export const acceptRequest = async (id, token) => {
 	try {
 		const { data } = await axios.patch(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/acceptRequest/${id}`,
 			{},
 			{
@@ -88,7 +83,6 @@ export const acceptRequest = async (id, token) => {
 export const unfriend = async (id, token) => {
 	try {
 		const { data } = await axios.patch(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/unfriend/${id}`,
 			{},
 			{
@@ -106,7 +100,6 @@ export const unfriend = async (id, token) => {
 export const deleteRequest = async (id, token) => {
 	try {
 		const { data } = await axios.patch(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/deleteRequest/${id}`,
 			{},
 			{

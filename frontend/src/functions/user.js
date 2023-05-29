@@ -3,7 +3,6 @@ import axios from "axios";
 export const search = async (searchTerm, token) => {
 	try {
 		const { data } = await axios.post(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/search/${searchTerm}`,
 			{},
 			{
@@ -21,7 +20,6 @@ export const search = async (searchTerm, token) => {
 export const addToSearchHistory = async (searchUser, token) => {
 	try {
 		const { data } = await axios.patch(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/addToSearchHistory`,
 			{ searchUser },
 			{
@@ -40,7 +38,6 @@ export const addToSearchHistory = async (searchUser, token) => {
 export const getSearchHistory = async (token) => {
 	try {
 		const { data } = await axios.get(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/getSearchHistory`,
 			{
 				headers: {
@@ -57,7 +54,6 @@ export const getSearchHistory = async (token) => {
 export const deleteFromHistory = async (searchUser, token) => {
 	try {
 		const { data } = await axios.patch(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/deleteFromHistory`,
 			{ searchUser },
 			{
@@ -75,7 +71,6 @@ export const deleteFromHistory = async (searchUser, token) => {
 export const getFriendsInfos = async (slider = false, token) => {
 	try {
 		const { data } = await axios.get(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/getFriendsInfos?slider=${slider}`,
 			{
 				headers: {
@@ -92,7 +87,6 @@ export const getFriendsInfos = async (slider = false, token) => {
 export const getSavedPosts = async (id, token) => {
 	try {
 		const { data } = await axios.get(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/getSavedPosts/${id}`,
 			{
 				headers: {
@@ -108,7 +102,6 @@ export const getSavedPosts = async (id, token) => {
 export const unsavePost = async (postId, userId, token) => {
 	try {
 		const { data } = await axios.patch(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/unsavePost/${userId}`,
 			{
 				postId,

@@ -56,7 +56,6 @@ function App() {
 			if (user) {
 				dispatch({ type: "POSTS_REQUEST" });
 				const { data } = await axios.get(
-					// eslint-disable-next-line no-undef
 					`${process.env.REACT_APP_BACKEND_URL}/api/v1/posts`,
 					{
 						headers: {

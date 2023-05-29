@@ -43,7 +43,6 @@ export default function Intro({ fetchedDetails, isVisitor, user }) {
 	const updateDetails = async () => {
 		try {
 			const { data } = await axios.patch(
-				// eslint-disable-next-line no-undef
 				`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/updateDetails`,
 				{ infos },
 				{

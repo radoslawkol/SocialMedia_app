@@ -83,7 +83,6 @@ export default function Profile() {
 		try {
 			dispatch({ type: "PROFILE_REQUEST" });
 			const { data } = await axios.get(
-				// eslint-disable-next-line no-undef
 				`${process.env.REACT_APP_BACKEND_URL}/api/v1/users/getProfile/${userName}`,
 				{
 					headers: {
@@ -119,7 +118,6 @@ export default function Profile() {
 		try {
 			dispatchPhotos({ type: "PHOTOS_REQUEST" });
 			const { data } = await axios.post(
-				// eslint-disable-next-line no-undef
 				`${process.env.REACT_APP_BACKEND_URL}/api/v1/images/listImages`,
 				{
 					path,

@@ -3,7 +3,6 @@ import axios from "axios";
 export const getConversations = async (userId, token) => {
 	try {
 		const { data } = await axios.get(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/conversations/${userId}`,
 
 			{
@@ -20,7 +19,6 @@ export const getConversations = async (userId, token) => {
 export const createConversation = async (senderId, receiverId, token) => {
 	try {
 		const { data } = await axios.post(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/conversations`,
 			{ senderId, receiverId },
 			{
@@ -38,7 +36,6 @@ export const createConversation = async (senderId, receiverId, token) => {
 export const getMessages = async (conversationId, token) => {
 	try {
 		const { data } = await axios.get(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/messages/${conversationId}`,
 
 			{
@@ -55,7 +52,6 @@ export const getMessages = async (conversationId, token) => {
 export const createMessage = async (conversationId, text, sender, token) => {
 	try {
 		const { data } = await axios.post(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/messages`,
 			{ conversationId, sender, text },
 			{

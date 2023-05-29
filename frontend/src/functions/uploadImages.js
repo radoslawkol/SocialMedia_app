@@ -3,7 +3,6 @@ import axios from "axios";
 export const uploadImages = async (formData, path, token) => {
 	try {
 		const { data } = await axios.post(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/images`,
 			formData,
 			{

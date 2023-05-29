@@ -11,7 +11,6 @@ export const createPost = async (
 ) => {
 	try {
 		const { data } = await axios.post(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/posts`,
 			{
 				type,
@@ -36,7 +35,6 @@ export const createPost = async (
 export const reactPost = async (postId, react, token) => {
 	try {
 		const { data } = await axios.patch(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/reacts`,
 			{
 				postId,
@@ -56,7 +54,6 @@ export const reactPost = async (postId, react, token) => {
 export const getReacts = async (postId, token) => {
 	try {
 		const { data } = await axios.get(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/reacts/${postId}`,
 			{
 				headers: {
@@ -74,7 +71,6 @@ export const comment = async (postId, comment, image, token) => {
 	try {
 		const commentAt = new Date();
 		const { data } = await axios.patch(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/posts/comment`,
 			{ postId, comment, image, commentAt },
 			{
@@ -91,7 +87,6 @@ export const comment = async (postId, comment, image, token) => {
 export const savePost = async (postId, token) => {
 	try {
 		const { data } = await axios.patch(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/posts/save`,
 			{ postId },
 			{
@@ -109,7 +104,6 @@ export const savePost = async (postId, token) => {
 export const deletePost = async (postId, token) => {
 	try {
 		const { data } = await axios.delete(
-			// eslint-disable-next-line no-undef
 			`${process.env.REACT_APP_BACKEND_URL}/api/v1/posts/${postId}`,
 			{
 				headers: {
